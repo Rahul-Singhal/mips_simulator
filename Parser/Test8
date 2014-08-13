@@ -1,0 +1,10 @@
+.text
+main4:
+  jal printMessage
+  jal printMessage
+  li $v0 10
+
+
+printMessage:
+  li $v0 4
+  jr $ra
