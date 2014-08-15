@@ -1,6 +1,5 @@
 .data
   msg1:.asciiz "Give a number: "
-.text
 
 .text
 main:
@@ -34,7 +33,7 @@ fib:
   beq $s0,$t1,return1
 
   addi $a0,$s0,-1
-  jal fib
+  jal fb
 
   add $s1,$zero,$v0     #s1=fib(y-1)
   

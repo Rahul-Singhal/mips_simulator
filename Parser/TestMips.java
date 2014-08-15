@@ -8,9 +8,13 @@ public class TestMips {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         MipsParser parser = new MipsParser(tokens);
         parser.setBuildParseTree(true);
-        RuleContext tree = parser.text();
+        RuleContext tree = parser.prog();
         tree.inspect(parser); // show in gui
-        //tree.save(parser, "/tmp/R.ps"); // Generate postscript
-        System.out.println(tree.toStringTree(parser));
+        System.out.println("Instructions: ");
+        for (Instruction instr : parser.instructions) {
+            instr.print();
+        }
+       //tree.save(parser, "/tmp/R.ps"); // Generate postscript
+        // System.out.println(tree.toStringTree(parser));
     }
 }

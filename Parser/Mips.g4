@@ -1,16 +1,103 @@
-
-
 grammar Mips;
 
-prog : text ;
+options {
+  language = Java;
+}
 
-text  :	'.text' label_list
-		  ;
+@header {
+  import java.util.*;
+}
+
+@members {
+    public Vector<Instruction> instructions = new Vector<Instruction>();
+}
+
+prog  : (text)? data
+      | (data)? text
+      ;
+
+/** 
+  DATA SECTION
+*/
+
+data  : '.data' var_list ;
+
+var_list  : (var_decl)* ; 
+
+var_decl  : IDENTIFIER ':' var_init ; 
+
+var_init  : ascii_var
+          | asciiz_var
+          | word_var 
+          | space_var 
+          | byte_var
+          ;
+
+ascii_var  : '.ascii' STRING ;
+
+asciiz_var  : '.asciiz' STRING ;
+
+word_var  : '.word' int_list 
+            {
+              System.out.println("Number List");
+              for (Integer val : $int_list.vec) {
+                System.out.print(val + "  ");
+              }
+              System.out.println();
+            }
+          | '.word' ;
+
+int_list  returns [Vector<Integer> vec]  : 
+  a=INTEGER 
+    {
+      Integer num = Integer.valueOf($a.text);
+      $vec = new Vector<Integer>();      
+      $vec.addElement(num);
+    }
+  | list=int_list ',' a=INTEGER
+    {
+      Integer num = Integer.valueOf($a.text);
+      $list.vec.addElement(num);
+      $vec = $list.vec; 
+    }
+  ;
+
+space_var  : '.space' INTEGER ;
+
+byte_var  : '.byte' byte_list
+            {
+              System.out.println("Character List");
+              for (Character val : $byte_list.vec) {
+                System.out.print(val + "  ");
+              }
+              System.out.println();
+            }
+          | '.byte'
+          ;
+
+byte_list  returns [Vector<Character> vec]  : 
+  '\'' a=. '\''
+    {
+      $vec = new Vector<Character>();
+      $vec.addElement($a.text.charAt(0));
+    } 
+  | list=byte_list ',' '\'' a=. '\''
+    {
+      $list.vec.addElement($a.text.charAt(0));
+      $vec = $list.vec; 
+    }
+  ;
+
+
+/**
+  TEXT SECTION
+*/
+
+text  :	'.text' label_list ;
 
 label_list  : (label)* ;
 
-label   : IDENTIFIER ':' stmt_list
-		    ;
+label  : IDENTIFIER ':' stmt_list ;
 
 stmt_list	: (stmt)* ;
 
@@ -59,31 +146,41 @@ stmt  : add_stmt
       | sb_stmt
       | sw_stmt
       | sh_stmt
+      | exit_stmt
       ;
 
 /**
   ARITHMETIC 
 */
 
-add_stmt  : 'add' REG REG REG ;
+add_stmt  : 'add' REG (',')? REG (',')? REG 
+  {
+    Instruction instr = new Instruction("add");
+    instructions.addElement(instr);
+  };
 
-addi_stmt : 'addi' REG REG INTEGER ;
+addi_stmt : 'addi' REG (',')? REG (',')? INTEGER   
+  {
+    Instruction instr = new Instruction("addi");
+    instructions.addElement(instr);
+  };
 
-addiu_stmt : 'addiu' REG REG INTEGER ;
 
-addu_stmt : 'addu' REG REG REG ;
+addiu_stmt : 'addiu' REG (',')? REG (',')? INTEGER ;
 
-sub_stmt  : 'sub' REG REG REG ;
+addu_stmt : 'addu' REG (',')? REG (',')? REG ;
 
-subu_stmt : 'subu' REG REG REG ;
+sub_stmt  : 'sub' REG (',')? REG (',')? REG ;
 
-mult_stmt  : 'mult' REG REG REG ;
+subu_stmt : 'subu' REG (',')? REG (',')? REG ;
 
-multu_stmt : 'multu' REG REG REG ;
+mult_stmt  : 'mult' REG (',')? REG (',')? REG ;
 
-div_stmt  : 'div' REG REG REG ;
+multu_stmt : 'multu' REG (',')? REG (',')? REG ;
 
-divu_stmt : 'divu' REG REG REG ;
+div_stmt  : 'div' REG (',')? REG (',')? REG ;
+
+divu_stmt : 'divu' REG (',')? REG (',')? REG ;
 
 
 
@@ -91,59 +188,62 @@ divu_stmt : 'divu' REG REG REG ;
   LOGICAL 
 */
 
-and_stmt  : 'and' REG REG REG ;
+and_stmt  : 'and' REG (',')? REG (',')? REG ;
 
-andi_stmt : 'andi' REG REG INTEGER ;
+andi_stmt : 'andi' REG (',')? REG (',')? INTEGER ;
 
-nor_stmt  : 'nor' REG REG REG ;
+nor_stmt  : 'nor' REG (',')? REG (',')? REG ;
 
-or_stmt : 'or' REG REG REG ;
+or_stmt : 'or' REG (',')? REG (',')? REG ;
 
-ori_stmt : 'ori' REG REG INTEGER ;
+ori_stmt : 'ori' REG (',')? REG (',')? INTEGER ;
 
-xor_stmt : 'xor' REG REG REG ;
+xor_stmt : 'xor' REG (',')? REG (',')? REG ;
 
-xori_stmt : 'xori' REG REG INTEGER ;
+xori_stmt : 'xori' REG (',')? REG (',')? INTEGER ;
+
 
 /**
   BIT SHIFTING
 */
 
-sll_stmt : 'sll' REG REG REG ;
+sll_stmt : 'sll' REG (',')? REG (',')? REG ;
 
-srl_stmt : 'srl' REG REG REG ;
+srl_stmt : 'srl' REG (',')? REG (',')? REG ;
 
-sra_stmt : 'sra' REG REG REG ;
+sra_stmt : 'sra' REG (',')? REG (',')? REG ;
 
-sllb_stmt : 'sllb' REG REG REG ;
+sllb_stmt : 'sllb' REG (',')? REG (',')? REG ;
 
-srlb_stmt : 'srlb' REG REG REG ;
+srlb_stmt : 'srlb' REG (',')? REG (',')? REG ;
 
-srab_stmt : 'srab' REG REG REG ;
+srab_stmt : 'srab' REG (',')? REG (',')? REG ;
 
-slt_stmt : 'slt' REG REG REG ;
+slt_stmt : 'slt' REG (',')? REG (',')? REG ;
 
-slti_stmt : 'slti' REG REG INTEGER ;
+slti_stmt : 'slti' REG (',')? REG (',')? INTEGER ;
 
-sltiu_stmt : 'sltiu' REG REG INTEGER ;
+sltiu_stmt : 'sltiu' REG (',')? REG (',')? INTEGER ;
 
-sltu_stmt : 'sltu' REG REG REG ;
+sltu_stmt : 'sltu' REG (',')? REG (',')? REG ;
+
 
 /**
   BRANCH
 */
 
-beq_stmt : 'beq' REG REG IDENTIFIER ;
+beq_stmt : 'beq' REG (',')? REG (',')? IDENTIFIER ;
 
-bne_stmt : 'bne' REG REG IDENTIFIER ;
+bne_stmt : 'bne' REG (',')? REG (',')? IDENTIFIER ;
 
-blt_stmt : 'blt' REG REG IDENTIFIER ;
+blt_stmt : 'blt' REG (',')? REG (',')? IDENTIFIER ;
 
-bgt_stmt : 'bgt' REG REG IDENTIFIER ;
+bgt_stmt : 'bgt' REG (',')? REG (',')? IDENTIFIER ;
 
-ble_stmt : 'ble' REG REG IDENTIFIER ;
+ble_stmt : 'ble' REG (',')? REG (',')? IDENTIFIER ;
 
-bge_stmt : 'bge' REG REG IDENTIFIER ;
+bge_stmt : 'bge' REG (',')? REG (',')? IDENTIFIER ;
+
 
 /** 
   JUMP
@@ -157,37 +257,41 @@ jr_stmt : 'jr' REG ;
 
 jalr_stmt : 'jalr' REG ;
 
+exit_stmt : 'exit';
+
+
 /**
   LOAD MEMORY
 */
 
-move_stmt : 'move' REG REG ;
+move_stmt : 'move' REG (',')? REG ;
 
-lb_stmt : 'lb' REG ADDR ;
+lb_stmt : 'lb' REG (',')? ADDR ;
 
-lbu_stmt : 'lbu' REG ADDR ;
+lbu_stmt : 'lbu' REG (',')? ADDR ;
 
-lh_stmt : 'lh' REG ADDR ;
+lh_stmt : 'lh' REG (',')? ADDR ;
 
-lhu_stmt : 'lhu' REG ADDR ;
+lhu_stmt : 'lhu' REG (',')? ADDR ;
 
-lui_stmt : 'lui' REG INTEGER ;
+lui_stmt : 'lui' REG (',')? INTEGER ;
 
-lw_stmt : 'lw' REG ADDR ;
+lw_stmt : 'lw' REG (',')? ADDR ;
 
-li_stmt : 'li' REG INTEGER ;
+li_stmt : 'li' REG (',')? INTEGER ;
 
-la_stmt : 'la' REG ADDR ;
+la_stmt : 'la' REG (',')? ADDR ;
+
 
 /**
   STORE MEMORY
 */
 
-sb_stmt : 'sb' REG ADDR ;
+sb_stmt : 'sb' REG (',')? ADDR ;
 
-sw_stmt : 'sw' REG ADDR ;
+sw_stmt : 'sw' REG (',')? ADDR ;
 
-sh_stmt : 'sh' REG ADDR ;
+sh_stmt : 'sh' REG (',')? ADDR ;
 
 
 
@@ -216,6 +320,7 @@ SREG  :  's' [0-7] ;
 
 KREG  :  'k' [0-1] ;
 
+STRING : '"' .*? '"' ;
 
 IDENTIFIER  :  '.' (LETTER|'_'|'.') (LETTER|DIGIT|'_'|'.')*
             |   LETTER (LETTER|DIGIT|'_'|'.')*
@@ -227,7 +332,7 @@ fragment LETTER  : [a-zA-Z] ;
 
 fragment DIGIT:  '0'..'9' ;
 
-COMMENT :   '#' .*? '\r'? '\n' -> type(NL) ;
+COMMENT :   '#' .*? '\r'? '\n' -> skip ;
 
 // Match both UNIX and Windows newlines
 NL      :   '\r'? '\n' -> skip;
