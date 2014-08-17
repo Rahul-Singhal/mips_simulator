@@ -1,0 +1,12 @@
+.text
+
+ main:
+ 
+ lb $s0 3($a0)
+
+ beq $s0 $zero main
+ lw $s0 ($a0)
+
+ 
+ error:
+ lw $s0 ($a0)

@@ -1,0 +1,15 @@
+
+.text
+
+main:
+
+li $t1 3
+sw $t1 8($s1)
+
+li $t2 3
+lw $t1 8($s1)
+
+beq $t1 $t2 main
+li $t5 6
+li $t2 7
+move $t3 $t2
