@@ -15,6 +15,7 @@ for(int i = 0; i < 10000; i++){
 }
 
 
-2)
+2)CLONE FUNCTIONS
+COULD NOT REPLICATE THE CLONE FUNCTION IN THE INHERITED INSTRUCTION CLASSES
 
 ###################################################################################*/

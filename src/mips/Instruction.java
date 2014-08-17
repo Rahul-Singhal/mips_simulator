@@ -10,7 +10,20 @@ package mips;
  *
  * @author vedratn
  */
-public class Instruction {
+public class Instruction extends System{
+    int stageToExecute;
+    int presentStage;
+    boolean stalled;
+    int stallingInstructionId;
+    int stallingRegister;
+    boolean forwarded;
+    int forwardedFromInstructionId;
+    int forwardedFromInstructionStage;
+    String display;
+    int address;
+    int id;
+    
+    
     
     public Instruction(){
         stageToExecute = 1;
@@ -73,17 +86,6 @@ public class Instruction {
     #######################################################################*/
     
     // eigth stage
-    int stageToExecute;
-    int presentStage;
-    boolean stalled;
-    int stallingInstructionId;
-    int stallingRegister;
-    boolean forwarded;
-    int forwardedFromInstructionId;
-    int forwardedFromInstructionStage;
-    String display;
-    int address;
-    int id;
 
 
     int getStageToExecute(){
