@@ -214,7 +214,7 @@ public class mainWindow extends javax.swing.JFrame {
         jPanel2 = new InstructionJPanel();
         jPanel3 = new StageJPanel();
         while(true){
-            System.out.println("AAYA\n");
+            //System.out.println("AAYA\n");
             jPanel2.repaint();
             jPanel3.repaint();
             e = new Date();
