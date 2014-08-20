@@ -2,7 +2,7 @@
 
 PROBLEMS ENCOUNTERED DURING TRANSITION
 
-1) MEMORY.JAVA
+1) MEMORY.JAVA(solved)
 There is no way of initializing any datastructure like this in Java
 
 store.assign(10485760,(char)0);
@@ -15,7 +15,7 @@ for(int i = 0; i < 10000; i++){
 }
 
 
-2)CLONE FUNCTIONS
+2)CLONE FUNCTIONS(Solved)
 COULD NOT REPLICATE THE CLONE FUNCTION IN THE INHERITED INSTRUCTION CLASSES
 
 ###################################################################################*/

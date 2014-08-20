@@ -10,7 +10,7 @@ package mips;
  *
  * @author vedratn
  */
-public class Instruction extends SystemVars{
+public class Instruction extends SystemVars implements Cloneable{
     int stageToExecute;
     int presentStage;
     boolean stalled;
@@ -81,9 +81,14 @@ public class Instruction extends SystemVars{
         return;
     }
     
-    /*#######################################################################
-    virtual Instruction * clone(); kya karein iska ?
-    #######################################################################*/
+    public Instruction clone() {
+        try {
+            return (Instruction) super.clone();
+        } catch (CloneNotSupportedException e) {        
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
     
     // eigth stage
 
