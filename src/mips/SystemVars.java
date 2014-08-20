@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author vedratn
  */
-public class System {
+public class SystemVars {
     static boolean programOver;
     static ArrayList <Register> registers = new ArrayList<Register>(){
         {

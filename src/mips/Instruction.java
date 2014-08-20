@@ -10,7 +10,7 @@ package mips;
  *
  * @author vedratn
  */
-public class Instruction extends System{
+public class Instruction extends SystemVars{
     int stageToExecute;
     int presentStage;
     boolean stalled;

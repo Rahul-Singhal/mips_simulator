@@ -17,6 +17,7 @@ public class Mips {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Memory mem = new Memory();
     }
     
 }
