@@ -17,8 +17,8 @@ public class And extends R3 implements Cloneable{
         super(rdIndex, rsIndex, rtIndex, id);
     }
     
-    public And(And add){
-        super(add);
+    public And(And and){
+        super(and);
     }
     
     public void calculate(){

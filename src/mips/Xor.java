@@ -17,8 +17,8 @@ public class Xor extends R3 implements Cloneable{
         super(rdIndex, rsIndex, rtIndex, id);
     }
     
-    public Xor(Xor add){
-        super(add);
+    public Xor(Xor xor){
+        super(xor);
     }
     
     public void calculate(){

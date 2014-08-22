@@ -13,12 +13,12 @@ package mips;
  */
 public class Xori extends R2Imm implements Cloneable{
 
-    public Xori(int rdIndex, int rsIndex, int rtIndex, int id) {
-        super(rdIndex, rsIndex, rtIndex, id);
+    public Xori(int rdIndex, int rsIndex, int imm, int id) {
+        super(rdIndex, rsIndex, imm, id);
     }
     
-    public Xori(Xori add){
-        super(add);
+    public Xori(Xori xori){
+        super(xori);
     }
     
     public void calculate(){

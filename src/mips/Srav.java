@@ -11,18 +11,18 @@ package mips;
  *
  * @author rahul
  */
-public class Sub extends R3 implements Cloneable{
+public class Srav extends R3 implements Cloneable{
 
-    public Sub(int rdIndex, int rsIndex, int rtIndex, int id) {
+    public Srav(int rdIndex, int rsIndex, int rtIndex, int id) {
         super(rdIndex, rsIndex, rtIndex, id);
     }
     
-    public Sub(Sub sub){
-        super(sub);
+    public Srav(Srav srav){
+        super(srav);
     }
     
     public void calculate(){
-       sum = a - b;
+       sum = a >> b;
     }
     
     public boolean execute(int pc){

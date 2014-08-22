@@ -17,8 +17,8 @@ public class Nor extends R3 implements Cloneable{
         super(rdIndex, rsIndex, rtIndex, id);
     }
     
-    public Nor(Nor add){
-        super(add);
+    public Nor(Nor nor){
+        super(nor);
     }
     
     public void calculate(){

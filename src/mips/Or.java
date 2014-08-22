@@ -17,8 +17,8 @@ public class Or extends R3 implements Cloneable{
         super(rdIndex, rsIndex, rtIndex, id);
     }
     
-    public Or(Or add){
-        super(add);
+    public Or(Or or){
+        super(or);
     }
     
     public void calculate(){

@@ -13,12 +13,12 @@ package mips;
  */
 public class Addi extends R2Imm implements Cloneable{
 
-    public Addi(int rdIndex, int rsIndex, int rtIndex, int id) {
-        super(rdIndex, rsIndex, rtIndex, id);
+    public Addi(int rdIndex, int rsIndex, int imm, int id) {
+        super(rdIndex, rsIndex, imm, id);
     }
     
-    public Addi(Addi add){
-        super(add);
+    public Addi(Addi addi){
+        super(addi);
     }
     
     public void calculate(){

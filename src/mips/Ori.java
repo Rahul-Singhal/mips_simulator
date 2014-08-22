@@ -13,12 +13,12 @@ package mips;
  */
 public class Ori extends R2Imm implements Cloneable{
 
-    public Ori(int rdIndex, int rsIndex, int rtIndex, int id) {
-        super(rdIndex, rsIndex, rtIndex, id);
+    public Ori(int rdIndex, int rsIndex, int imm, int id) {
+        super(rdIndex, rsIndex, imm, id);
     }
     
-    public Ori(Ori add){
-        super(add);
+    public Ori(Ori ori){
+        super(ori);
     }
     
     public void calculate(){
