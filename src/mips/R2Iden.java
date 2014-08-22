@@ -10,7 +10,7 @@ package mips;
  *
  * @author vedratn
  */
-public class R2Iden extends Instruction{
+public class R2Iden extends Instruction implements Cloneable{
     	int rsIndex;
 	int rtIndex;
 	// I assume the following variable will hold the address to the next instruction
@@ -58,7 +58,8 @@ public class R2Iden extends Instruction{
             return ;
         }
 	
-/*        R2Iden * clone(){
-            
-        }*/
+        @Override
+        public R2Iden clone(){
+            return (R2Iden) super.clone();
+        }
 }

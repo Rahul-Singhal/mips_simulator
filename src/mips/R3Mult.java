@@ -10,7 +10,7 @@ package mips;
  *
  * @author vedratn
  */
-public class R3Mult extends Instruction{
+public class R3Mult extends Instruction implements Cloneable{
     int rdIndex;
     int rsIndex;
     int rtIndex;
@@ -52,9 +52,9 @@ public class R3Mult extends Instruction{
         this.presentSubStage = 0;
     }
     
-    /*
-    R3Mult * clone();
-    */
+    public R3Mult clone(){
+        return (R3Mult)super.clone();
+    }
     
     boolean execute(int pc){
         return false;

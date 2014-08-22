@@ -10,7 +10,7 @@ package mips;
  *
  * @author vedratn
  */
-public class RImm extends Instruction{
+public class RImm extends Instruction implements Cloneable{
     	int rdIndex;
 	int immediate;
 
@@ -47,8 +47,9 @@ public class RImm extends Instruction{
             if(!registers.get(rdIndex).isValid())
 		registers.get(rdIndex).unstall(instructionId);
         }
-        /*
-	RImm * clone();
-        */
+        
+	public RImm clone(){
+            return (RImm) super.clone();
+        }
 
 }

@@ -10,7 +10,7 @@ package mips;
  *
  * @author vedratn
  */
-public class R2Imm extends Instruction{
+public class R2Imm extends Instruction implements Cloneable{
     int rdIndex;
     int rsIndex;
     int immediate;
@@ -46,11 +46,10 @@ public class R2Imm extends Instruction{
     }
     
     //USED TO RETURN POINTER IN C++, DEFINITION MODIFIED TO RETURN NEW OBJECT 
-/*    
+    @Override
     public R2Imm clone(){
-        this(this);
+        return (R2Imm) super.clone();
     }
-    */
     
     void unstall(){
         registers.get(rdIndex).unstall(id);

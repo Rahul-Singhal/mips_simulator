@@ -10,7 +10,7 @@ package mips;
  *
  * @author vedratn
  */
-public class R3 extends Instruction{
+public class R3 extends Instruction implements Cloneable{
     int rdIndex;
     int rsIndex;
     int rtIndex;
@@ -45,19 +45,90 @@ public class R3 extends Instruction{
 	this.b = i.b;
     }
     
-    //USED TO RETURN POINTER IN C++, DEFINITION MODIFIED TO RETURN NEW OBJECT 
-/*    
+ 
     public R3 clone(){
-        this(this);
+        return (R3)super.clone();
     }
-    */
     
     void unstall(){
         registers.get(rdIndex).unstall(id);
     }
     
-    @Override
-    boolean execute(int pc){
-        return false;
+    public interface ExecuteFunction{
+        int calculate(int x, int y);
+    }
+    
+    public boolean execute(int pc){
+        forwarded = false;
+        stalled = false;
+        
+        if(!stages.get(stageToExecute).isFree()){
+            stallInstructionStageBusy();
+            return false;
+        } else {
+            switch(stageToExecute){
+            case 1:
+            case 2:
+            case 7:
+            case 8:
+            case 9:
+                executeOrdinaryStep();
+                break;
+            case 3:
+                stages.get(presentStage).setFree();
+                presentStage = stageToExecute;
+                stages.get(presentStage).setInstruction(id);
+                if(!registers.get(rsIndex).isValid()){
+                    stallInstructionRegisterBusy(rsIndex);
+                    return false;
+                }
+                else if(!registers.get(rtIndex).isValid()){
+                    stallInstructionRegisterBusy(rtIndex);
+                    return false;
+                } else {
+                    registers.get(rdIndex).stallRegister(id);
+                    a = registers.get(rsIndex).value;
+                    b = registers.get(rtIndex).value;
+                    int lastTime = -1;
+                    if (registers.get(rsIndex).isForwarded()) {
+                        forwarded = true;
+                        lastTime = registers.get(rsIndex).lastForwarderTime;
+                        forwardedFromInstructionId = registers.get(rsIndex).lastForwarder;
+                    }
+                    if (registers.get(rtIndex).isForwarded()) {
+                        forwarded = true;
+                        if (registers.get(rtIndex).lastForwarderTime > lastTime) {
+                            forwardedFromInstructionId = registers.get(rtIndex).lastForwarder;
+                        }
+                    }
+                    stageToExecute++;
+                    stalled = false;
+                    return true;
+                }
+            case 4:
+                sum = a + b;
+                if (forwardingEnabled) {
+                    registers.get(rdIndex).forwardIt(id, clockCycle);
+                    registers.get(rdIndex).unstallRegister(sum, id);
+                }
+                stages.get(presentStage).setFree();
+                presentStage = stageToExecute;
+                stages.get(presentStage).setInstruction(id);
+                /*Stage to execute will be MEM1 which is stage 7*/
+                stageToExecute += 3;
+                return true;
+            case 10:
+                registers.get(rdIndex).unforwardIt(id);
+                if (!forwardingEnabled) {
+                    registers.get(rdIndex).unstallRegister(sum, id);
+                }
+                stages.get(presentStage).setFree();
+                presentStage = stageToExecute;
+                stages.get(presentStage).setInstruction(id);
+                stageToExecute = -1;
+                return true;
+            }
+            return false;
+        }
     }
 }

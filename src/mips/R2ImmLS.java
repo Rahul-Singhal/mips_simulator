@@ -10,7 +10,7 @@ package mips;
  *
  * @author vedratn
  */
-public class R2ImmLS extends Instruction{
+public class R2ImmLS extends Instruction implements Cloneable{
     	int rsIndex;  // Source
 	int rtIndex;  // Destination
 	int signExtImm;
@@ -64,8 +64,10 @@ public class R2ImmLS extends Instruction{
 	void unstall(int instructionId){
             return;
         }
-        /*
-	R2ImmLS * clone();
-        */
+        
+        @Override
+        public R2ImmLS clone(){
+            return (R2ImmLS) super.clone();
+        }
 	
 }
