@@ -54,10 +54,6 @@ public class R3 extends Instruction implements Cloneable{
         registers.get(rdIndex).unstall(id);
     }
     
-    public interface ExecuteFunction{
-        int calculate(int x, int y);
-    }
-    
     public boolean execute(int pc){
         forwarded = false;
         stalled = false;
@@ -106,7 +102,6 @@ public class R3 extends Instruction implements Cloneable{
                     return true;
                 }
             case 4:
-                sum = a + b;
                 if (forwardingEnabled) {
                     registers.get(rdIndex).forwardIt(id, clockCycle);
                     registers.get(rdIndex).unstallRegister(sum, id);
