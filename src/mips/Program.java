@@ -6,8 +6,12 @@
 
 package mips;
 
+import java.io.IOException;
+import org.antlr.v4.runtime.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,19 +51,38 @@ public class Program extends SystemVars{
 
 
     public Program(String filename){
-        // TODO: uncomment the line below
-        // codeSnippet = parser.getVector(filename);
-        codeSnippet = new ArrayList<>(Arrays.asList(new Instruction()));
-        for(Instruction instruction : codeSnippet){
-            Instruction clonedInstruction = instruction.clone();
-            clonedInstruction.id = 0;
-            clonedInstruction.presentStage = 0;
-            clonedInstruction.stageToExecute = 1;
-            code.add(clonedInstruction);
-        }
-        sepInstructions = new ArrayList <ArrayList <Instruction>>(11);
-        for(int i = 0; i<11; i++){
-            sepInstructions.add(new ArrayList<Instruction>());
+        try {
+            // Invoke parser
+            ANTLRInputStream input = new ANTLRFileStream(filename);
+            MipsLexer lexer = new MipsLexer(input);
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            MipsParser parser = new MipsParser(tokens);
+            // parser.setBuildParseTree(true);
+            RuleContext tree = parser.prog();
+            // tree.inspect(parser); // show in gui
+            // System.out.println("Instructions: ");
+            // for (Instruction instr : parser.instructions) {
+            //     instr.print();
+            // }
+     
+            // TODO: uncomment the line below
+            // codeSnippet = parser.getVector(filename);
+            // codeSnippet = new ArrayList<>(Arrays.asList(new Instruction()));
+            codeSnippet = parser.instructions;
+            
+            for(Instruction instruction : codeSnippet){
+                Instruction clonedInstruction = instruction.clone();
+                clonedInstruction.id = 0;
+                clonedInstruction.presentStage = 0;
+                clonedInstruction.stageToExecute = 1;
+                code.add(clonedInstruction);
+            }
+            sepInstructions = new ArrayList <ArrayList <Instruction>>(11);
+            for(int i = 0; i<11; i++){
+                sepInstructions.add(new ArrayList<Instruction>());
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Program.class.getName()).log(Level.SEVERE, null, ex);
         }
             
     }

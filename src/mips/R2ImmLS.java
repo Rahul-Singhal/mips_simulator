@@ -187,7 +187,7 @@ public class R2ImmLS extends Instruction implements Cloneable {
                             memory.storeWord(sum, a);
                         }else if(category == 1){
                             // BYTE
-                            memory.storeByte(sum, a);
+                            memory.storeByte(sum, (char)(a & 0xFF));
                         }else if(category == 2){
                             // HALF WORD   
                             memory.storeHalfWord(sum, a);
