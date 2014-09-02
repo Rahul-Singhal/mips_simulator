@@ -1,0 +1,11 @@
+.text
+
+main:
+
+add $s1 $zero $v0
+addi $a0 $s0 -2
+
+error:
+
+add $v0 $v0 $s1
+

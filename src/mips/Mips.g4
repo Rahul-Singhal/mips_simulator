@@ -11,6 +11,8 @@ options {
 
 @members {
     public ArrayList<Instruction> instructions = new ArrayList<Instruction>();
+    public HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
+    public Integer instructionIndex = 0;
 }
 
 prog  : (text)? data
@@ -98,7 +100,16 @@ text  : '.text' label_list ;
 
 label_list  : (label)* ;
 
-label  : IDENTIFIER ':' stmt_list ;
+label  : l=IDENTIFIER ':' stmt_list 
+    {
+        if (instructions.size() > instructionIndex) {
+            labelMap.put($l.text,instructionIndex);
+            instructionIndex = instructions.size();
+        }
+        else if (instructions.size() == instructionIndex) {
+            labelMap.put($l.text,-1);
+        }
+    };
 
 stmt_list  : (stmt)* ;
 

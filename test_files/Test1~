@@ -3,8 +3,6 @@
 main:
 
 lw $s0 ($a0)
-
-beq $s0 $zero main
 lw $s0 ($a0)
 
 error:

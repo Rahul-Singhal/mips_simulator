@@ -200,7 +200,9 @@ public class mainWindow extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(mainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
+//        Program prog = new Program("/home/anmol/mips_simulator/test_files/newtest");
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -277,7 +279,7 @@ public class mainWindow extends javax.swing.JFrame {
     }
     
     public void draw(){
-    
+        
     }
     
 }
