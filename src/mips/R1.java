@@ -119,4 +119,10 @@ public class R1 extends Instruction implements Cloneable {
             registers.get(31).unstall(instructionId);
         }
     }
+    
+    @Override
+    public R1 clone() {
+        return (R1) super.clone();
+    }
+    
 }

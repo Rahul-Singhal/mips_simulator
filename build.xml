@@ -10,6 +10,41 @@
 <project name="mips_simulator" default="default" basedir=".">
     <description>Builds, tests, and runs the project mips_simulator.</description>
     <import file="nbproject/build-impl.xml"/>
+    
+    <target name="-pre-compile" depends="antlr">
+    </target>
+
+    <target name="-post-clean" depends="antlr-clean">
+    </target>
+ 
+    <target name="init-antlr">
+	<!-- Full path to Antlr jar -->
+        <property name="antlr.jar" location="./antlr-4.4-complete.jar"/>
+	<!-- Grammar path -->
+	<property name="antlr.grammar" location="src/Mips.g4"/>
+    </target>
+    
+    <target name="antlr" depends="init-antlr" unless="up-to-date">
+	<!-- Compiling grammar -->
+        <!--java -jar /usr/local/lib/antlr-4.4-complete.jar Mips.g4-->
+        <java jar="antlr-4.4-complete.jar" dir="./src/mips/">
+            <classpath>
+                <pathelement location="src/Mips.g4"/>
+                <pathelement path="${java.class.path}"/>
+            </classpath>  
+            <arg value="Mips.g4" />
+        </java>
+    </target>
+    
+    <target name="antlr-clean">
+        <delete>
+        <fileset dir="./src/mips/" casesensitive="yes">
+            <include name="Mips*.java"/>
+            <include name="*.tokens"/>
+        </fileset>
+        </delete>
+    </target>
+    
     <!--
 
     There exist several targets which are by default empty and which can be 

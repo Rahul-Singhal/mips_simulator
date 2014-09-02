@@ -103,4 +103,9 @@ public class R0 extends Instruction implements Cloneable {
             registers.get(31).unstall(instructionId);
         }
     }
+    
+    @Override
+    public R0 clone() {
+        return (R0) super.clone();
+    }
 }
