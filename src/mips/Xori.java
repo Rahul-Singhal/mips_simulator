@@ -26,7 +26,7 @@ public class Xori extends R2Imm implements Cloneable{
     }
     
     public boolean execute(int pc){
-        if(stageToExecute == 4) calculate();
+        if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX) calculate();
         return super.execute(pc);
     }
 }

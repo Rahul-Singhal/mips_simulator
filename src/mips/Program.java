@@ -9,7 +9,6 @@ package mips;
 import java.io.IOException;
 import org.antlr.v4.runtime.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,7 +52,6 @@ public class Program extends SystemVars{
     public Program(String filename){
         try {
             // Invoke parser
-            
             ANTLRInputStream input = new ANTLRFileStream(filename);
             MipsLexer lexer = new MipsLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);

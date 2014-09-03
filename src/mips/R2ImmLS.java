@@ -74,15 +74,13 @@ public class R2ImmLS extends Instruction implements Cloneable {
             stallInstructionStageBusy();
             return false;
         } else {
-            switch (stageToExecute) {
-                case 1:
-                case 2:
-                case 7:
-                case 8:
-//                case 9: STAGE 9 WOULD NOT BE TRIVIAL FOR STORE
+            SystemVars.stageType sType = SystemVars.getStageType(stageToExecute);
+            switch (sType) {
+                case DUMMY:
+                case IF:
                     executeOrdinaryStep();
                     break;
-                case 3:
+                case ID:
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
                     stages.get(presentStage).setInstruction(id);
@@ -170,7 +168,7 @@ public class R2ImmLS extends Instruction implements Cloneable {
                             }
                         }
                     }
-                case 4:
+                case EX:
                     //sum = a + b; done in children
                     // registers.get(rdIndex).write(sum,id,stageToExecute); // TODO : Will it ever return false?
                     stages.get(presentStage).setFree();
@@ -180,7 +178,7 @@ public class R2ImmLS extends Instruction implements Cloneable {
                     stageToExecute += 3;
                     //////cout << "EX stage done -->" ;
                     return true;
-                case 9:
+                case MEM:
                     if (isStore) {
                         if(category == 0){
                             // WORD
@@ -212,7 +210,7 @@ public class R2ImmLS extends Instruction implements Cloneable {
                     stages.get(presentStage).setInstruction(id);
                     stageToExecute++;
                     return true;
-                case 10:
+                case WB:
                     if (isLoad) {
                         registers.get(rtIndex).unforwardIt(id);
                         if (!forwardingEnabled) {

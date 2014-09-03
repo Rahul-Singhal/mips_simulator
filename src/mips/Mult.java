@@ -26,8 +26,8 @@ public class Mult extends R3Mult implements Cloneable{
     }
     
     public boolean execute(int pc){
-        if(stageToExecute == 5 && forwardingEnabled) calculate();
-        else if(stageToExecute == 10 && !forwardingEnabled) calculate();
+        if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.MULT && forwardingEnabled) calculate();
+        else if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.WB && !forwardingEnabled) calculate();
         return super.execute(pc);
     }
 }

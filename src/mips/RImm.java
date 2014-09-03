@@ -46,17 +46,16 @@ public class RImm extends Instruction implements Cloneable {
             stallInstructionStageBusy();
             return false;
         } else {
-            switch (stageToExecute) {
-                case 3:
-                    registers.get(rdIndex).stallRegister(id);
-                case 1:
-                case 2:
-                case 7:
-                case 8:
-                case 9:
+            SystemVars.stageType sType = SystemVars.getStageType(stageToExecute);
+            switch (sType) {
+                case DUMMY:
+                case IF:
+                case MEM:
                     executeOrdinaryStep();
                     break;
-                case 4:
+                case ID:
+                    registers.get(rdIndex).stallRegister(id);
+                case EX:
                     if (forwardingEnabled) {
                         registers.get(rdIndex).forwardIt(id, clockCycle);
                         registers.get(rdIndex).unstallRegister(immediate, id); // TODO : Will it ever return false?
@@ -68,7 +67,7 @@ public class RImm extends Instruction implements Cloneable {
                     /*Stage to execute will be MEM1 which is stage 7*/
                     stageToExecute += 3;
                     return true;
-                case 10:
+                case WB:
                     registers.get(rdIndex).unforwardIt(id);
                     if (!forwardingEnabled) {
                         registers.get(rdIndex).unstallRegister(immediate, id);

@@ -62,15 +62,14 @@ public class R3 extends Instruction implements Cloneable{
             stallInstructionStageBusy();
             return false;
         } else {
-            switch(stageToExecute){
-            case 1:
-            case 2:
-            case 7:
-            case 8:
-            case 9:
+            SystemVars.stageType sType = SystemVars.getStageType(stageToExecute);
+            switch(sType){
+            case DUMMY:
+            case IF:
+            case MEM:
                 executeOrdinaryStep();
                 break;
-            case 3:
+            case ID:
                 stages.get(presentStage).setFree();
                 presentStage = stageToExecute;
                 stages.get(presentStage).setInstruction(id);
@@ -101,7 +100,7 @@ public class R3 extends Instruction implements Cloneable{
                     stalled = false;
                     return true;
                 }
-            case 4:
+            case EX:
                 if (forwardingEnabled) {
                     registers.get(rdIndex).forwardIt(id, clockCycle);
                     registers.get(rdIndex).unstallRegister(sum, id);
@@ -112,7 +111,7 @@ public class R3 extends Instruction implements Cloneable{
                 /*Stage to execute will be MEM1 which is stage 7*/
                 stageToExecute += 3;
                 return true;
-            case 10:
+            case WB:
                 registers.get(rdIndex).unforwardIt(id);
                 if (!forwardingEnabled) {
                     registers.get(rdIndex).unstallRegister(sum, id);

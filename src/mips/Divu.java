@@ -27,8 +27,8 @@ public class Divu extends R3Mult implements Cloneable{
     
     @Override
     public boolean execute(int pc){
-        if(stageToExecute == 6 && forwardingEnabled) calculate();
-        else if(stageToExecute == 10 && !forwardingEnabled) calculate();
+        if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.DIV && forwardingEnabled) calculate();
+        else if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.WB && !forwardingEnabled) calculate();
         return super.execute(pc);
     }
 }

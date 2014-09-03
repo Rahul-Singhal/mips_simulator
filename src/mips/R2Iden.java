@@ -59,15 +59,14 @@ public class R2Iden extends Instruction implements Cloneable {
             stallInstructionStageBusy();
             return false;
         } else {
-            switch (stageToExecute) {
-                case 1:
-                case 2:
-                case 7:
-                case 8:
-                case 9:
+            SystemVars.stageType sType = SystemVars.getStageType(stageToExecute);
+            switch (sType) {
+                case DUMMY:
+                case IF:
+                case MEM:
                     executeOrdinaryStep();
                     break;
-                case 3:
+                case ID:
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
                     stages.get(presentStage).setInstruction(id);
@@ -101,7 +100,7 @@ public class R2Iden extends Instruction implements Cloneable {
                             }
                         }
                     }
-                case 4:
+                case EX:
                     if (!fastBranching) {
                         if (branchTaken) {
                             programCounter = destPc - 1;
@@ -114,7 +113,7 @@ public class R2Iden extends Instruction implements Cloneable {
                     /*Stage to execute will be MEM1 which is stage 7*/
                     stageToExecute += 3;
                     return true;
-                case 10:
+                case WB:
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
                     stages.get(presentStage).setInstruction(id);

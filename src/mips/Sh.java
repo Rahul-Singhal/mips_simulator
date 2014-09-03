@@ -18,7 +18,7 @@ public class Sh extends R2ImmLS implements Cloneable{
     
     @Override
     public boolean execute(int pc){
-        if(stageToExecute == 4) calculate();
+        if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX) calculate();
         return super.execute(pc);
     }
 }

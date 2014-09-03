@@ -28,8 +28,8 @@ public class Beq extends R2Iden implements Cloneable{
     }
     
     public boolean execute(int pc){
-        if(stageToExecute == 3 && fastBranching) calculate();
-        else if(stageToExecute == 4 && !fastBranching) calculate();
+        if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.ID && fastBranching) calculate();
+        else if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX && !fastBranching) calculate();
         return super.execute(pc);
     }
 }

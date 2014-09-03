@@ -24,8 +24,8 @@ public class Lui extends RImm implements Cloneable{
     }
     
     public boolean execute(int pc){
-        if(stageToExecute == 4 && forwardingEnabled) calculate();
-        else if(stageToExecute == 10 && !forwardingEnabled) calculate();
+        if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX && forwardingEnabled) calculate();
+        else if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.WB && !forwardingEnabled) calculate();
         return super.execute(pc);
     }
 }

@@ -12,6 +12,7 @@
 
 4) Commas in the code? I have made the commas optional, what should be the correct way? 
    In my implementation, "add $t1 , $t3 $t3" will be a valid instruction.
+   (This is fine and sounds like a plus point. Let it be.)
 
 5) Instructions that will not be added to instruction list for now: 
     exit, sllb, srab, srlb
