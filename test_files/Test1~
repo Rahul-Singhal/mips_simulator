@@ -1,9 +1,0 @@
-.text
-
-main:
-
-lw $s0 ($a0)
-lw $s0 ($a0)
-
-error:
-li $t1 20
