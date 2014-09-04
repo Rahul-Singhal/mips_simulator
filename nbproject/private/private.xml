@@ -3,54 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Xor.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/R3Mult.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Andi.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Sll.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Add.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Lui.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Addiu.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Stage.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Program.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Sllv.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Memory.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Subu.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/R2Imm.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Sh.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Sub.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Bne.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Div.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Addu.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Sra.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Or.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Addi.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Beq.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/PROBLEMSWITHTRANSLATION.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Srav.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Sw.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Sltiu.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/R2Iden.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Xori.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Multu.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Lhu.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Sltu.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/R3.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/RImm.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/TODOLATER.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/R0.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Pair.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Srlv.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Slt.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/SystemVars.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Sb.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Lw.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/R1.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/And.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Ori.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Nor.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Srl.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/R2ImmLS.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Slti.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/mainWindow.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/StageJPanel.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/InstructionJPanel.java</file>
         </group>
     </open-files>
 </project-private>

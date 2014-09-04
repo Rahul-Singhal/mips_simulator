@@ -12,18 +12,25 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author vedratn
+ * @author rahul
  */
 public class StageJPanel extends JPanel{
     private int tempCount = 0;
     
-    public void paint(Graphics g){
-        update(g);
-    }
+//    public void paint(Graphics g){
+//        update(g);
+//    }
+//    
+//    public void update(Graphics g){
+//        // mainWindow.currStages is acessible, cool
+//        // int size = mainWindow.allStages.size();
+//        g.setColor(Color.red);
+//        g.fillRect((tempCount++)*50,0,50,100);
+//    }
     
-    public void update(Graphics g){
+    public void paintComponent(Graphics g){
         // mainWindow.currStages is acessible, cool
-        int size = mainWindow.allStages.size();
+        // int size = mainWindow.allStages.size();
         g.setColor(Color.red);
         g.fillRect((tempCount++)*50,0,50,100);
     }

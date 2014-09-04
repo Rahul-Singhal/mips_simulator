@@ -13,17 +13,17 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author vedratn
+ * @author rahul
  */
 public class InstructionJPanel extends JPanel{
     private int tempCount = 0;
     
-    public void paint(Graphics g){
-        update(g);
-    }
-    
-    public void update(Graphics g){
-        int size = mainWindow.allInstructions.size();
+//    public void paint(Graphics g){
+//        update(g);
+//    }
+//    
+    public void paintComponent(Graphics g){
+        //int size = mainWindow.allInstructions.size();
         g.setColor(Color.red);
         g.fillRect(50,50*(tempCount++),50,100);
     }
