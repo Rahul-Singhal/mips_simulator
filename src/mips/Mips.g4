@@ -1,166 +1,258 @@
 grammar Mips;
 
 options {
-  language = Java;
+    language = Java;
 }
 
 @header {
-  package mips;
-  import java.util.*;
+    package mips;
+    import java.util.*;
 }
 
-@members {
-    public ArrayList<Instruction> instructions = new ArrayList<Instruction>();
-    public HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
-    public HashMap<String, Integer> usedLabels = new HashMap<String, Integer>();
-    public Integer instructionIndex = 0;
+@parser::members {
+    private ArrayList<Instruction> instructions = new ArrayList<Instruction>();
+    private HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
+    private HashMap<String, Integer> usedLabels = new HashMap<String, Integer>();
+    private HashMap<String, Integer> dataVarsMap = new HashMap<String, Integer>();
+    private Memory memory = new Memory();
+    private Integer instructionIndex = 0;
+
+    private void addDataVariable(String name, int line) {
+        if (dataVarsMap.get(name) == null) {
+            dataVarsMap.put(name, 0);
+        } else {
+            System.out.println("Error in line " + line + ", variable \"" + name + "\" already exists.");
+            System.exit(0);
+        }
+    }
+
+    private void addLabel(String name, int num, int line) {
+        if (labelMap.get(name) == null) {
+            labelMap.put(name, num);
+        } else {
+            System.out.println("Error in line " + line + ", label \"" + name + "\" already exists.");
+            System.exit(0);
+        }
+    }
+
+    public void checkLabels() {
+        // Check labels in text section
+        Iterator it = usedLabels.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
+            if (labelMap.get(pairs.getKey()) == null) {
+                System.out.println("Error in line " + pairs.getValue() + ", label \"" + pairs.getKey() + "\" does not exist.");
+                System.exit(0);                
+            }
+        }
+    }
+
+    public Memory getMemory() {
+        return memory;
+    }
+
+    public ArrayList<Instruction> getInstructions() {
+        return instructions;
+    }
+
+    public HashMap<String, Integer> getLabelMap() {
+        return labelMap;
+    }
 }
 
-prog  : (text)? data
-      | (data)? text
-      ;
+
+/** 
+  GRAMMAR BEGINS
+*/
+
+prog    : (data)? text
+        ;
 
 /** 
   DATA SECTION
 */
 
-data  : '.data' var_list ;
+data    : '.data' var_list 
+        ;
 
-var_list  : (var_decl)* ; 
+var_list    : (var_decl)* 
+            ; 
 
-var_decl  : IDENTIFIER ':' var_init ; 
 
-var_init  : ascii_var
-          | asciiz_var
-          | word_var 
-          | space_var 
-          | byte_var
-          ;
+var_decl  : 
+    ascii_var
+    | asciiz_var
+    | word_var 
+    | space_var 
+    | byte_var
+    ;
 
-ascii_var  : '.ascii' STRING ;
+ascii_var   : 
+    l=IDENTIFIER ':' '.ascii' s=null_terminated_str
+        {
+            memory.storeAscii($l.text, $s.str);
+            addDataVariable($l.text, $l.getLine());
+        }
+    ;
 
-asciiz_var  : '.asciiz' STRING ;
+asciiz_var  : 
+    l=IDENTIFIER ':' '.asciiz' s=quoted_str 
+        {
+            memory.storeAsciiz($l.text, $s.str);
+            addDataVariable($l.text, $l.getLine());
+        }
+    ;
 
-word_var  : '.word' int_list 
-            {
-              System.out.println("Number List");
-              for (Integer val : $int_list.vec) {
-                System.out.print(val + "  ");
-              }
-              System.out.println();
-            }
-          | '.word' ;
+word_var    : 
+    l=IDENTIFIER ':' '.word' int_list 
+        {
+            memory.storeWords($l.text, $int_list.vec);
+            addDataVariable($l.text, $l.getLine());
+        }
+    | l=IDENTIFIER ':' '.word' 
+        {
+            memory.storeWords($l.text, new ArrayList<Integer>());
+            addDataVariable($l.text, $l.getLine());
+        }
+    ;
 
-int_list  returns [Vector<Integer> vec]  : 
-  a=INTEGER 
-    {
-      Integer num = Integer.valueOf($a.text);
-      $vec = new Vector<Integer>();      
-      $vec.addElement(num);
-    }
-  | list=int_list ',' a=INTEGER
-    {
-      Integer num = Integer.valueOf($a.text);
-      $list.vec.addElement(num);
-      $vec = $list.vec; 
-    }
-  ;
+int_list returns [ArrayList<Integer> vec]  : 
+    a=integer 
+        {
+            Integer num = Integer.valueOf($a.text);
+            $vec = new ArrayList<Integer>();      
+            $vec.add(num);
+        }
+    | list=int_list ',' a=integer
+        {
+            Integer num = Integer.valueOf($a.text);
+            $list.vec.add(num);
+            $vec = $list.vec; 
+        }
+    ;
 
-space_var  : '.space' INTEGER ;
+space_var   : 
+    l=IDENTIFIER ':' '.space' a=POSINTEGER 
+        {
+            memory.allocateSpace($l.text, Integer.valueOf($a.text));
+            addDataVariable($l.text, $l.getLine());
+        }
+    ;
 
-byte_var  : '.byte' byte_list
-            {
-              System.out.println("Character List");
-              for (Character val : $byte_list.vec) {
-                System.out.print(val + "  ");
-              }
-              System.out.println();
-            }
-          | '.byte'
-          ;
+byte_var  : 
+    l=IDENTIFIER ':' '.byte' byte_list
+        {
+            memory.storeBytes($l.text, $byte_list.vec);
+            addDataVariable($l.text, $l.getLine());
+        }
+    | l=IDENTIFIER ':' '.byte'
+        {
+            memory.storeBytes($l.text, new ArrayList<Character>());
+            addDataVariable($l.text, $l.getLine());
+        }
+    ;
 
-byte_list  returns [Vector<Character> vec]  : 
-  '\'' a=. '\''
-    {
-      $vec = new Vector<Character>();
-      $vec.addElement($a.text.charAt(0));
-    } 
-  | list=byte_list ',' '\'' a=. '\''
-    {
-      $list.vec.addElement($a.text.charAt(0));
-      $vec = $list.vec; 
-    }
-  ;
+byte_list  returns [ArrayList<Character> vec]  : 
+    b=byte_val
+        {
+            $vec = new ArrayList<Character>();
+            $vec.add($b.val);
+        } 
+    | list=byte_list ',' b=byte_val
+        {
+            $list.vec.add($b.val);
+            $vec = $list.vec; 
+        }
+    ;
 
+byte_val returns [Character val] :
+    '\'' a=. '\''
+        {
+            $val = $a.text.charAt(0); 
+        }
+    | i=integer
+        {
+            $val = (char) (Integer.valueOf($i.text) % 256);
+        }
+    ;
 
 /**
   TEXT SECTION
 */
 
-text  : '.text' label_list ;
+text    : '.text' label_list ;
 
 label_list  : (label)* ;
 
-label  : l=IDENTIFIER ':' stmt_list 
-    {
-        if (instructions.size() > instructionIndex) {
-            labelMap.put($l.text,instructionIndex);
-            instructionIndex = instructions.size();
+label   : 
+    l=IDENTIFIER ':' stmt_list 
+        {
+            if (instructions.size() > instructionIndex) {
+                addLabel($l.text, instructionIndex, $l.getLine());
+                instructionIndex = instructions.size();
+            }
+            else if (instructions.size() == instructionIndex) {
+                addLabel($l.text, -1, $l.getLine());
+            }
         }
-        else if (instructions.size() == instructionIndex) {
-            labelMap.put($l.text,-1);
-        }
-    };
+    ;
 
-stmt_list  : (stmt)* ;
+stmt_list   : (stmt)* ;
 
-stmt  : add_stmt
-      | addi_stmt
-      | addiu_stmt
-      | addu_stmt
-      | sub_stmt
-      | subu_stmt
-      | and_stmt
-      | andi_stmt
-      | nor_stmt
-      | or_stmt
-      | ori_stmt
-      | xor_stmt
-      | xori_stmt
-      | sll_stmt
-      | srl_stmt
-      | sra_stmt
-      | sllb_stmt
-      | srlb_stmt
-      | srab_stmt
-      | slt_stmt
-      | slti_stmt
-      | sltiu_stmt
-      | sltu_stmt
-      | beq_stmt
-      | bne_stmt
-      | blt_stmt
-      | bgt_stmt
-      | ble_stmt
-      | bge_stmt
-      | j_stmt
-      | jal_stmt
-      | jr_stmt
-      | jalr_stmt
-      | move_stmt
-      | lb_stmt
-      | lbu_stmt
-      | lh_stmt
-      | lhu_stmt
-      | lui_stmt
-      | lw_stmt
-      | li_stmt
-      | la_stmt
-      | sb_stmt
-      | sw_stmt
-      | sh_stmt
-      | exit_stmt
-      ;
+stmt    : add_stmt
+        | addi_stmt
+        | addiu_stmt
+        | addu_stmt
+        | mult_stmt
+        | multu_stmt
+        | div_stmt
+        | divu_stmt
+        | sub_stmt
+        | subu_stmt
+        | and_stmt
+        | andi_stmt
+        | nor_stmt
+        | or_stmt
+        | ori_stmt
+        | xor_stmt
+        | xori_stmt
+        | sll_stmt
+        | sllv_stmt
+        | srl_stmt
+        | srlv_stmt
+        | sra_stmt
+        | srav_stmt
+        | sllb_stmt
+        | srlb_stmt
+        | srab_stmt
+        | slt_stmt
+        | slti_stmt
+        | sltiu_stmt
+        | sltu_stmt
+        | beq_stmt
+        | bne_stmt
+        | blt_stmt
+        | bgt_stmt
+        | ble_stmt
+        | bge_stmt
+        | j_stmt
+        | jal_stmt
+        | jr_stmt
+        | jalr_stmt
+        | move_stmt
+        | lb_stmt
+        | lbu_stmt
+        | lh_stmt
+        | lhu_stmt
+        | lui_stmt
+        | lw_stmt
+        | li_stmt
+        | la_stmt
+        | sb_stmt
+        | sw_stmt
+        | sh_stmt
+        | exit_stmt
+        ;
 
 /**
   ARITHMETIC 
@@ -178,7 +270,7 @@ add_stmt  : 'add' rd=REG (',')? rs=REG (',')? rt=REG
     };
     
 
-addi_stmt : 'addi' rd=REG (',')? rs=REG (',')? i=INTEGER 
+addi_stmt : 'addi' rd=REG (',')? rs=REG (',')? i=integer 
     {
         Addi instr = new Addi(
             Register.registerToInteger($rd.text),
@@ -190,7 +282,7 @@ addi_stmt : 'addi' rd=REG (',')? rs=REG (',')? i=INTEGER
     };
 
 
-addiu_stmt : 'addiu' rd=REG (',')? rs=REG (',')? i=INTEGER 
+addiu_stmt : 'addiu' rd=REG (',')? rs=REG (',')? i=integer 
     {
         Addiu instr = new Addiu(
             Register.registerToInteger($rd.text),
@@ -295,7 +387,7 @@ and_stmt  : 'and' rd=REG (',')? rs=REG (',')? rt=REG
         instructions.add(instr);
     };
 
-andi_stmt : 'andi' 'addiu' rd=REG (',')? rs=REG (',')? i=INTEGER 
+andi_stmt : 'andi' rd=REG (',')? rs=REG (',')? i=integer 
     {
         Andi instr = new Andi(
             Register.registerToInteger($rd.text),
@@ -328,7 +420,7 @@ or_stmt : 'or' rd=REG (',')? rs=REG (',')? rt=REG
         instructions.add(instr);
     };
 
-ori_stmt : 'ori' 'addiu' rd=REG (',')? rs=REG (',')? i=INTEGER 
+ori_stmt : 'ori' rd=REG (',')? rs=REG (',')? i=integer 
     {
         Ori instr = new Ori(
             Register.registerToInteger($rd.text),
@@ -350,7 +442,7 @@ xor_stmt : 'xor' rd=REG (',')? rs=REG (',')? rt=REG
         instructions.add(instr);
     };
 
-xori_stmt : 'xori' 'addiu' rd=REG (',')? rs=REG (',')? i=INTEGER 
+xori_stmt : 'xori' rd=REG (',')? rs=REG (',')? i=integer 
     {
         Xori instr = new Xori(
             Register.registerToInteger($rd.text),
@@ -366,20 +458,20 @@ xori_stmt : 'xori' 'addiu' rd=REG (',')? rs=REG (',')? i=INTEGER
   BIT SHIFTING
 */
 
-sll_stmt : 'sll' rd=REG (',')? rs=REG (',')? rt=REG  
+sll_stmt : 'sll' rd=REG (',')? rs=REG (',')? i=POSINTEGER  
     {
         Sll instr = new Sll(
             Register.registerToInteger($rd.text),
             Register.registerToInteger($rs.text),
-            Register.registerToInteger($rt.text),
+            Integer.valueOf($i.text),
             0
         );
         instructions.add(instr);
     };
 
-srl_stmt : 'srl' rd=REG (',')? rs=REG (',')? rt=REG  
+sllv_stmt : 'sllv' rd=REG (',')? rs=REG (',')? rt=REG  
     {
-        Srl instr = new Srl(
+        Sllv instr = new Sllv(
             Register.registerToInteger($rd.text),
             Register.registerToInteger($rs.text),
             Register.registerToInteger($rt.text),
@@ -388,9 +480,42 @@ srl_stmt : 'srl' rd=REG (',')? rs=REG (',')? rt=REG
         instructions.add(instr);
     };
 
-sra_stmt : 'sra' rd=REG (',')? rs=REG (',')? rt=REG  
+srl_stmt : 'srl' rd=REG (',')? rs=REG (',')? i=POSINTEGER 
+    {
+        Srl instr = new Srl(
+            Register.registerToInteger($rd.text),
+            Register.registerToInteger($rs.text),
+            Integer.valueOf($i.text),
+            0
+        );
+        instructions.add(instr);
+    };
+
+srlv_stmt : 'srlv' rd=REG (',')? rs=REG (',')? rt=REG  
+    {
+        Srlv instr = new Srlv(
+            Register.registerToInteger($rd.text),
+            Register.registerToInteger($rs.text),
+            Register.registerToInteger($rt.text),
+            0
+        );
+        instructions.add(instr);
+    };
+
+sra_stmt : 'sra' rd=REG (',')? rs=REG (',')? i=POSINTEGER 
     {
         Sra instr = new Sra(
+            Register.registerToInteger($rd.text),
+            Register.registerToInteger($rs.text),
+            Integer.valueOf($i.text),
+            0
+        );
+        instructions.add(instr);
+    };
+
+srav_stmt : 'srav' rd=REG (',')? rs=REG (',')? rt=REG  
+    {
+        Srav instr = new Srav(
             Register.registerToInteger($rd.text),
             Register.registerToInteger($rs.text),
             Register.registerToInteger($rt.text),
@@ -420,7 +545,7 @@ slt_stmt : 'slt' rd=REG (',')? rs=REG (',')? rt=REG
         instructions.add(instr);
     };
 
-slti_stmt : 'slti' 'addiu' rd=REG (',')? rs=REG (',')? i=INTEGER 
+slti_stmt : 'slti' rd=REG (',')? rs=REG (',')? i=integer 
     {
         Slti instr = new Slti(
             Register.registerToInteger($rd.text),
@@ -431,7 +556,7 @@ slti_stmt : 'slti' 'addiu' rd=REG (',')? rs=REG (',')? i=INTEGER
         instructions.add(instr);
     };
 
-sltiu_stmt : 'sltiu' 'addiu' rd=REG (',')? rs=REG (',')? i=INTEGER 
+sltiu_stmt : 'sltiu' rd=REG (',')? rs=REG (',')? i=integer 
     {
         Sltiu instr = new Sltiu(
             Register.registerToInteger($rd.text),
@@ -668,7 +793,7 @@ lhu_stmt : 'lhu' rt=REG (',')? a=addr
         instructions.add(instr);
     };
 
-lui_stmt : 'lui' rt=REG (',')? i=INTEGER 
+lui_stmt : 'lui' rt=REG (',')? i=integer 
     {
         // Pseudo instruction
         Addiu instr = new Addiu(
@@ -691,7 +816,7 @@ lw_stmt : 'lw' rt=REG (',')? a=addr
         instructions.add(instr);
     };
 
-li_stmt : 'li' rt=REG (',')? i=INTEGER 
+li_stmt : 'li' rt=REG (',')? i=integer 
     {
         // Pseudo instruction
         Addi instr = new Addi(
@@ -703,9 +828,30 @@ li_stmt : 'li' rt=REG (',')? i=INTEGER
         instructions.add(instr);
     };
 
-// Pending Instruction
-la_stmt : 'la' REG (',')? IDENTIFIER ;
+la_stmt : 'la' rt=REG (',')? l=IDENTIFIER 
+    {
+        if (dataVarsMap.get($l.text) == null) {
+            System.out.println("Error in line " + $l.getLine() + ", label \"" + $l.text + "\" does not exist.");
+            System.exit(0);                
+        }
 
+        // Pseudo instruction
+        Addiu instr1 = new Addiu(
+            1,
+            0, // Zero register
+            0,
+            0
+        );
+        instructions.add(instr1);
+
+        Ori instr2 = new Ori(
+            Register.registerToInteger($rt.text),
+            1,
+            memory.loadAddress($l.text),
+            0
+        );
+        instructions.add(instr2);
+    };
 
 /**
   STORE MEMORY
@@ -750,30 +896,49 @@ sh_stmt : 'sh' rt=REG (',')? a=addr
 */ 
 
 addr  returns [Integer offset, Integer reg]  : 
-  i=INTEGER '(' r=REG ')' 
-    {
-      $offset = Integer.valueOf($i.text);            
-      $reg = Register.registerToInteger($r.text);
-    }
-  | '(' r=REG ')'
-    {
-      $offset = 0;            
-      $reg = Register.registerToInteger($r.text);
-    }
-  ;
+    i=integer '(' r=REG ')' 
+        {
+            $offset = Integer.valueOf($i.text);            
+            $reg = Register.registerToInteger($r.text);
+        }
+    | '(' r=REG ')'
+        {
+            $offset = 0;            
+            $reg = Register.registerToInteger($r.text);
+        }
+    ;
 
-REG  :  '$' TREG
-     |  '$' VREG
-     |  '$' SREG
-     |  '$' AREG
-     |  '$' KREG
-     |  '$ra'
-     |  '$fp'
-     |  '$sp'
-     |  '$gp'
-     |  '$zero'
-     |  '$at'
-     ;
+quoted_str returns [String str] : 
+    '"' a=.*? '"' 
+        {
+            $str = $a.text;
+        }
+    ;
+
+null_terminated_str returns [String str] :
+    '"' a=.*? '\\0"'
+        {
+            $str = $a.text;
+        }
+    ;
+
+integer : 
+    NEGINTEGER
+    | POSINTEGER
+    ;
+
+REG :  '$' TREG
+    |  '$' VREG
+    |  '$' SREG
+    |  '$' AREG
+    |  '$' KREG
+    |  '$ra'
+    |  '$fp'
+    |  '$sp'
+    |  '$gp'
+    |  '$zero'
+    |  '$at'
+    ;
 
 TREG  :  't' [0-9] ;
 
@@ -785,19 +950,27 @@ SREG  :  's' [0-7] ;
 
 KREG  :  'k' [0-1] ;
 
-STRING : '"' .*? '"' ;
+IDENTIFIER  :  
+    '.' (LETTER|'_'|'.') (LETTER|DIGIT|'_'|'.')*
+    |   LETTER (LETTER|DIGIT|'_'|'.')*
+    ;
 
-IDENTIFIER  :  '.' (LETTER|'_'|'.') (LETTER|DIGIT|'_'|'.')*
-            |   LETTER (LETTER|DIGIT|'_'|'.')*
-            ;
+NEGINTEGER : 
+    '-' DIGIT+ 
+    ;
 
-INTEGER  : [-]? DIGIT+ [Ll]? ;
+POSINTEGER : 
+    '+' DIGIT+ 
+    | DIGIT+
+    ;
 
 fragment LETTER  : [a-zA-Z] ;
 
 fragment DIGIT:  '0'..'9' ;
 
-COMMENT :   '#' .*? '\r'? '\n' -> skip ;
+COMMENT : 
+    '#' .*? '\r'? ('\n' | EOF) -> skip
+    ;
 
 // Match both UNIX and Windows newlines
 NL      :   '\r'? '\n' -> skip;

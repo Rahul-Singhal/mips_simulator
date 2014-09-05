@@ -24,7 +24,6 @@ public class R2Iden extends Instruction implements Cloneable {
         super(); // Calling the Instruction() constructor for initialization
         this.rsIndex = rsIndex;
         this.rtIndex = rtIndex;
-        this.destPc = labelMap.get(label);
         this.id = id;
         this.label = label;
     }
@@ -43,7 +42,6 @@ public class R2Iden extends Instruction implements Cloneable {
         this.id = i.id;
         this.rtIndex = i.rtIndex;
         this.rsIndex = i.rsIndex;
-        this.destPc = labelMap.get(i.label);
         this.a = i.a;
         this.b = i.b;
         this.label = i.label;
@@ -67,6 +65,7 @@ public class R2Iden extends Instruction implements Cloneable {
                     executeOrdinaryStep();
                     break;
                 case ID:
+                    this.destPc = labelMap.get(label);
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
                     stages.get(presentStage).setInstruction(id);

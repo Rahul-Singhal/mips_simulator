@@ -202,7 +202,7 @@ public class mainWindow extends javax.swing.JFrame{
             java.util.logging.Logger.getLogger(mainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        Program prog = new Program("test_files/all_instructions");
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

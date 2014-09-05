@@ -103,6 +103,7 @@ class Memory {
     int loadAddress(String label){
         return memoryMap.get(label).second;
     }
+    
     int storeAscii(String label, String ascii){
         int place = freePointer;
         if (freePointer + ascii.length() <= store.length) {

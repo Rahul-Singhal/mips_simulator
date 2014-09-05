@@ -1,0 +1,94 @@
+.data
+words: .word 1, 2, 3
+bytes: .byte '8', 100
+spaces: .space 10
+str: .ascii "Hello\0" 
+str1: .asciiz "World" 
+
+.text
+
+main: 
+    la   $t1,   words  # spacing and comments
+
+empty:
+
+arith:
+    add $s1 $zero $v0
+    addi $a0 $s0 -2
+    addiu $a0 $s0 -2
+    addu $a0 $s0 $v0
+
+    sub $a0 $s0 $v0
+    subu $a0 $s0 $v0
+
+logical:
+    and $s1 $zero $v0
+    andi $a0 $t2 1
+
+    nor $s1 $t4 $v0
+    
+    or $s1 $zero $v0
+    ori $a0 $zero 1
+
+    xor $s1 $zero $v0
+    xori $a0 $zero 1
+
+bit_operations:
+    sll $s1 $t2 1
+    sllv $s1 $t2 $t3
+    slt $s1 $t2 $t3
+    slti $s1 $t2 2
+    sltiu $s1 $t2 1
+    sltu $s1 $t2 $t3
+    sra $s1 $t2 1
+    srav $s1 $t2 $t3
+    srl $s1 $t2 1
+    srlv $s1 $t2 $t3 
+
+multistage:
+    div $t1, $t5, $t2
+    divu $t1 $t5 $t2
+    mult $t1 $t5 $t2
+    multu $t1 $t5 $t2
+
+branch:
+    beq $t2, $s2, branch
+    bne $t1, $t2, arith
+
+    ble $t1, $t1, arith
+    bge $t1, $t1, arith
+    blt $t1, $t1, arith
+    bgt $t1, $t1, multistage
+
+jump:
+    j multistage
+    jal jump
+    jalr $ra
+    jr $ra
+
+load:
+    lb $t1, ($t2)
+    lbu $t1, 4($t2)
+    lh $t3, ($t3)
+    lhu $t3, 4($t2)
+    lw $t6, -4($t6)
+
+    lui $t1, 1
+    li $t3, -10
+
+store:
+    sb $t1, ($t2)
+    sh $t3, ($t3)
+    sw $t6, -4($t6)
+
+    lui $t1, 1
+    li $t3, -10
+    
+data:
+    la $t1, words
+    la $t2, bytes
+    la $t3, spaces
+    la $t5, str1
+
+end:
+    # exit
