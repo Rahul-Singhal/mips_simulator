@@ -1,8 +1,10 @@
 package mips;
 
 
-import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /*
@@ -16,15 +18,51 @@ import javax.swing.JPanel;
  * @author rahul
  */
 public class InstructionJPanel extends JPanel{
-    private int tempCount = 0;
+    ArrayList<Pair<Integer, String>> instStrings;
     
-//    public void paint(Graphics g){
-//        update(g);
-//    }
-//    
+    
+    public InstructionJPanel(){
+        instStrings = new ArrayList<Pair<Integer, String>>();
+        instStrings.clear();
+        // for testing purpose
+        addDummyInstructions();
+    }
+    
+    public void addDummyInstructions(){
+        for(int i = 0 ; i<10; i++){
+            instStrings.add(new Pair<Integer, String>(i, "Instruction"+i));
+        }
+    }
+    
     public void paintComponent(Graphics g){
-        //int size = mainWindow.allInstructions.size();
-        g.setColor(Color.red);
-        g.fillRect(50,50*(tempCount++),50,100);
+        System.out.println("paint component called");
+        super.paintComponent(g);
+        for(int i=0 ; i<instStrings.size(); i++){
+            g.drawString(instStrings.get(i).second,10,20*(i+1));
+        }
+    }
+    
+    public void handleNewInstruction(int frameHeight){
+        // for now adding new dummy instruction, pass instruction as param later
+        System.out.println("new added");
+        int totalInstructions = instStrings.size();
+        Pair<Integer, String> dummyInstr = new Pair<Integer, String>(totalInstructions, "Instruction"+totalInstructions);
+        instStrings.add(dummyInstr);
+        totalInstructions++;
+        // draw only new one or repaint
+        frameHeight -= 60;
+        if(frameHeight < 20*totalInstructions){
+            System.out.println("overflow " + this.getHeight());
+            this.scrollRectToVisible(new Rectangle(0, 20*totalInstructions + 30 - frameHeight, this.getWidth(), frameHeight));
+            this.setPreferredSize(new Dimension(this.getWidth(), 20*totalInstructions + 30));
+            this.revalidate();
+            repaint();
+            return;
+        }
+        Graphics g = this.getGraphics();
+        g.drawString("Instruction"+(totalInstructions -1),10,20*totalInstructions);
+        
+        
+        
     }
 }

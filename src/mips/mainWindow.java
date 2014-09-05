@@ -1,5 +1,9 @@
 package mips;
 
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -17,11 +21,43 @@ import java.util.Date;
  * @author rahul
  */
 public class mainWindow extends javax.swing.JFrame{
+    
     /**
      * Creates new form mainWindow
      */
     public mainWindow() {
         initComponents();
+        addKeyListener(new KeyListener() {
+            public void keyPressed(KeyEvent e) {
+                
+            }
+
+            public void keyReleased(KeyEvent e) {
+                System.out.println("pressed ");
+                handleKeyPressEvent();
+            }
+
+            public void keyTyped(KeyEvent e) {
+            }
+        });
+    }
+    
+    public void handleKeyPressEvent(){
+        instructionJPanel1.handleNewInstruction(this.getHeight());
+    }
+    
+    public void handleScrollbarUpdate(int point){
+        int height = this.getHeight();
+        int width = this.getWidth();
+        if(point >= height - 30){
+            System.out.println("changed");
+            instructionJPanel1.scrollRectToVisible(new Rectangle(0,point+30-height, width, height));
+            repaint();
+        }
+        // code to activate/deactivate scrollbar
+        //stageJPanel1.setPreferredSize(new Dimension(1000,1000));
+        //stageJPanel1.revalidate();
+        //stageJPanel1.repaint();
     }
 
     /**
