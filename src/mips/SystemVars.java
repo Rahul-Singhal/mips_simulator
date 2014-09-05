@@ -107,7 +107,7 @@ public class SystemVars {
     
     public static void resetPipelineDepth(int[] depths){
         // depths is an array of length 5
-        for(int i = 0; i<3; i++) stageDepths[i] = depths[i];
+        System.arraycopy(depths, 0, stageDepths, 0, 3);
         // mult and div
         depths[3] = 1;
         depths[4] = 1;

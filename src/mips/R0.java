@@ -16,7 +16,6 @@ public class R0 extends Instruction implements Cloneable {
     boolean isLink;
 
     public R0(String l, int i) {
-        destPc = labelMap.get(label);
         label = l;
         id = i;
     }
@@ -36,7 +35,6 @@ public class R0 extends Instruction implements Cloneable {
         // this.rtIndex = i.rtIndex;
         // this.rsIndex = i.rsIndex;
         this.label = i.label;
-        this.destPc = labelMap.get(i.label);
         this.isLink = i.isLink;
     }
 
@@ -56,6 +54,7 @@ public class R0 extends Instruction implements Cloneable {
                     executeOrdinaryStep();
                     break;
                 case ID:
+                    destPc = labelMap.get(label);
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
                     stages.get(presentStage).setInstruction(id);

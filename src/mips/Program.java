@@ -6,11 +6,11 @@
 
 package mips;
 
-import java.io.IOException;
-import org.antlr.v4.runtime.*;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.antlr.v4.runtime.*;
 
 /**
  *
@@ -56,19 +56,22 @@ public class Program extends SystemVars{
             MipsLexer lexer = new MipsLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             MipsParser parser = new MipsParser(tokens);
-            // parser.setBuildParseTree(true);
             RuleContext tree = parser.prog();
-            // tree.inspect(parser); // show in gui
-            // System.out.println("Instructions: ");
-            // for (Instruction instr : parser.instructions) {
-            //     instr.print();
-            // }
      
-            // TODO: uncomment the line below
-            // codeSnippet = parser.getVector(filename);
-            // codeSnippet = new ArrayList<>(Arrays.asList(new Instruction()));
-            codeSnippet = parser.instructions;
+            parser.checkLabels();
+            memory = parser.getMemory();
+            codeSnippet = parser.getInstructions();
+            labelMap = parser.getLabelMap();
             
+            System.out.println("Total Instructions: " + codeSnippet.size());
+            Iterator it = labelMap.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pairs = (Map.Entry)it.next();
+                System.out.println("Label " + pairs.getKey() + ": instruction index = " + pairs.getValue());
+            }
+            
+            // TODO: fetch labelMap, and execute instructions accordingly
+            code = new ArrayList <Instruction>();
             for(Instruction instruction : codeSnippet){
                 Instruction clonedInstruction = instruction.clone();
                 clonedInstruction.id = 0;
