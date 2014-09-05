@@ -22,10 +22,12 @@ import java.util.Date;
  */
 public class mainWindow extends javax.swing.JFrame{
     
+    private int tempID;
     /**
      * Creates new form mainWindow
      */
     public mainWindow() {
+        tempID = 0;
         initComponents();
         addKeyListener(new KeyListener() {
             public void keyPressed(KeyEvent e) {
@@ -33,7 +35,6 @@ public class mainWindow extends javax.swing.JFrame{
             }
 
             public void keyReleased(KeyEvent e) {
-                System.out.println("pressed ");
                 handleKeyPressEvent();
             }
 
@@ -42,8 +43,99 @@ public class mainWindow extends javax.swing.JFrame{
         });
     }
     
+    public void drawNextQueue(ArrayList<Instruction> a){
+        stageJPanel1.drawFinishedQueue(a);
+        instructionJPanel1.drawFinishedQueue(a);
+    }
+    
+    public void addDummyInstructions(){
+        Instruction inst1 = new Instruction(1,1,false,1, 20, false, 10, 20, "add $t1, $t2, $t3", 0);
+        Instruction inst2 = new Instruction(4,2,false,1, 20, false, 10, 20, "hey there2", 0);
+        Instruction inst3 = new Instruction(4,3,false,1, 20, false, 10, 20, "hey there3", 0);
+        Instruction inst4 = new Instruction(4,4,false,1, 20, false, 10, 20, "hey there4", 0);
+        Instruction inst5 = new Instruction(4,5,false,1, 20, false, 10, 20, "hey there5", 0);
+        Instruction inst6 = new Instruction(4,6,false,1, 20, false, 10, 20, "hey there6", 0);
+        Instruction inst7 = new Instruction(4,7,false,1, 20, false, 10, 20, "hey there7", 0);
+        Instruction inst8 = new Instruction(4,8,false,1, 20, false, 10, 20, "hey there8", 0);
+
+        Instruction inst11 = new Instruction(1,1,false,1, 20, false, 10, 20, "add $t4, $t1, $t3", 1);
+        Instruction inst21 = new Instruction(4,2,false,1, 20, false, 10, 20, "hey there2", 1);
+        
+        Instruction instxx = new Instruction(1,1,false,1, 20, false, 10, 20, "sll $t4, $t1, $t3", 2);
+        Instruction inst311 = new Instruction(4,3,true,0, 20, false, 10, 20, "hey there2", 1);
+        Instruction inst312 = new Instruction(4,3,true,0, 20, false, 10, 20, "hey there2", 1);
+        Instruction inst313 = new Instruction(4,3,true,0, 20, false, 10, 20, "hey there2", 1);
+        Instruction inst314 = new Instruction(4,3,true,0, 20, false, 10, 20, "hey there2", 1);
+
+        Instruction inst31 = new Instruction(4,3,false,1, 20, false, 10, 20, "hey there3", 1);
+        Instruction inst41 = new Instruction(4,4,false,1, 20, false, 10, 20, "hey there4", 1);
+        Instruction inst51 = new Instruction(4,5,false,1, 20, false, 10, 20, "hey there5", 1);
+        Instruction inst61 = new Instruction(4,6,false,1, 20, false, 10, 20, "hey there6", 1);
+        Instruction inst71 = new Instruction(4,7,false,1, 20, false, 10, 20, "hey there7", 1);
+        Instruction inst81 = new Instruction(4,8,false,1, 20, false, 10, 20, "hey there8", 1);
+        
+        ArrayList<Instruction> v = new ArrayList<Instruction>();
+        v.clear();
+        switch(tempID){
+            case 0:
+                v.add(inst1);
+                break;
+            case 1:
+                v.add(inst2);
+                v.add(inst11);
+                break;
+            case 2:
+                v.add(inst3);
+                v.add(inst21);
+                v.add(instxx);
+                break;
+            case 3:
+                v.add(inst4);
+                v.add(inst311);
+                break;
+            case 4:
+                v.add(inst5);
+                v.add(inst312);
+                break;
+            case 5:
+                v.add(inst6);
+                v.add(inst313);
+                break;
+            case 6:
+                v.add(inst7);
+                v.add(inst314);
+                break;
+            case 7:
+                v.add(inst8);
+                v.add(inst31);
+                break;
+            case 8:
+                v.add(inst41);
+                break;
+            case 9:
+                v.add(inst51);
+                break;
+            case 10:
+                v.add(inst61);
+                break;
+            case 11:
+                v.add(inst71);
+                break;
+            case 12:
+                v.add(inst81);
+                break;
+            default:
+                System.out.println("Drama over, go kill yourself :P");
+                return;
+        }
+        tempID++;
+        drawNextQueue(v);
+    }
+    
     public void handleKeyPressEvent(){
-        instructionJPanel1.handleNewInstruction(this.getHeight());
+        addDummyInstructions();
+//        instructionJPanel1.handleNewInstruction(this.getHeight());
+//        this.repaint();
     }
     
     public void handleScrollbarUpdate(int point){

@@ -18,33 +18,38 @@ import javax.swing.JPanel;
  * @author rahul
  */
 public class InstructionJPanel extends JPanel{
+    private int instHeight;
+    private int instWidth;
     ArrayList<Pair<Integer, String>> instStrings;
     
     
     public InstructionJPanel(){
+        super();
         instStrings = new ArrayList<Pair<Integer, String>>();
-        instStrings.clear();
-        // for testing purpose
-        addDummyInstructions();
-    }
-    
-    public void addDummyInstructions(){
-        for(int i = 0 ; i<10; i++){
-            instStrings.add(new Pair<Integer, String>(i, "Instruction"+i));
-        }
+        instHeight = 20;
+        instWidth = 50;
     }
     
     public void paintComponent(Graphics g){
-        System.out.println("paint component called");
         super.paintComponent(g);
         for(int i=0 ; i<instStrings.size(); i++){
-            g.drawString(instStrings.get(i).second,10,20*(i+1));
+            g.drawString(instStrings.get(i).second,10,15+(instHeight+20)*instStrings.get(i).first);
+        }
+    }
+    
+    public void drawFinishedQueue(ArrayList<Instruction> v){
+        Graphics g = this.getGraphics();
+        for(int i = 0 ; i<v.size(); i++){
+            if(v.get(i).getPresentStage() == 1){
+                Instruction inst = v.get(i);
+                instStrings.add(new Pair<Integer, String>(inst.getId(), inst.getDisplayString()));
+                g.drawString(inst.getDisplayString(),10,15+(instHeight+20)*instStrings.get(i).first);
+            }
         }
     }
     
     public void handleNewInstruction(int frameHeight){
         // for now adding new dummy instruction, pass instruction as param later
-        System.out.println("new added");
         int totalInstructions = instStrings.size();
         Pair<Integer, String> dummyInstr = new Pair<Integer, String>(totalInstructions, "Instruction"+totalInstructions);
         instStrings.add(dummyInstr);
@@ -52,7 +57,6 @@ public class InstructionJPanel extends JPanel{
         // draw only new one or repaint
         frameHeight -= 60;
         if(frameHeight < 20*totalInstructions){
-            System.out.println("overflow " + this.getHeight());
             this.scrollRectToVisible(new Rectangle(0, 20*totalInstructions + 30 - frameHeight, this.getWidth(), frameHeight));
             this.setPreferredSize(new Dimension(this.getWidth(), 20*totalInstructions + 30));
             this.revalidate();
