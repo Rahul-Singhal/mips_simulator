@@ -2,12 +2,15 @@ package mips;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.BoundedRangeModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,10 +26,12 @@ import java.util.Date;
 public class mainWindow extends javax.swing.JFrame{
     
     private int tempID;
+    private BoundedRangeModel horizontalScrollBarModel;
     /**
      * Creates new form mainWindow
      */
     public mainWindow() {
+        SystemVars initSysVars = new SystemVars();
         tempID = 0;
         initComponents();
         addKeyListener(new KeyListener() {
@@ -41,11 +46,13 @@ public class mainWindow extends javax.swing.JFrame{
             public void keyTyped(KeyEvent e) {
             }
         });
+        instructionJPanel1.drawHeaders(null);
     }
     
     public void drawNextQueue(ArrayList<Instruction> a){
-        stageJPanel1.drawFinishedQueue(a);
-        instructionJPanel1.drawFinishedQueue(a);
+        stageJPanel1.drawFinishedQueue(a, this.getWidth()-instructionJPanel1.getWidth(), this.getHeight());
+        instructionJPanel1.drawFinishedQueue(a, this.getHeight());
+        
     }
     
     public void addDummyInstructions(){
@@ -53,10 +60,11 @@ public class mainWindow extends javax.swing.JFrame{
         Instruction inst2 = new Instruction(4,2,false,1, 20, false, 10, 20, "hey there2", 0);
         Instruction inst3 = new Instruction(4,3,false,1, 20, false, 10, 20, "hey there3", 0);
         Instruction inst4 = new Instruction(4,4,false,1, 20, false, 10, 20, "hey there4", 0);
-        Instruction inst5 = new Instruction(4,5,false,1, 20, false, 10, 20, "hey there5", 0);
-        Instruction inst6 = new Instruction(4,6,false,1, 20, false, 10, 20, "hey there6", 0);
-        Instruction inst7 = new Instruction(4,7,false,1, 20, false, 10, 20, "hey there7", 0);
-        Instruction inst8 = new Instruction(4,8,false,1, 20, false, 10, 20, "hey there8", 0);
+        Instruction inst5 = new Instruction(4,7,false,1, 20, false, 10, 20, "hey there5", 0);
+        Instruction inst6 = new Instruction(4,8,false,1, 20, false, 10, 20, "hey there6", 0);
+        Instruction inst7 = new Instruction(4,9,false,1, 20, false, 10, 20, "hey there7", 0);
+        Instruction inst8 = new Instruction(4,10,false,1, 20, false, 10, 20, "hey there8", 0);
+        
 
         Instruction inst11 = new Instruction(1,1,false,1, 20, false, 10, 20, "add $t4, $t1, $t3", 1);
         Instruction inst21 = new Instruction(4,2,false,1, 20, false, 10, 20, "hey there2", 1);
@@ -134,23 +142,29 @@ public class mainWindow extends javax.swing.JFrame{
     
     public void handleKeyPressEvent(){
         addDummyInstructions();
+        stageJPanel1.doSomething();
+        jPanel1.setPreferredSize(new Dimension(this.getWidth(), 1000));
+        revalidate();
+        repaint();
+                
+//        System.out.println(jScrollBar2.getValue());
 //        instructionJPanel1.handleNewInstruction(this.getHeight());
 //        this.repaint();
     }
     
-    public void handleScrollbarUpdate(int point){
-        int height = this.getHeight();
-        int width = this.getWidth();
-        if(point >= height - 30){
-            System.out.println("changed");
-            instructionJPanel1.scrollRectToVisible(new Rectangle(0,point+30-height, width, height));
-            repaint();
-        }
-        // code to activate/deactivate scrollbar
-        //stageJPanel1.setPreferredSize(new Dimension(1000,1000));
-        //stageJPanel1.revalidate();
-        //stageJPanel1.repaint();
-    }
+//    public void handleScrollbarUpdate(int point){
+//        int height = this.getHeight();
+//        int width = this.getWidth();
+//        if(point >= height - 30){
+//            System.out.println("changed");
+//            instructionJPanel1.scrollRectToVisible(new Rectangle(0,point+30-height, width, height));
+//            repaint();
+//        }
+//        // code to activate/deactivate scrollbar
+//        //stageJPanel1.setPreferredSize(new Dimension(1000,1000));
+//        //stageJPanel1.revalidate();
+//        //stageJPanel1.repaint();
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -164,6 +178,7 @@ public class mainWindow extends javax.swing.JFrame{
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         instructionJPanel1 = new mips.InstructionJPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         stageJPanel1 = new mips.StageJPanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -181,30 +196,44 @@ public class mainWindow extends javax.swing.JFrame{
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(605, 462));
+
+        jScrollPane1.setHorizontalScrollBar(null);
+
+        jPanel1.setBackground(new java.awt.Color(41, 138, 79));
+        jPanel1.setPreferredSize(new java.awt.Dimension(600, 400));
 
         instructionJPanel1.setBackground(new java.awt.Color(148, 133, 118));
+        instructionJPanel1.setPreferredSize(new java.awt.Dimension(140, 400));
 
         javax.swing.GroupLayout instructionJPanel1Layout = new javax.swing.GroupLayout(instructionJPanel1);
         instructionJPanel1.setLayout(instructionJPanel1Layout);
         instructionJPanel1Layout.setHorizontalGroup(
             instructionJPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 125, Short.MAX_VALUE)
+            .addGap(0, 140, Short.MAX_VALUE)
         );
         instructionJPanel1Layout.setVerticalGroup(
             instructionJPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 408, Short.MAX_VALUE)
         );
+
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        stageJPanel1.setBackground(new java.awt.Color(182, 198, 238));
+        stageJPanel1.setPreferredSize(new java.awt.Dimension(460, 400));
 
         javax.swing.GroupLayout stageJPanel1Layout = new javax.swing.GroupLayout(stageJPanel1);
         stageJPanel1.setLayout(stageJPanel1Layout);
         stageJPanel1Layout.setHorizontalGroup(
             stageJPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 367, Short.MAX_VALUE)
+            .addGap(0, 460, Short.MAX_VALUE)
         );
         stageJPanel1Layout.setVerticalGroup(
             stageJPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 332, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
+
+        jScrollPane2.setViewportView(stageJPanel1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -213,12 +242,12 @@ public class mainWindow extends javax.swing.JFrame{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(instructionJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(stageJPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(instructionJPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(stageJPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(instructionJPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -294,7 +323,9 @@ public class mainWindow extends javax.swing.JFrame{
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE))
         );
 
         pack();
@@ -353,6 +384,7 @@ public class mainWindow extends javax.swing.JFrame{
     private mips.InstructionJPanel instructionJPanel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;

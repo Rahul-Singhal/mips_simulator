@@ -6,6 +6,8 @@
 
 package mips;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -85,6 +87,10 @@ public class SystemVars {
     static enum stageType{IF, ID, EX, MULT, DIV, MEM, WB, DUMMY};
     static int[] stageDepths = {2,1,1,1,1,3,1};
     static HashMap<Integer, stageType> stageMap = new HashMap();
+    static HashMap<Integer, stageType> baseStageMap = new HashMap();
+    static HashMap<Integer, String> stageNameMap = new HashMap();
+    static int offsetFromTop = 60;
+    static Font guiFont = new Font("Georgia", Font.BOLD, 11);
     
     public static stageType getStageType(Integer index){
         if(stageMap.containsKey(index)) return stageMap.get(index);
@@ -105,6 +111,35 @@ public class SystemVars {
         return stageMap.get(index);
     }
     
+    public void buildBaseStageMap(){
+        int x = 0;
+        int j = 1;
+        for(stageType sType: stageType.values()){
+            if(sType == stageType.DUMMY) continue;
+            for(int i = 0; i<stageDepths[x]; i++){
+                baseStageMap.put(j, sType);
+                j++;
+            }
+            x++;
+        }
+    }
+    
+    public void buildStageNameMap(){
+        int x = 0;
+        int j = 1;
+        String stageName;
+        for(stageType sType: stageType.values()){
+            if(sType == stageType.DUMMY) continue;
+            for(int i = 1; i<=stageDepths[x]; i++){
+                stageName = sType.toString();
+                if(stageDepths[x] != 1) stageName += i;
+                stageNameMap.put(j, stageName);
+                j++;
+            }
+            x++;
+        }
+    }
+    
     public static void resetPipelineDepth(int[] depths){
         // depths is an array of length 5
         System.arraycopy(depths, 0, stageDepths, 0, 3);
@@ -113,5 +148,29 @@ public class SystemVars {
         depths[4] = 1;
         for(int i = 5; i<7; i++) stageDepths[i] = depths[i-2];
         stageMap.clear();
+    }
+    
+    public static int getTotalDifferentStages(){
+        int sum = 0;
+        for(int i = 0; i<stageDepths.length; i++){
+            sum += stageDepths[i];
+        }
+        return sum;
+    }
+    
+    // gui vars
+    static HashMap<stageType, Color> stageColorMap = new HashMap<stageType, Color>();
+    
+    // constructor
+    public SystemVars(){
+        buildBaseStageMap();
+        buildStageNameMap();
+        stageColorMap.put(stageType.IF, new Color((float)0.372549,(float)0.619608,(float)0.62745));
+        stageColorMap.put(stageType.ID, new Color((float)1,(float)0.498039,(float)0.313725));
+        stageColorMap.put(stageType.EX, new Color((float)0.662745,(float)0.662745,(float)0.662745));
+        stageColorMap.put(stageType.MEM, new Color((float)0,(float)0.74902,(float)1));
+        stageColorMap.put(stageType.WB, new Color((float)1,(float)0.647059,(float)0));
+        stageColorMap.put(stageType.MULT, new Color((float)0.803922,(float)0.360784,(float)0.360784));
+        stageColorMap.put(stageType.DIV, new Color((float)0.737255,(float)0.560784,(float)0.560784));
     }
 }
