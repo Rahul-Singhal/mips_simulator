@@ -187,13 +187,8 @@ label_list  : (label)* ;
 label   : 
     l=IDENTIFIER ':' stmt_list 
         {
-            if (instructions.size() > instructionIndex) {
-                addLabel($l.text, instructionIndex, $l.getLine());
-                instructionIndex = instructions.size();
-            }
-            else if (instructions.size() == instructionIndex) {
-                addLabel($l.text, -1, $l.getLine());
-            }
+            addLabel($l.text, instructionIndex, $l.getLine());
+            instructionIndex = instructions.size();
         }
     ;
 

@@ -1,0 +1,7 @@
+.text
+
+main:
+
+beq $zero $zero random
+
+random:
