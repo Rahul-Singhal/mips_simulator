@@ -52,7 +52,6 @@ public class R2Iden extends Instruction implements Cloneable {
     boolean execute(int pc) {
         forwarded = false;
         stalled = false;
-
         if (!stages.get(stageToExecute).isFree()) {
             stallInstructionStageBusy();
             return false;
@@ -65,7 +64,6 @@ public class R2Iden extends Instruction implements Cloneable {
                     executeOrdinaryStep();
                     break;
                 case ID:
-                    this.destPc = labelMap.get(label);
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
                     stages.get(presentStage).setInstruction(id);
@@ -92,13 +90,11 @@ public class R2Iden extends Instruction implements Cloneable {
                         }
                         stageToExecute++;
                         stalled = false;
-                        if (fastBranching) {
-                            if (branchTaken) {
-                                programCounter = destPc - 1;
-                                branchChanged = true;
-                            }
-                        }
+                        this.destPc = labelMap.get(label);
+                        branchChanged = fastBranching ? branchTaken : checkBranchChange();
+                        if (branchChanged) programCounter = destPc - 1;
                     }
+                    return true; 
                 case EX:
                     if (!fastBranching) {
                         if (branchTaken) {

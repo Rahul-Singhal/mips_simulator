@@ -114,6 +114,7 @@ public class Program extends SystemVars{
         code.get(programCounter).id = instrId;
         code.get(programCounter).presentStage = 0;
         code.get(programCounter).stageToExecute = 1;
+        currInstructions = new ArrayList<Instruction>();
         currInstructions.add(code.get(programCounter));
     }
     
@@ -121,6 +122,7 @@ public class Program extends SystemVars{
         code.clear();
         this.init();
     }
+    
 
     ArrayList <Instruction> execute(){
         clockCycle++;

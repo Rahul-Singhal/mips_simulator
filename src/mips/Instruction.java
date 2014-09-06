@@ -151,5 +151,17 @@ public class Instruction extends SystemVars implements Cloneable {
         stallingInstructionId = registers.get(rIndex).instructionId;
         rStalls++;
     }
+    
+    public boolean checkBranchChange() {
+        if (branchStrategy == SystemVars.branchStrategyType.TAKEN) {
+            return true;
+        }
+        else if (branchStrategy == SystemVars.branchStrategyType.HISTORY) {
+            return branchHistory.get(programCounter % historySize).get(0); 
+        }
+        else {
+            return false;
+        } // Assuming default strategy NOTTAKEN
+    }
 
 }

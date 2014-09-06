@@ -9,6 +9,7 @@ package mips;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,53 +21,17 @@ public class SystemVars {
     static boolean programOver;
     static ArrayList <Register> registers = new ArrayList<Register>(){
         {
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
-            add(new Register(0,0));
+            for (int i = 0; i < 32; i++) {
+                add(new Register(0,0));
+            }            
         }
     };
     static ArrayList <Stage> stages = new ArrayList<Stage>(){
         {
-            add(new Stage(0));
-            add(new Stage(0));
-            add(new Stage(0));
-            add(new Stage(0));
-            add(new Stage(0));
-            add(new Stage(0));
-            add(new Stage(0));
-            add(new Stage(0));
-            add(new Stage(0));
-            add(new Stage(0));
-            add(new Stage(0));
+            
+            for (int i = 0; i < 11; i++) {
+                add(new Stage(0));
+            } 
         }
     };
     
@@ -79,12 +44,23 @@ public class SystemVars {
     static Map<String, Integer> labelMap = new HashMap<>();
     static int rStalls = 0;
     static int sStalls = 0;
+    static int historyBits = 1;
+    static int historySize = 1024;
     static int clockCycle = 0;
     static boolean branchChanged = false;
+    static branchStrategyType branchStrategy = branchStrategyType.HISTORY;
+    static enum branchStrategyType {TAKEN, NOTTAKEN, HISTORY};  
+    static ArrayList<BitSet> branchHistory = new ArrayList<BitSet>(){
+        {
+            for (int i = 0; i < historySize; i++) {
+                add(new BitSet(historyBits));
+            }
+        }
+    }; 
     // generalization variables
     // default depths for 8 stage pipelines
     static int totalDepth = 8;
-    static enum stageType{IF, ID, EX, MULT, DIV, MEM, WB, DUMMY};
+    static enum stageType {IF, ID, EX, MULT, DIV, MEM, WB, DUMMY};
     static int[] stageDepths = {2,1,1,1,1,3,1};
     static HashMap<Integer, stageType> stageMap = new HashMap();
     static HashMap<Integer, stageType> baseStageMap = new HashMap();
@@ -97,13 +73,15 @@ public class SystemVars {
         // stageMap not yet calculated. do it now
         int[] cumArray = new int[7];
         cumArray[0] = stageDepths[0];
-        for(int i = 1; i<7; i++){
+        for(int i = 1; i < 7; i++){
             cumArray[i] = stageDepths[i] + cumArray[i-1];
         }
         int x = 0;
         for(stageType sType: stageType.values()){
-            stageMap.put(cumArray[x], sType);
-            x++;
+            if (x < 7) {
+                stageMap.put(cumArray[x], sType);
+                x++;
+            }
         }
         for(int i = 1; i<=totalDepth+2; i++){
             if(!stageMap.containsKey(i)) stageMap.put(i, stageType.DUMMY);
