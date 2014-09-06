@@ -361,9 +361,9 @@ public class mainWindow extends javax.swing.JFrame{
             java.util.logging.Logger.getLogger(mainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        Program prog = new Program("test_files/TestBranch");
-        prog.init();
-        prog.executeAll();
+//        Program prog = new Program("test_files/TestBranch");
+//        prog.init();
+//        prog.executeAll();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

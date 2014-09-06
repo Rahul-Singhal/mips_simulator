@@ -63,6 +63,7 @@ public class SystemVars {
     static enum stageType {IF, ID, EX, MULT, DIV, MEM, WB, DUMMY};
     static int[] stageDepths = {2,1,1,1,1,3,1};
     static HashMap<Integer, stageType> stageMap = new HashMap();
+    static HashMap<stageType, Integer> reverseStageTypeMap= new HashMap();
     static HashMap<Integer, stageType> baseStageMap = new HashMap();
     static HashMap<Integer, String> stageNameMap = new HashMap();
     static int offsetFromTop = 60;
@@ -99,6 +100,17 @@ public class SystemVars {
                 j++;
             }
             x++;
+        }
+    }
+    
+    public static void buildReverseStageTypeMap(){
+        int index = 0; 
+        int sum = 0;
+        for(stageType sType: stageType.values()){
+            if(sType == stageType.DUMMY) continue;
+            sum += stageDepths[index];
+            reverseStageTypeMap.put(sType, sum);
+            index++;
         }
     }
     
@@ -141,6 +153,7 @@ public class SystemVars {
     
     // constructor
     public SystemVars(){
+        buildReverseStageTypeMap();
         buildBaseStageMap();
         buildStageNameMap();
         stageColorMap.put(stageType.IF, new Color((float)0.372549,(float)0.619608,(float)0.62745));

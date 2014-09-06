@@ -11,7 +11,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.BoundedRangeModel;
@@ -28,8 +30,11 @@ public class StageJPanel extends JPanel{
     private int offsetFromTop;
     private int leftPaneShift;
     private Font guiFont;
+    private int barb = 10;
+    private double phi = Math.PI/12;
     ArrayList<ArrayList<Instruction>> allInstructions;
     private HashMap<Integer, Pair<String, Color>> stagePropertiesMap;
+    private int idStage;
     
     public StageJPanel(){
         allInstructions = new ArrayList<ArrayList<Instruction>>();
@@ -40,6 +45,7 @@ public class StageJPanel extends JPanel{
         stagePropertiesMap = new HashMap<Integer, Pair<String, Color>>();
         offsetFromTop = SystemVars.offsetFromTop;
         buildStagePropertiesMap();
+        idStage = SystemVars.reverseStageTypeMap.get(SystemVars.stageType.ID);
     }
     
     public void buildStagePropertiesMap(){
@@ -81,8 +87,62 @@ public class StageJPanel extends JPanel{
         g.setFont(guiFont);
         String label = stageProperties.first;
         FontMetrics fm = g.getFontMetrics();
-        int stringWidth = fm.getStringBounds(label, g).getBounds().width;
-        g.drawString(label, leftPaneShift+(instWidth+2)*column + (instWidth-stringWidth)/2, offsetFromTop + 15 + (instHeight+20)*instruction.getId());
+
+        if(!instruction.getStalled() && !instruction.getForwarded()) {
+            int stringWidth = fm.getStringBounds(label, g).getBounds().width;
+            g.drawString(label, leftPaneShift+(instWidth+2)*column + (instWidth-stringWidth)/2, offsetFromTop + 15 + (instHeight+20)*instruction.getId());
+        }
+        
+        if(instruction.getStalled() && !instruction.getForwarded()){
+            label = "STALL";
+            int stringWidth = fm.getStringBounds(label, g).getBounds().width;
+            g.drawString(label, leftPaneShift+(instWidth+2)*column + (instWidth-stringWidth)/2, offsetFromTop + 15 + (instHeight+20)*instruction.getId());
+
+            if(instruction.getStallingInstructionId() != -1){
+                boolean checkLast = false;
+                for(int q = 0 ; q<allInstructions.get(column-1).size(); q++){
+                    if(allInstructions.get(column-1).get(q).id == instruction.id){
+                        if(allInstructions.get(column-1).get(q).getStalled()){
+                            checkLast = true;
+                            break;
+                        } else {
+                            checkLast = false;
+                            break;
+                        }
+                    }
+                }
+
+                if(!checkLast){
+                    //draw arrow
+                    int alpha = 1;
+                    int beta;
+                    // stage to look for is ID
+                    boolean myFlag = false;
+                    int stallInstId = instruction.getStallingInstructionId();
+                    while(alpha <= column){
+                        int maxLeng = allInstructions.get(column-alpha).size();
+                        for(beta = 0; beta < maxLeng; beta++){
+                            if(allInstructions.get(column-alpha).get(beta).getId() == stallInstId && allInstructions.get(column-alpha).get(beta).getPresentStage() == idStage){
+                                myFlag = true;
+                                break;
+                            } else if(allInstructions.get(column-alpha).get(beta).getId() > stallInstId){
+                                myFlag = false;
+                                break;
+                            }
+                        }
+                        if(myFlag) break;
+                        alpha++;
+                    }
+                    drawArrow(column, row, alpha, -instruction.getStallingInstructionId()+instruction.id, false, g);
+                }
+            }
+        }
+        if(instruction.getForwarded()){
+            //draw arrow to display forwarding
+            int stringWidth = fm.getStringBounds(label, g).getBounds().width;
+            g.drawString(label, leftPaneShift+(instWidth+2)*column + (instWidth-stringWidth)/2, offsetFromTop + 15 + (instHeight+20)*instruction.getId());
+            drawArrow(column, row, 1, instruction.getId()-instruction.getForwardedFromInstructionId(), true, g);
+        }   
     }
     
     public void doSomething(){
@@ -105,12 +165,37 @@ public class StageJPanel extends JPanel{
             offsetFromTop - 25,
             offsetFromTop - 35
         };
+        g.setColor(Color.black);
         g.drawPolyline(xPoints, yPoints, 4);
         g.setFont(guiFont);
         String label = ""+column;
         FontMetrics fm = g.getFontMetrics();
         int stringWidth = fm.getStringBounds(label, g).getBounds().width;
         g.drawString(label,leftPaneShift + (instWidth+2)*column + (instWidth-stringWidth)/2 ,offsetFromTop - 30);
+    }
+    
+    public void drawArrow(int column, int row, int back, int up, boolean forwardArrow, Graphics g){
+        if(g == null) g = this.getGraphics();
+        int column0 = column - back;
+        int row0 = row - up;
+        int x1 = leftPaneShift + (instWidth+2)*column0 + instWidth/2;
+        int x2 = leftPaneShift + (instWidth+2)*column + instWidth/2;
+        int y1 = offsetFromTop + (instHeight+20)*row0 + instHeight;
+        int y2 = offsetFromTop + (instHeight+20)*row;
+        if(forwardArrow){
+            g.setColor(Color.red);
+        } else {
+            g.setColor(Color.black);
+        }
+        g.drawLine(x1, y1, x2, y2);
+        Graphics2D g2 = (Graphics2D) g;
+        double theta = Math.atan2(y2 - y1, x2 - x1);
+        double x = x2 - barb * Math.cos(theta + phi);  
+        double y = y2 - barb * Math.sin(theta + phi);  
+        g2.draw(new Line2D.Double(x2, y2, x, y));  
+        x = x2 - barb * Math.cos(theta - phi);  
+        y = y2 - barb * Math.sin(theta - phi);  
+        g2.draw(new Line2D.Double(x2, y2, x, y)); 
     }
    
 }
