@@ -35,6 +35,7 @@ public class StageJPanel extends JPanel{
     ArrayList<ArrayList<Instruction>> allInstructions;
     private HashMap<Integer, Pair<String, Color>> stagePropertiesMap;
     private int idStage;
+    private int preferredWidth;
     
     public StageJPanel(){
         allInstructions = new ArrayList<ArrayList<Instruction>>();
@@ -46,6 +47,7 @@ public class StageJPanel extends JPanel{
         offsetFromTop = SystemVars.offsetFromTop;
         buildStagePropertiesMap();
         idStage = SystemVars.reverseStageTypeMap.get(SystemVars.stageType.ID);
+        preferredWidth = 0;
     }
     
     public void buildStagePropertiesMap(){
@@ -67,16 +69,18 @@ public class StageJPanel extends JPanel{
         }
     }
     
-    public void drawFinishedQueue(ArrayList<Instruction> v, int frameWidth, int frameHeight){
+    public int drawFinishedQueue(ArrayList<Instruction> v, int frameWidth, int frameHeight){
         int column = allInstructions.size();
         drawHeader(column, null);
         allInstructions.add(v);
         for(int row = 0 ; row<v.size(); row++){
             drawInstruction(v.get(row),column, row, null);
         }
+        return preferredWidth;
     }
     
     public void drawInstruction(Instruction instruction, int column, int row, Graphics g){
+        
         int presentStage = instruction.getPresentStage();
         if(presentStage == 0) return;
         if(g == null) g = this.getGraphics();
@@ -165,6 +169,13 @@ public class StageJPanel extends JPanel{
             offsetFromTop - 25,
             offsetFromTop - 35
         };
+        if(preferredWidth == 0) preferredWidth = this.getWidth();
+        if(preferredWidth < leftPaneShift + (instWidth+2)*column + instWidth + 50){
+            preferredWidth += 150;
+            this.setPreferredSize(new Dimension(preferredWidth, this.getHeight()));
+            revalidate();
+            repaint();
+        }
         g.setColor(Color.black);
         g.drawPolyline(xPoints, yPoints, 4);
         g.setFont(guiFont);

@@ -23,6 +23,7 @@ public class InstructionJPanel extends JPanel{
     private int instWidth;
     private int offsetFromTop;
     private Font guiFont;
+    private int preferredHeight;
     ArrayList<Pair<Integer, String>> instStrings;
     
     
@@ -33,6 +34,7 @@ public class InstructionJPanel extends JPanel{
         instWidth = 60;
         offsetFromTop = SystemVars.offsetFromTop;
         guiFont = SystemVars.guiFont;
+        preferredHeight = 0;
     }
     
     public void paintComponent(Graphics g){
@@ -44,13 +46,14 @@ public class InstructionJPanel extends JPanel{
         }
     }
     
-    public void drawFinishedQueue(ArrayList<Instruction> v, int frameHeight){
+    public int drawFinishedQueue(ArrayList<Instruction> v, int frameHeight){
         Graphics g = this.getGraphics();
         for(int i = 0 ; i<v.size(); i++){
             if(v.get(i).getPresentStage() == 1){
                 handleNewInstruction(v.get(i), frameHeight);
             }
         }
+        return preferredHeight;
     }
     
     public void handleNewInstruction(Instruction inst, int frameHeight){
@@ -58,13 +61,9 @@ public class InstructionJPanel extends JPanel{
         instStrings.add(new Pair<Integer, String>(inst.getId(), inst.getDisplayString()));
         totalInstructions++;
         // draw only new one or repaint
-        frameHeight -= 60;
-        if(frameHeight < 20*totalInstructions){
-            this.scrollRectToVisible(new Rectangle(0, 20*totalInstructions + 30 - frameHeight, this.getWidth(), frameHeight));
-            this.setPreferredSize(new Dimension(this.getWidth(), 20*totalInstructions + 30));
-            this.revalidate();
-            repaint();
-            return;
+        if(preferredHeight == 0) preferredHeight = this.getHeight();
+        if(preferredHeight < (instHeight+20)*totalInstructions + 80){
+            preferredHeight += 150;
         }
         Graphics g = this.getGraphics();
         g.setFont(guiFont);

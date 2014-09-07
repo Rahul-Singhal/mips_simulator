@@ -26,11 +26,16 @@ import javax.swing.BoundedRangeModel;
 public class mainWindow extends javax.swing.JFrame{
     
     private int tempID;
+    private int ttid;
     private BoundedRangeModel horizontalScrollBarModel;
+    private int preferredHeight;
+    private int preferredWidth;
     /**
      * Creates new form mainWindow
      */
     public mainWindow() {
+        preferredHeight = 0;
+        ttid = 3;
         SystemVars initSysVars = new SystemVars();
         tempID = 0;
         initComponents();
@@ -50,8 +55,19 @@ public class mainWindow extends javax.swing.JFrame{
     }
     
     public void drawNextQueue(ArrayList<Instruction> a){
-        stageJPanel1.drawFinishedQueue(a, this.getWidth()-instructionJPanel1.getWidth(), this.getHeight());
-        instructionJPanel1.drawFinishedQueue(a, this.getHeight());
+        int newPreferredWidth = stageJPanel1.drawFinishedQueue(a, this.getWidth()-instructionJPanel1.getWidth(), this.getHeight());
+        int newPreferredHeight = instructionJPanel1.drawFinishedQueue(a, this.getHeight());
+        if(preferredHeight != newPreferredHeight){
+            preferredHeight = newPreferredHeight;
+            jPanel1.setPreferredSize(new Dimension(jPanel1.getWidth(), newPreferredHeight));
+            
+        }
+        if(preferredWidth != newPreferredWidth){
+            preferredWidth = newPreferredWidth;
+            stageJPanel1.setPreferredSize(new Dimension(newPreferredWidth, stageJPanel1.getHeight()));
+        }
+        revalidate();
+        repaint();
         
     }
     
@@ -134,7 +150,10 @@ public class mainWindow extends javax.swing.JFrame{
                 break;
             default:
                 System.out.println("Drama over, go kill yourself :P");
-                return;
+                instxx = new Instruction(1,1,false,1, 20, false, 10, 20, "sll $t4, $t1, $t3", ttid);
+                ttid++;
+                v.add(instxx);
+                break;
         }
         tempID++;
         drawNextQueue(v);
@@ -142,10 +161,10 @@ public class mainWindow extends javax.swing.JFrame{
     
     public void handleKeyPressEvent(){
         addDummyInstructions();
-        stageJPanel1.doSomething();
-        jPanel1.setPreferredSize(new Dimension(this.getWidth(), 1000));
-        revalidate();
-        repaint();
+//        stageJPanel1.doSomething();
+//        jPanel1.setPreferredSize(new Dimension(this.getWidth(), 1000));
+//        revalidate();
+//        repaint();
                 
 //        System.out.println(jScrollBar2.getValue());
 //        instructionJPanel1.handleNewInstruction(this.getHeight());
