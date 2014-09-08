@@ -66,7 +66,7 @@ public class SystemVars {
     static HashMap<stageType, Integer> reverseStageTypeMap= new HashMap();
     static HashMap<Integer, stageType> baseStageMap = new HashMap();
     static HashMap<Integer, String> stageNameMap = new HashMap();
-    static int offsetFromTop = 60;
+    static int offsetFromTop = 80;
     static Font guiFont = new Font("Georgia", Font.BOLD, 11);
     
     public static stageType getStageType(Integer index){

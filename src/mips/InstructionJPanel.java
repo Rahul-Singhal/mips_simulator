@@ -1,10 +1,10 @@
 package mips;
 
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -27,7 +27,7 @@ public class InstructionJPanel extends JPanel{
     ArrayList<Pair<Integer, String>> instStrings;
     
     
-    public InstructionJPanel(){
+    public InstructionJPanel(int height){
         super();
         instStrings = new ArrayList<Pair<Integer, String>>();
         instHeight = 20;
@@ -35,6 +35,7 @@ public class InstructionJPanel extends JPanel{
         offsetFromTop = SystemVars.offsetFromTop;
         guiFont = SystemVars.guiFont;
         preferredHeight = 0;
+        this.setPreferredSize(new Dimension(140,height));
     }
     
     public void paintComponent(Graphics g){
@@ -73,8 +74,11 @@ public class InstructionJPanel extends JPanel{
     public void drawHeaders(Graphics g){
         if(g == null) g = this.getGraphics();
         g.setFont(guiFont);
-        g.drawString("CLOCK TICKS",15,offsetFromTop - 30);
-        g.drawLine(10,offsetFromTop - 25,120,offsetFromTop - 25);
-        g.drawString("INSTRUCTIONS",15,offsetFromTop - 10);
+        g.setColor(new Color(193, 193, 193));
+        g.fillRect(0, 0, 140, offsetFromTop-10);
+        g.setColor(Color.black);
+        g.drawString("CLOCK TICKS",20,offsetFromTop - 50);
+        g.drawLine(10,offsetFromTop - 45,120,offsetFromTop - 45);
+        g.drawString("INSTRUCTIONS",20,offsetFromTop - 30);
     }
 }
