@@ -22,6 +22,13 @@ public class R3 extends Instruction implements Cloneable{
 	this.rsIndex = rsIndex;
 	this.rtIndex = rtIndex;
 	this.id = id;
+        this.display = String.format(
+            "%s %s, %s, %s", 
+            this.getInstructionName(),
+            Register.registerMapInverse.get(rdIndex),
+            Register.registerMapInverse.get(rsIndex),
+            Register.registerMapInverse.get(rtIndex)
+        );
     }
     
     // copy constructor
@@ -68,7 +75,7 @@ public class R3 extends Instruction implements Cloneable{
             case IF:
             case MEM:
                 executeOrdinaryStep();
-                break;
+                return true;
             case ID:
                 stages.get(presentStage).setFree();
                 presentStage = stageToExecute;

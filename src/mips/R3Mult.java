@@ -28,9 +28,16 @@ public class R3Mult extends Instruction implements Cloneable {
         this.rtIndex = rtIndex;
         this.id = id;
         this.presentSubStage = 0;
+        this.display = String.format(
+            "%s %s, %s, %s", 
+            this.getInstructionName(),
+            Register.registerMapInverse.get(rdIndex),
+            Register.registerMapInverse.get(rsIndex),
+            Register.registerMapInverse.get(rtIndex)
+        );
     }
 
-    //implement this and store the result in registers hi and lo
+    // TODO: implement this and store the result in registers hi and lo
     R3Mult(int rdIndex, int rsIndex, int id) {
 
     }
@@ -75,7 +82,7 @@ public class R3Mult extends Instruction implements Cloneable {
                 case IF:
                 case MEM:
                     executeOrdinaryStep();
-                    break;
+                    return true;
                 case ID:
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
@@ -131,7 +138,7 @@ public class R3Mult extends Instruction implements Cloneable {
                             stageToExecute += 2;
                         }
                         return true;
-                    }
+                    } 
                 case DIV:
                     if (isDiv) {
                         stages.get(presentStage).setFree();

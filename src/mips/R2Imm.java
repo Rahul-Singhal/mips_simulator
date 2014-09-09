@@ -22,7 +22,14 @@ public class R2Imm extends Instruction implements Cloneable{
 	this.rsIndex = rsIndex;
 	this.immediate = imm;
 	this.id = id;
-    }
+        this.display = String.format(
+            "%s %s, %s, %d", 
+            this.getInstructionName(),
+            Register.registerMapInverse.get(rdIndex),
+            Register.registerMapInverse.get(rsIndex),
+            imm
+        );
+}
     
     // copy constructor
     public R2Imm(R2Imm i){
@@ -67,7 +74,7 @@ public class R2Imm extends Instruction implements Cloneable{
             case IF:
             case MEM:
                 executeOrdinaryStep();
-                break;
+                return true;
             case ID:
                 stages.get(presentStage).setFree();
                 presentStage = stageToExecute;

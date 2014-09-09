@@ -14,10 +14,7 @@
 package mips;
 
 import java.awt.List;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -28,6 +25,7 @@ class Register {
     
     static int id;
     public final static Map<String, Integer> registerMap = new HashMap<String, Integer>();
+    public final static Map<Integer, String> registerMapInverse = new HashMap<Integer, String>();
     static {
         registerMap.put("$zero", 0);
         registerMap.put("$at", 1);
@@ -61,7 +59,12 @@ class Register {
         registerMap.put("$sp", 29);
         registerMap.put("$fp", 30);
         registerMap.put("$ra", 31);
+        for(Map.Entry<String, Integer> entry : registerMap.entrySet()){
+            registerMapInverse.put(entry.getValue(), entry.getKey());
+        }
     }
+    
+    
     
     public static Integer registerToInteger(String reg) {
         return registerMap.get(reg);

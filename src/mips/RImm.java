@@ -19,6 +19,13 @@ public class RImm extends Instruction implements Cloneable {
         this.rdIndex = rdIndex;
         this.immediate = immediate;
         this.id = id;
+        this.display = String.format(
+            "%s %s, %d", 
+            this.getInstructionName(),
+            Register.registerMapInverse.get(rdIndex),
+            this.immediate
+        );
+
     }
 
     RImm(RImm i) {
@@ -52,9 +59,10 @@ public class RImm extends Instruction implements Cloneable {
                 case IF:
                 case MEM:
                     executeOrdinaryStep();
-                    break;
+                    return true;
                 case ID:
                     registers.get(rdIndex).stallRegister(id);
+                    return true;
                 case EX:
                     if (forwardingEnabled) {
                         registers.get(rdIndex).forwardIt(id, clockCycle);

@@ -42,7 +42,7 @@ public class Program extends SystemVars{
     private int prevPc;
     private int nextPc;
     private Boolean flush;
-
+    private int totalStages = 11;
     //  Parser parser;
     ArrayList <Instruction> code;
     ArrayList <Instruction> codeSnippet;
@@ -79,8 +79,8 @@ public class Program extends SystemVars{
                 clonedInstruction.stageToExecute = 1;
                 code.add(clonedInstruction);
             }
-            sepInstructions = new ArrayList <ArrayList <Instruction>>(11);
-            for(int i = 0; i<11; i++){
+            sepInstructions = new ArrayList <ArrayList <Instruction>>(totalStages);
+            for(int i = 0; i < totalStages; i++){
                 sepInstructions.add(new ArrayList<Instruction>());
             }
         } catch (IOException ex) {
@@ -91,7 +91,7 @@ public class Program extends SystemVars{
     
     void init(){
         // setting the stages
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i < totalStages; i++) {
             stages.get(i).number = i;
         }
         // initialising the registers once and for all
@@ -135,7 +135,7 @@ public class Program extends SystemVars{
         
         // Run the code for one clock cycle
         prevPc = programCounter;
-        for (int i = 10; i >= 1; i--){
+        for (int i = totalStages - 1; i >= 1; i--){
             for (int j = 0; j < sepInstructions.get(i).size(); j++){
                 branchChanged = false;
                 sepInstructions.get(i).get(j).execute(programCounter);
@@ -190,10 +190,12 @@ public class Program extends SystemVars{
         
         /*removing completed instructions*/
         Instruction instruction;
-        for(int i = 0; i<currInstructions.size(); i++){
+        for(int i = 0; i < currInstructions.size(); ){
             instruction = currInstructions.get(i);
             if(instruction.stageToExecute == -1){
                 currInstructions.remove(i);
+            } else {
+                i++;
             }
         }
         
@@ -212,7 +214,7 @@ public class Program extends SystemVars{
             stage.setFree();
         }
         // clearing the sorted buckets for the next cycle
-        for (int i = 1; i <= 9; i++) {
+        for (int i = 1; i < totalStages; i++) {
             sepInstructions.get(i).clear();
         }
         return returnInstructions;

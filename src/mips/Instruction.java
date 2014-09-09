@@ -164,4 +164,7 @@ public class Instruction extends SystemVars implements Cloneable {
         } // Assuming default strategy NOTTAKEN
     }
 
+    public String getInstructionName() {
+        return this.getClass().getSimpleName().toLowerCase();
+    }
 }

@@ -32,15 +32,25 @@ public class R2ImmLS extends Instruction implements Cloneable {
         this.signExtImm = signExtImm;
         this.id = id;
         this.label = false;
+        this.display = String.format(
+            "%s %s, %s, %d", 
+            this.getInstructionName(),
+            Register.registerMapInverse.get(rtIndex),
+            Register.registerMapInverse.get(rsIndex),
+            this.signExtImm
+        );
     }
 
+    // TODO(ved) : Is this even being used somewhere? If not, remove. 
+    // TODO(ved) : Remove the variable 'address'. There is a variable called address in Instruction class also.
+    /*
     R2ImmLS(int rtIndex, String address, int signExtImm, int id) {
         this.rtIndex = rtIndex;
         this.address = address;
         this.signExtImm = signExtImm;
         this.id = id;
         this.label = true;
-    }
+    }*/
 
     R2ImmLS(R2ImmLS i) {
         this.stageToExecute = i.stageToExecute;
@@ -79,7 +89,7 @@ public class R2ImmLS extends Instruction implements Cloneable {
                 case DUMMY:
                 case IF:
                     executeOrdinaryStep();
-                    break;
+                    return true; 
                 case ID:
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
@@ -142,6 +152,7 @@ public class R2ImmLS extends Instruction implements Cloneable {
                             // stages.get(presentStage).setInstruction(id);
                             stageToExecute++;
                             stalled = false;
+                            return true;
                         } else {
 
                             if (!registers.get(rtIndex).isValid()) {

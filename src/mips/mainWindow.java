@@ -36,6 +36,9 @@ public class mainWindow extends javax.swing.JFrame{
     private int preferredHeight;
     private int preferredWidth;
     private InstructionJPanel instructionJPanel1;
+    private static Program prog;
+    
+    private static boolean UIChecking = false;
     /**
      * Creates new form mainWindow
      */
@@ -162,8 +165,16 @@ public class mainWindow extends javax.swing.JFrame{
         drawNextQueue(v);
     }
     
+    public void addInstructions(){
+        prog.execute();
+        drawNextQueue(prog.currInstructions);
+    }
+    
     public void handleKeyPressEvent(){
-        addDummyInstructions();
+        if (UIChecking) 
+            addDummyInstructions();
+        else 
+            addInstructions();
     }
     
     public static BufferedImage componentToImage(Component component, boolean visible) {
@@ -636,9 +647,10 @@ public class mainWindow extends javax.swing.JFrame{
             java.util.logging.Logger.getLogger(mainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-//        Program prog = new Program("test_files/TestBranch");
-//        prog.init();
-//        prog.executeAll();
+        if (!UIChecking) {
+            prog = new Program("test_files/all_instructions");
+            prog.init();
+        } 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

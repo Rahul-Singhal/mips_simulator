@@ -18,6 +18,11 @@ public class R0 extends Instruction implements Cloneable {
     public R0(String l, int i) {
         label = l;
         id = i;
+        this.display = String.format(
+            "%s %s", 
+            this.getInstructionName(),
+            label
+        );
     }
 
     public R0(R0 i) {
@@ -52,7 +57,7 @@ public class R0 extends Instruction implements Cloneable {
                 case IF:
                 case MEM:
                     executeOrdinaryStep();
-                    break;
+                    return true;
                 case ID:
                     destPc = labelMap.get(label);
                     stages.get(presentStage).setFree();

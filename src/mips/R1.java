@@ -19,6 +19,12 @@ public class R1 extends Instruction implements Cloneable {
     public R1(int rsIndex, int id) {
         this.rsIndex = rsIndex;
         this.id = id;
+        this.display = String.format(
+            "%s %s", 
+            this.getInstructionName(),
+            Register.registerMapInverse.get(rsIndex)
+        );
+
     }
 
     public R1(R1 i) {
@@ -54,7 +60,7 @@ public class R1 extends Instruction implements Cloneable {
                 case IF:
                 case MEM:
                     executeOrdinaryStep();
-                    break;
+                    return true;
                 case ID:
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;

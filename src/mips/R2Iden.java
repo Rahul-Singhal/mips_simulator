@@ -26,6 +26,13 @@ public class R2Iden extends Instruction implements Cloneable {
         this.rtIndex = rtIndex;
         this.id = id;
         this.label = label;
+        this.display = String.format(
+            "%s %s, %s, %s", 
+            this.getInstructionName(),
+            Register.registerMapInverse.get(rsIndex),
+            Register.registerMapInverse.get(rtIndex),
+            label
+        );
     }
 
     public R2Iden(R2Iden i) {
@@ -62,7 +69,7 @@ public class R2Iden extends Instruction implements Cloneable {
                 case IF:
                 case MEM:
                     executeOrdinaryStep();
-                    break;
+                    return true;
                 case ID:
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
