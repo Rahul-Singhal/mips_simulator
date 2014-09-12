@@ -65,6 +65,9 @@ public class InstructionJPanel extends JPanel{
         if(preferredHeight == 0) preferredHeight = this.getHeight();
         if(preferredHeight < (instHeight+20)*totalInstructions + 80){
             preferredHeight += 150;
+            this.setPreferredSize(new Dimension(140, this.getHeight()));
+            revalidate();
+            repaint();
         }
         Graphics g = this.getGraphics();
         g.setFont(guiFont);

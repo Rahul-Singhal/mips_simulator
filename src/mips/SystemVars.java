@@ -39,6 +39,7 @@ public class SystemVars {
     static int programCounter = 1; // holds the index of the instruction which will be inserted 
     static boolean forwardingEnabled = true;
     static int multSubStages = 4;
+    static int divSubStages = 4;
     static boolean fastBranching = false;
     static Memory memory = new Memory();
     static Map<String, Integer> labelMap = new HashMap<>();

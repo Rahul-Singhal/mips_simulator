@@ -14,15 +14,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.CellRendererPane;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+class imageSaveFilter extends javax.swing.filechooser.FileFilter {
+
+    @Override
+    public boolean accept(File file) {
+        return file.isDirectory() || file.getAbsolutePath().endsWith(".jpg");
+    }
+
+    @Override
+    public String getDescription() {
+        return "Images (*.jpg)";
+    }
+}
 
 
 /**
@@ -38,7 +53,7 @@ public class mainWindow extends javax.swing.JFrame{
     private InstructionJPanel instructionJPanel1;
     private static Program prog;
     
-    private static boolean UIChecking = false;
+    private static boolean UIChecking = true;
     /**
      * Creates new form mainWindow
      */
@@ -176,35 +191,6 @@ public class mainWindow extends javax.swing.JFrame{
         else 
             addInstructions();
     }
-    
-    public static BufferedImage componentToImage(Component component, boolean visible) {
-        if (visible) {
-            BufferedImage img = new BufferedImage(component.getWidth(), component.getHeight(), BufferedImage.TRANSLUCENT);
-            Graphics2D g2d = (Graphics2D) img.getGraphics();
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            component.paintAll(g2d);
-            return img;
-        } else {
-            component.setSize(component.getPreferredSize());
-            layoutComponent(component);
-            BufferedImage img = new BufferedImage(component.getWidth(), component.getHeight(), BufferedImage.TRANSLUCENT);
-            CellRendererPane crp = new CellRendererPane();
-            crp.add(component);
-            crp.paintComponent(img.createGraphics(), component, crp, component.getBounds());
-            return img;
-        }
-    }
-
-    private static void layoutComponent(Component c) {
-        synchronized (c.getTreeLock()) {
-            c.doLayout();
-            if (c instanceof Container) {
-                for (Component child : ((Container) c).getComponents()) {
-                    layoutComponent(child);
-                }
-            }
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -224,20 +210,21 @@ public class mainWindow extends javax.swing.JFrame{
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        IFField = new javax.swing.JTextField();
+        EXField = new javax.swing.JTextField();
+        IDField = new javax.swing.JTextField();
+        MEMField = new javax.swing.JTextField();
+        DIVField = new javax.swing.JTextField();
+        MULTField = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        WBField = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        saveImageChooser = new javax.swing.JFileChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         stageJPanel1 = new mips.StageJPanel();
         menuBar = new javax.swing.JMenuBar();
@@ -247,6 +234,8 @@ public class mainWindow extends javax.swing.JFrame{
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         pipelineMenuItem = new javax.swing.JMenuItem();
+        ForwardingCheckBox = new javax.swing.JCheckBoxMenuItem();
+        FastBranchingTextBox = new javax.swing.JCheckBoxMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentsMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -272,45 +261,45 @@ public class mainWindow extends javax.swing.JFrame{
 
         jLabel6.setText("MEM");
 
-        jTextField1.setText("2");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        IFField.setText("2");
+        IFField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                IFFieldActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("1");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        EXField.setText("1");
+        EXField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                EXFieldActionPerformed(evt);
             }
         });
 
-        jTextField3.setText("1");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        IDField.setText("1");
+        IDField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                IDFieldActionPerformed(evt);
             }
         });
 
-        jTextField4.setText("3");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        MEMField.setText("3");
+        MEMField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                MEMFieldActionPerformed(evt);
             }
         });
 
-        jTextField6.setText("5");
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        DIVField.setText("5");
+        DIVField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                DIVFieldActionPerformed(evt);
             }
         });
 
-        jTextField7.setText("5");
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        MULTField.setText("5");
+        MULTField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                MULTFieldActionPerformed(evt);
             }
         });
 
@@ -322,10 +311,10 @@ public class mainWindow extends javax.swing.JFrame{
 
         jLabel14.setText("WB");
 
-        jTextField10.setText("1");
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
+        WBField.setText("1");
+        WBField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
+                WBFieldActionPerformed(evt);
             }
         });
 
@@ -352,11 +341,11 @@ public class mainWindow extends javax.swing.JFrame{
                             .addComponent(jLabel6))
                         .addGap(59, 59, 59)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MEMField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EXField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(IFField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(IDField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
@@ -368,10 +357,10 @@ public class mainWindow extends javax.swing.JFrame{
                     .addComponent(jLabel16))
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DIVField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(WBField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MULTField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56))
         );
         jPanel1Layout.setVerticalGroup(
@@ -386,15 +375,15 @@ public class mainWindow extends javax.swing.JFrame{
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(WBField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(MULTField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(DIVField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -402,19 +391,19 @@ public class mainWindow extends javax.swing.JFrame{
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(IFField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(IDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(EXField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(MEMField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
 
         jButton1.setText("Cancel");
@@ -461,6 +450,10 @@ public class mainWindow extends javax.swing.JFrame{
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(54, Short.MAX_VALUE)))
         );
+
+        saveImageChooser.setAcceptAllFileFilterUsed(false);
+        saveImageChooser.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+        saveImageChooser.setFileFilter(new imageSaveFilter());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS));
@@ -529,6 +522,22 @@ public class mainWindow extends javax.swing.JFrame{
         });
         editMenu.add(pipelineMenuItem);
 
+        ForwardingCheckBox.setText("Forwarding");
+        ForwardingCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ForwardingCheckBoxActionPerformed(evt);
+            }
+        });
+        editMenu.add(ForwardingCheckBox);
+
+        FastBranchingTextBox.setText("Fast Branching");
+        FastBranchingTextBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FastBranchingTextBoxActionPerformed(evt);
+            }
+        });
+        editMenu.add(FastBranchingTextBox);
+
         menuBar.add(editMenu);
 
         helpMenu.setMnemonic('h');
@@ -555,6 +564,13 @@ public class mainWindow extends javax.swing.JFrame{
 
     private void pipelineMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pipelineMenuItemActionPerformed
         pipelineDepthEditor.setLocation(this.getLocation());
+        IFField.setText(""+SystemVars.stageDepths[0]);
+        IDField.setText(""+SystemVars.stageDepths[1]);
+        EXField.setText(""+SystemVars.stageDepths[2]);
+        MULTField.setText(""+SystemVars.stageDepths[3]);
+        DIVField.setText(""+SystemVars.stageDepths[4]);
+        MEMField.setText(""+SystemVars.stageDepths[5]);
+        WBField.setText(""+SystemVars.stageDepths[6]); 
         pipelineDepthEditor.setVisible(true);
     }//GEN-LAST:event_pipelineMenuItemActionPerformed
 
@@ -568,60 +584,156 @@ public class mainWindow extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_openMenuItemActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void IFFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IFFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_IFFieldActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void EXFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EXFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_EXFieldActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void IDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_IDFieldActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void MEMFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MEMFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_MEMFieldActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void DIVFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DIVFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_DIVFieldActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void MULTFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MULTFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_MULTFieldActionPerformed
 
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
+    private void WBFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WBFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
+    }//GEN-LAST:event_WBFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        pipelineDepthEditor.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private boolean validatePositiveNumber(String input){
+        return Pattern.matches("\\d+", input);
+    }
+    
+    private void showErrorDialogue(String stageName){
+        JOptionPane.showMessageDialog(
+            null, 
+            "Invalid "+ stageName +" stage depth input. Re-check!", 
+            "Error ",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+    }
+    @SuppressWarnings("empty-statement")
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        int newIF, newID, newEX, newMEM, newMULT, newDIV, newWB;
+        
+        String str = IFField.getText();
+        if(validatePositiveNumber(str)) newIF = Integer.parseInt(str);
+        else {
+            showErrorDialogue("IF");
+            return;
+        }
+        
+        str = IDField.getText();
+        if(validatePositiveNumber(str)) newID = Integer.parseInt(str);
+        else {
+            showErrorDialogue("ID");
+            return;
+        }
+        
+        str = EXField.getText();
+        if(validatePositiveNumber(str)) newEX = Integer.parseInt(str);
+        else {
+            showErrorDialogue("EX");
+            return;
+        }
+        
+        str = MEMField.getText();
+        if(validatePositiveNumber(str)) newMEM = Integer.parseInt(str);
+        else {
+            showErrorDialogue("MEM");
+            return;
+        }
+        
+        str = WBField.getText();
+        if(validatePositiveNumber(str)) newWB = Integer.parseInt(str);
+        else {
+            showErrorDialogue("WB");
+            return;
+        }
+        
+        str = MULTField.getText();
+        if(validatePositiveNumber(str)) newMULT = Integer.parseInt(str);
+        else {
+            showErrorDialogue("MULT");
+            return;
+        }
+        
+        str = DIVField.getText();
+        if(validatePositiveNumber(str)) newDIV = Integer.parseInt(str);
+        else {
+            showErrorDialogue("DIV");
+            return;
+        }
+        
+        pipelineDepthEditor.setVisible(false);
+        SystemVars.stageDepths = new int[]{newIF,newID,newEX,1,1,newMEM,newWB};
+        SystemVars.multSubStages = newMULT;
+        SystemVars.divSubStages = newDIV;
+        resetProgram();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void saveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsMenuItemActionPerformed
-
-//        int imageHeight = size.height;  
-//        int imageWidth = size.width;  
-        BufferedImage image = new BufferedImage(preferredWidth, preferredHeight, BufferedImage.TYPE_INT_RGB);  
-
-        // Now paint the component directly onto the image  
-        Graphics2D imageGraphics = image.createGraphics();  
-        jScrollPane1.paintAll(imageGraphics);  
-
-        try {    
-            ImageIO.write(image, "jpg", new File("image"));
-        } catch (IOException ex) {
-            Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        saveImageChooser.setVisible(true);
+        if (saveImageChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File imageFile = saveImageChooser.getSelectedFile();
+            String fileName = imageFile.getName();
+            if(!fileName.substring(fileName.length() - 3).equals("jpg")){
+                imageFile = new File(imageFile.getAbsoluteFile()+".jpg");
+            }
+            int width = preferredWidth == 0 ? stageJPanel1.getWidth() : preferredWidth;
+            int height = preferredHeight == 0 ? stageJPanel1.getHeight() : preferredWidth;
+            BufferedImage image = new BufferedImage(width+100, height, BufferedImage.TYPE_INT_RGB);  
+            Graphics2D imageGraphics = image.createGraphics();
+            Rectangle oldBounds = jScrollPane1.getBounds();
+            jScrollPane1.setBounds(new Rectangle(width+100, height));
+            jScrollPane1.paintAll(imageGraphics);  
+            jScrollPane1.setBounds(oldBounds);
+            jScrollPane1.revalidate();
+            try {    
+                ImageIO.write(image, "jpg", imageFile);
+            } catch (IOException ex) {
+                Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_saveAsMenuItemActionPerformed
+    
+    private void resetProgram(){
+        JOptionPane.showMessageDialog(
+            null, 
+            "Restarting the program!", 
+            "Pipeline configured ",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+        SystemVars resetSystemVars = new SystemVars();   
+    }
+    
+    private void ForwardingCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ForwardingCheckBoxActionPerformed
+        SystemVars.forwardingEnabled = !SystemVars.forwardingEnabled;
+        resetProgram();
+    }//GEN-LAST:event_ForwardingCheckBoxActionPerformed
 
-    /**
+    private void FastBranchingTextBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FastBranchingTextBoxActionPerformed
+        SystemVars.fastBranching = !SystemVars.fastBranching;
+        resetProgram();
+    }//GEN-LAST:event_FastBranchingTextBoxActionPerformed
+
+    /** TODO add your handling code here:
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -661,6 +773,15 @@ public class mainWindow extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField DIVField;
+    private javax.swing.JTextField EXField;
+    private javax.swing.JCheckBoxMenuItem FastBranchingTextBox;
+    private javax.swing.JCheckBoxMenuItem ForwardingCheckBox;
+    private javax.swing.JTextField IDField;
+    private javax.swing.JTextField IFField;
+    private javax.swing.JTextField MEMField;
+    private javax.swing.JTextField MULTField;
+    private javax.swing.JTextField WBField;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem contentsMenuItem;
     private javax.swing.JMenu editMenu;
@@ -683,18 +804,12 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JFrame pipelineDepthEditor;
     private javax.swing.JMenuItem pipelineMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
+    private javax.swing.JFileChooser saveImageChooser;
     private mips.StageJPanel stageJPanel1;
     // End of variables declaration//GEN-END:variables
 
