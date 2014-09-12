@@ -2,7 +2,7 @@
 
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.JFileChooser" name="jFileChooser1">
+    <Component class="javax.swing.JFileChooser" name="openFileChooser">
       <Properties>
         <Property name="dialogTitle" type="java.lang.String" value="Open Mips Module"/>
       </Properties>

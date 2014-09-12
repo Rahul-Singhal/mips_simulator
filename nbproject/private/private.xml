@@ -15,7 +15,12 @@
             <file>file:/home/rahul/Desktop/mips_simulator/src/mips/SystemVars.java</file>
             <file>file:/home/rahul/Desktop/mips_simulator/src/mips/StageJPanel.java</file>
             <file>file:/home/rahul/Desktop/mips_simulator/src/mips/mainWindow.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Program.java</file>
             <file>file:/home/rahul/Desktop/mips_simulator/src/mips/InstructionJPanel.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Instruction.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Register.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/R3.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/R2Imm.java</file>
         </group>
     </open-files>
 </project-private>

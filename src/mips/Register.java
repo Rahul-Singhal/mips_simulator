@@ -15,6 +15,18 @@ package mips;
 
 import java.awt.List;
 import java.util.*;
+import java.util.function.Predicate;
+
+
+class equalityPredicate<Integer> implements Predicate<Integer>{
+  Integer value;
+  public boolean test(Integer var){
+  if(var == value){
+    return true;
+  }
+    return false;
+  }
+}
 
 /**
  *
@@ -23,7 +35,7 @@ import java.util.*;
 class Register {
     // Constructor, sets the initial value of register with id = id as value.
     
-    static int id;
+    public int id;
     public final static Map<String, Integer> registerMap = new HashMap<String, Integer>();
     public final static Map<Integer, String> registerMapInverse = new HashMap<Integer, String>();
     static {
@@ -64,7 +76,7 @@ class Register {
         }
     }
     
-    
+    equalityPredicate<Integer> equalityFilter = new equalityPredicate<Integer>();
     
     public static Integer registerToInteger(String reg) {
         return registerMap.get(reg);
@@ -96,14 +108,16 @@ class Register {
     int lastForwarder;
     int lastForwarderTime;
     ArrayList<Integer> forwardingInstructions = new ArrayList<>();
+    
     void forwardIt(int instructionId, int time){
         lastForwarderTime = time;
 	lastForwarder = instructionId;
         forwardingInstructions.add(instructionId);
-	//forwardingInstructions.push_back(instructionId);
     }
     void unforwardIt(int instructionId){
-        forwardingInstructions.remove(instructionId);
+        equalityFilter.value = instructionId;
+        forwardingInstructions.removeIf(equalityFilter);
+//        forwardingInstructions.remove(instructionId);
     }
     boolean isForwarded(){
         if(forwardingInstructions.isEmpty()){
@@ -115,14 +129,15 @@ class Register {
     //  Should be called at every stage of the instruction which needs to writes to that particular instruction
     void stallRegister(int instructionId){
         this.instructionId = instructionId;
-	// cout<<"add "<<instructionId<<" to "<<id<<endl;
-	blockingInstructions.add(instructionId);
+        blockingInstructions.add(instructionId);
     }
     
-    void unstallRegister(int instructionId, int value){
+    void unstallRegister(int value, int instructionId){
         // cout<<"remove "<<instructionId<<"  from "<<id<<"after writing value = "<<value<<endl;
 	// cout<<"size before "<<blockingInstructions.size()<<endl;
-	blockingInstructions.remove(instructionId);
+        equalityFilter.value = instructionId;
+        blockingInstructions.removeIf(equalityFilter);
+//        blockingInstructions.remove(instructionId);
 	this.value = value;
 	// cout<<"size after "<<blockingInstructions.size()<<endl;
     }
@@ -163,7 +178,9 @@ bool Register::write(int value, int instructionId, int instructionStage){
     void unstall(int instructionId){
         // //cout<<instructionId<<" unstalls "<<id<<". size= "<<blockingInstructions.size()<<endl;
 	// //cout<<blockingInstructions.front()<<":"<<blockingInstructions.back()<<endl;
-	blockingInstructions.remove(instructionId);
+	equalityFilter.value = instructionId;
+        blockingInstructions.removeIf(equalityFilter);
+//        blockingInstructions.remove(instructionId);
 	// //cout<<"size= "<<blockingInstructions.size()<<endl;
     }
     //	returns a pair <status, value>

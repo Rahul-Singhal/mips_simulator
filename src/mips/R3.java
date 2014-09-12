@@ -88,6 +88,7 @@ public class R3 extends Instruction implements Cloneable{
                     stallInstructionRegisterBusy(rtIndex);
                     return false;
                 } else {
+                    System.out.println("idhar aa gya");
                     registers.get(rdIndex).stallRegister(id);
                     a = registers.get(rsIndex).value;
                     b = registers.get(rtIndex).value;

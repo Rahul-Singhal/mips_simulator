@@ -22,7 +22,7 @@ public class SystemVars {
     static ArrayList <Register> registers = new ArrayList<Register>(){
         {
             for (int i = 0; i < 32; i++) {
-                add(new Register(0,0));
+                add(new Register(i,0));
             }            
         }
     };
@@ -37,7 +37,7 @@ public class SystemVars {
     
     
     static int programCounter = 1; // holds the index of the instruction which will be inserted 
-    static boolean forwardingEnabled = true;
+    static boolean forwardingEnabled = false;
     static int multSubStages = 4;
     static int divSubStages = 4;
     static boolean fastBranching = false;

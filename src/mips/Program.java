@@ -97,13 +97,14 @@ public class Program extends SystemVars{
         // initialising the registers once and for all
         for (int i = 0; i < 32; i++) {
             if (i == 29) {
-                registers.get(i).id = i;
+//                registers.get(i).id = i;
                 registers.get(i).value = 10485756;
             } else {
-                registers.get(i).id = i;
+//                registers.get(i).id = i;
                 registers.get(i).value = 0;
             }
         }
+        
         programCounter = 0;
         instrId = 0;
         clockCycle = 0;
@@ -151,8 +152,9 @@ public class Program extends SystemVars{
         // to draw graphics
         ArrayList<Instruction> returnInstructions = new ArrayList<>();
         for(Instruction instruction : currInstructions){
-            returnInstructions.add(instruction);
+            returnInstructions.add(instruction.clone());
         }
+        System.out.println("A " + returnInstructions.size());
         nextPc = programCounter;
         if (flush) {
             /*setting stages free*/
@@ -217,6 +219,8 @@ public class Program extends SystemVars{
         for (int i = 1; i < totalStages; i++) {
             sepInstructions.get(i).clear();
         }
+        System.out.println("B " + returnInstructions.size());
+        System.out.println(returnInstructions.get(0).stageToExecute);
         return returnInstructions;
     }
 

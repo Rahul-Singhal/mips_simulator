@@ -69,6 +69,7 @@ public class StageJPanel extends JPanel {
     public int drawFinishedQueue(ArrayList<Instruction> v, int frameWidth, int frameHeight) {
         int column = allInstructions.size();
         drawHeader(column, null);
+        
         allInstructions.add(v);
         for (int row = 0; row < v.size(); row++) {
             drawInstruction(v.get(row), column, row, null);
@@ -140,6 +141,7 @@ public class StageJPanel extends JPanel {
                         }
                         alpha++;
                     }
+                    System.out.println("hdujhdk " + instruction.getStallingInstructionId() + " " + instruction.getId());
                     drawArrow(column, row, alpha, -instruction.getStallingInstructionId() + instruction.id, false, g);
                 }
             }
@@ -187,6 +189,7 @@ public class StageJPanel extends JPanel {
     }
 
     public void drawArrow(int column, int row, int back, int up, boolean forwardArrow, Graphics g) {
+        System.out.println(back + " " + up);
         if (g == null) {
             g = this.getGraphics();
         }

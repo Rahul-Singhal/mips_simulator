@@ -51,9 +51,9 @@ public class mainWindow extends javax.swing.JFrame{
     private int preferredHeight;
     private int preferredWidth;
     private InstructionJPanel instructionJPanel1;
-    private static Program prog;
+    private static Program prog = null;
     
-    private static boolean UIChecking = true;
+    private static boolean UIChecking = false;
     /**
      * Creates new form mainWindow
      */
@@ -69,7 +69,9 @@ public class mainWindow extends javax.swing.JFrame{
             }
 
             public void keyReleased(KeyEvent e) {
-                handleKeyPressEvent();
+                if(prog != null && e.getKeyCode() == 32){
+                    drawNextQueue(prog.execute());
+                }
             }
 
             public void keyTyped(KeyEvent e) {
@@ -186,10 +188,11 @@ public class mainWindow extends javax.swing.JFrame{
     }
     
     public void handleKeyPressEvent(){
-        if (UIChecking) 
-            addDummyInstructions();
-        else 
-            addInstructions();
+//        if (UIChecking) 
+//            addDummyInstructions();
+//        else 
+//            addInstructions();
+        
     }
 
     /**
@@ -201,7 +204,7 @@ public class mainWindow extends javax.swing.JFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFileChooser1 = new javax.swing.JFileChooser();
+        openFileChooser = new javax.swing.JFileChooser();
         pipelineDepthEditor = new javax.swing.JFrame();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -240,7 +243,7 @@ public class mainWindow extends javax.swing.JFrame{
         contentsMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
 
-        jFileChooser1.setDialogTitle("Open Mips Module");
+        openFileChooser.setDialogTitle("Open Mips Module");
 
         pipelineDepthEditor.setLocationByPlatform(true);
         pipelineDepthEditor.setMinimumSize(new java.awt.Dimension(500, 300));
@@ -575,9 +578,13 @@ public class mainWindow extends javax.swing.JFrame{
     }//GEN-LAST:event_pipelineMenuItemActionPerformed
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
-        int returnVal =jFileChooser1.showOpenDialog(this);
+        int returnVal =openFileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = jFileChooser1.getSelectedFile();
+            File file = openFileChooser.getSelectedFile();
+            if (!UIChecking) {
+                prog = new Program(file.getAbsolutePath());
+                prog.init();
+            } 
             System.out.println("File " + file.getName() + " opened!");
         } else {
             System.out.println("File access cancelled by user.");
@@ -759,11 +766,9 @@ public class mainWindow extends javax.swing.JFrame{
             java.util.logging.Logger.getLogger(mainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        if (!UIChecking) {
-            prog = new Program("test_files/all_instructions");
-            prog.init();
-        } 
         /* Create and display the form */
+        prog = new Program("test_files/simpleTest");
+        prog.init();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new mainWindow().setVisible(true);
@@ -790,7 +795,6 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JMenu helpMenu;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -805,6 +809,7 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JFileChooser openFileChooser;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JFrame pipelineDepthEditor;
     private javax.swing.JMenuItem pipelineMenuItem;
