@@ -154,7 +154,6 @@ public class Program extends SystemVars{
         for(Instruction instruction : currInstructions){
             returnInstructions.add(instruction.clone());
         }
-        System.out.println("A " + returnInstructions.size());
         nextPc = programCounter;
         if (flush) {
             /*setting stages free*/
@@ -219,8 +218,6 @@ public class Program extends SystemVars{
         for (int i = 1; i < totalStages; i++) {
             sepInstructions.get(i).clear();
         }
-        System.out.println("B " + returnInstructions.size());
-        System.out.println(returnInstructions.get(0).stageToExecute);
         return returnInstructions;
     }
 

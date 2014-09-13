@@ -141,8 +141,7 @@ public class StageJPanel extends JPanel {
                         }
                         alpha++;
                     }
-                    System.out.println("hdujhdk " + instruction.getStallingInstructionId() + " " + instruction.getId());
-                    drawArrow(column, row, alpha, -instruction.getStallingInstructionId() + instruction.id, false, g);
+                    drawArrow(column, instruction.getId(), alpha, -instruction.getStallingInstructionId() + instruction.id, false, g);
                 }
             }
         }
@@ -150,7 +149,7 @@ public class StageJPanel extends JPanel {
             //draw arrow to display forwarding
             int stringWidth = fm.getStringBounds(label, g).getBounds().width;
             g.drawString(label, leftPaneShift + (instWidth + 2) * column + (instWidth - stringWidth) / 2, offsetFromTop + 15 + (instHeight + 20) * instruction.getId());
-            drawArrow(column, row, 1, instruction.getId() - instruction.getForwardedFromInstructionId(), true, g);
+            drawArrow(column, instruction.getId(), 1, instruction.getId() - instruction.getForwardedFromInstructionId(), true, g);
         }
     }
 
@@ -189,7 +188,6 @@ public class StageJPanel extends JPanel {
     }
 
     public void drawArrow(int column, int row, int back, int up, boolean forwardArrow, Graphics g) {
-        System.out.println(back + " " + up);
         if (g == null) {
             g = this.getGraphics();
         }

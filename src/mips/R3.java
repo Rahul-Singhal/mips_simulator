@@ -80,15 +80,29 @@ public class R3 extends Instruction implements Cloneable{
                 stages.get(presentStage).setFree();
                 presentStage = stageToExecute;
                 stages.get(presentStage).setInstruction(id);
+                boolean rsBusy = false;
+                boolean rtBusy = false;
                 if(!registers.get(rsIndex).isValid()){
-                    stallInstructionRegisterBusy(rsIndex);
-                    return false;
+                    rsBusy = true;
                 }
-                else if(!registers.get(rtIndex).isValid()){
-                    stallInstructionRegisterBusy(rtIndex);
-                    return false;
+                if(!registers.get(rtIndex).isValid()){
+                    rtBusy = true;
+                }
+                if(rsBusy && rtBusy){
+                    if(registers.get(rsIndex).instructionId > registers.get(rtIndex).instructionId){
+                        stallInstructionRegisterBusy(rsIndex);
+                        return false;
+                    } else {
+                        stallInstructionRegisterBusy(rtIndex);
+                        return false;
+                    }
+                } else if(rsBusy){
+                        stallInstructionRegisterBusy(rsIndex);
+                        return false;
+                } else if(rtBusy){
+                        stallInstructionRegisterBusy(rtIndex);
+                        return false;
                 } else {
-                    System.out.println("idhar aa gya");
                     registers.get(rdIndex).stallRegister(id);
                     a = registers.get(rsIndex).value;
                     b = registers.get(rtIndex).value;
