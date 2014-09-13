@@ -13,20 +13,7 @@
 
 package mips;
 
-import java.awt.List;
 import java.util.*;
-import java.util.function.Predicate;
-
-
-class equalityPredicate<Integer> implements Predicate<Integer>{
-  Integer value;
-  public boolean test(Integer var){
-  if(var == value){
-    return true;
-  }
-    return false;
-  }
-}
 
 /**
  *
@@ -76,7 +63,6 @@ class Register {
         }
     }
     
-    equalityPredicate<Integer> equalityFilter = new equalityPredicate<Integer>();
     
     public static Integer registerToInteger(String reg) {
         return registerMap.get(reg);
@@ -114,9 +100,15 @@ class Register {
 	lastForwarder = instructionId;
         forwardingInstructions.add(instructionId);
     }
+    
+    public static void removeAll(ArrayList<Integer> a, int val){
+        for(int i = 0 ;i<a.size(); i++){
+           if(a.get(i) == val) a.remove(i);
+        }
+    }
+    
     void unforwardIt(int instructionId){
-        equalityFilter.value = instructionId;
-        forwardingInstructions.removeIf(equalityFilter);
+        removeAll(forwardingInstructions, instructionId);
 //        forwardingInstructions.remove(instructionId);
     }
     boolean isForwarded(){
@@ -135,8 +127,7 @@ class Register {
     void unstallRegister(int value, int instructionId){
         // cout<<"remove "<<instructionId<<"  from "<<id<<"after writing value = "<<value<<endl;
 	// cout<<"size before "<<blockingInstructions.size()<<endl;
-        equalityFilter.value = instructionId;
-        blockingInstructions.removeIf(equalityFilter);
+        removeAll(blockingInstructions, instructionId);
 //        blockingInstructions.remove(instructionId);
 	this.value = value;
 	// cout<<"size after "<<blockingInstructions.size()<<endl;
@@ -178,8 +169,7 @@ bool Register::write(int value, int instructionId, int instructionStage){
     void unstall(int instructionId){
         // //cout<<instructionId<<" unstalls "<<id<<". size= "<<blockingInstructions.size()<<endl;
 	// //cout<<blockingInstructions.front()<<":"<<blockingInstructions.back()<<endl;
-	equalityFilter.value = instructionId;
-        blockingInstructions.removeIf(equalityFilter);
+        removeAll(blockingInstructions, instructionId);
 //        blockingInstructions.remove(instructionId);
 	// //cout<<"size= "<<blockingInstructions.size()<<endl;
     }
