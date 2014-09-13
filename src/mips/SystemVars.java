@@ -49,7 +49,7 @@ public class SystemVars {
     static int historySize = 1024;
     static int clockCycle = 0;
     static boolean branchChanged = false;
-    static branchStrategyType branchStrategy = branchStrategyType.HISTORY;
+    static branchStrategyType branchStrategy = branchStrategyType.NOTTAKEN;
     static enum branchStrategyType {TAKEN, NOTTAKEN, HISTORY};  
     static ArrayList<BitSet> branchHistory = new ArrayList<BitSet>(){
         {

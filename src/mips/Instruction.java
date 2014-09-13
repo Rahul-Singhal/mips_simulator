@@ -76,7 +76,7 @@ public class Instruction extends SystemVars implements Cloneable {
         return false;
     }
 
-    void unstall(int instructionId) {
+    void unstall() {
         return;
     }
 

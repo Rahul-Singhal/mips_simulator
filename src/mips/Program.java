@@ -43,6 +43,7 @@ public class Program extends SystemVars{
     private int nextPc;
     private Boolean flush;
     private int totalStages = 11;
+    private int idStage;
     //  Parser parser;
     ArrayList <Instruction> code;
     ArrayList <Instruction> codeSnippet;
@@ -117,6 +118,7 @@ public class Program extends SystemVars{
         code.get(programCounter).stageToExecute = 1;
         currInstructions = new ArrayList<Instruction>();
         currInstructions.add(code.get(programCounter));
+        idStage = SystemVars.reverseStageTypeMap.get(SystemVars.stageType.ID);
     }
     
     void reset(){
@@ -161,6 +163,7 @@ public class Program extends SystemVars{
             stages.get(1).setFree();
             stages.get(2).setFree();
             stages.get(3).setFree();
+
             /*complications!
              if predicate is calculated in EX then there is a chance
              that some register was stalled due to the next instruction in the ID stage
@@ -172,14 +175,14 @@ public class Program extends SystemVars{
              of unstalling in the individual classes where the dest reg is known
              */
             Instruction instruction;
-            int i = currInstructions.size();
-            if(!fastBranching){
-                for(i = 0; i<currInstructions.size(); i++){
-                    instruction = currInstructions.get(i);
-                    if(instruction.presentStage == 3){
-                        instruction.unstall(instruction.id);
-                        break;
-                    }
+            int i = 0;
+            for(i = 0; i<currInstructions.size(); i++){
+                instruction = currInstructions.get(i);
+                if(instruction.presentStage == idStage){
+                    if(!fastBranching){
+                        instruction.unstall();
+                    } else i++;
+                    break;
                 }
             }
             /*removing elements after the branch instructions from the queue*/

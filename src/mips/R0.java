@@ -101,9 +101,9 @@ public class R0 extends Instruction implements Cloneable {
     }
 
     @Override
-    void unstall(int instructionId) {
+    void unstall() {
         if(isLink){
-            registers.get(31).unstall(instructionId);
+            registers.get(31).unstall(id);
         }
     }
     

@@ -191,6 +191,7 @@ public class StageJPanel extends JPanel {
         if (g == null) {
             g = this.getGraphics();
         }
+        if(forwardArrow) column++;
         int column0 = column - back;
         int row0 = row - up;
         int x1 = leftPaneShift + (instWidth + 2) * column0 + instWidth / 2;
@@ -199,6 +200,7 @@ public class StageJPanel extends JPanel {
         int y2 = offsetFromTop + (instHeight + 20) * row;
         if (forwardArrow) {
             g.setColor(Color.red);
+            x2 -= instWidth / 2;
         } else {
             g.setColor(Color.black);
         }

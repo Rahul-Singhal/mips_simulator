@@ -93,9 +93,9 @@ public class RImm extends Instruction implements Cloneable {
     }
 
     @Override
-    void unstall(int instructionId) {
+    void unstall() {
         if (!registers.get(rdIndex).isValid()) {
-            registers.get(rdIndex).unstall(instructionId);
+            registers.get(rdIndex).unstall(id);
         }
     }
 

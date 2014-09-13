@@ -248,7 +248,7 @@ public class R2ImmLS extends Instruction implements Cloneable {
     }
 
     @Override   // This function is different for store and load, so override in inherited classes
-    void unstall(int instructionId) {
+    void unstall() {
         return;
     }
 

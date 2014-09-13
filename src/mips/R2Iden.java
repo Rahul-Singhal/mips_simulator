@@ -97,9 +97,6 @@ public class R2Iden extends Instruction implements Cloneable {
                         }
                         stageToExecute++;
                         stalled = false;
-                        this.destPc = labelMap.get(label);
-                        branchChanged = fastBranching ? branchTaken : checkBranchChange();
-                        if (branchChanged) programCounter = destPc - 1;
                     }
                     return true; 
                 case EX:
@@ -125,10 +122,10 @@ public class R2Iden extends Instruction implements Cloneable {
             return false;
         }
     }
-
+    
     @Override
-    void unstall(int instructionId) {
-        return;
+    void unstall() {
+        registers.get(rsIndex).unstall(id);
     }
 
     @Override
