@@ -46,6 +46,12 @@ public class StageJPanel extends JPanel {
         idStage = SystemVars.reverseStageTypeMap.get(SystemVars.stageType.ID);
         preferredWidth = 0;
     }
+    
+    public void resetSystem(){
+        allInstructions = new ArrayList<ArrayList<Instruction>>();
+        stagePropertiesMap = new HashMap<Integer, Pair<String, Color>>();
+        buildStagePropertiesMap();
+    }
 
     public void buildStagePropertiesMap() {
         int totalDifferentStages = SystemVars.getTotalDifferentStages();
