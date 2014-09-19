@@ -84,7 +84,7 @@ public class StageJPanel extends JPanel {
     }
 
     public void drawInstruction(Instruction instruction, int column, int row, Graphics g) {
-
+        Instruction tempInstruction;
         int presentStage = instruction.getPresentStage();
         if (presentStage == 0) {
             return;
@@ -113,8 +113,9 @@ public class StageJPanel extends JPanel {
             if (instruction.getStallingInstructionId() != -1) {
                 boolean checkLast = false;
                 for (int q = 0; q < allInstructions.get(column - 1).size(); q++) {
-                    if (allInstructions.get(column - 1).get(q).id == instruction.id) {
-                        if (allInstructions.get(column - 1).get(q).getStalled()) {
+                    tempInstruction = allInstructions.get(column - 1).get(q);
+                    if (tempInstruction.id == instruction.id) {
+                        if (tempInstruction.getStalled() && tempInstruction.getPresentStage() == presentStage) {
                             checkLast = true;
                             break;
                         } else {

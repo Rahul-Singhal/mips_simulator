@@ -1,0 +1,6 @@
+main:
+addiu $at $zero 0
+ori $t1 $at 0
+add $t1 $t1 $t1
+addiu $at $zero 0
+ori $t1 $at 6
