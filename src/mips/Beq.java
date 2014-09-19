@@ -33,20 +33,12 @@ public class Beq extends R2Iden implements Cloneable{
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.ID && fastBranching){
             if(super.execute(pc)){
                 calculate();
-                this.destPc = labelMap.get(label);
-                branchChanged = branchTaken ;
-                if (branchChanged) programCounter = destPc - 1;
+                updateProgramCounterAfterPredicateCalculation();
                 return true;
             } else {
                 return false;
             } 
         }
-        else if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.ID){
-            this.destPc = labelMap.get(label);
-            branchChanged = checkBranchChange();
-            if (branchChanged) programCounter = destPc - 1;
-        }   
-        
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX) calculate();
         return super.execute(pc);
     }

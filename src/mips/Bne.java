@@ -33,22 +33,12 @@ public class Bne extends R2Iden implements Cloneable{
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.ID && fastBranching){
             if(super.execute(pc)){
                 calculate();
-                // I need the branching code below here as it helps check whether
-                // a and b have valid values for predicate calculation or not.
-                this.destPc = labelMap.get(label);
-                branchChanged = fastBranching ? branchTaken : checkBranchChange();
-                if (branchChanged) programCounter = destPc - 1;
+                updateProgramCounterAfterPredicateCalculation();
                 return true;
             } else {
                 return false;
             } 
         }
-        else if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.ID){
-            this.destPc = labelMap.get(label);
-            branchChanged = checkBranchChange();
-            if (branchChanged) programCounter = destPc - 1;
-        }
-        
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX) calculate();
         return super.execute(pc);
     }

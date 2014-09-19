@@ -50,6 +50,7 @@ public class SystemVars {
     static int historySize = 1024;
     static int clockCycle = 0;
     static boolean branchChanged = false;
+    static HashMap<Integer, Integer> fallbackInstructionMap = new HashMap<Integer, Integer>();
     static branchStrategyType branchStrategy = branchStrategyType.TAKEN;
     static enum branchStrategyType {TAKEN, NOTTAKEN, HISTORY};  
     static ArrayList<BitSet> branchHistory = new ArrayList<BitSet>(){
@@ -155,6 +156,7 @@ public class SystemVars {
     static HashMap<stageType, Color> stageColorMap = new HashMap<stageType, Color>();
     
     public static void resetSystem(){
+        fallbackInstructionMap = new HashMap<Integer, Integer>();
         programOver = false;
         buildReverseStageTypeMap();
         buildBaseStageMap();

@@ -107,7 +107,6 @@ public class Program extends SystemVars{
                 registers.get(i).value = 0;
             }
         }
-        
         programCounter = 0;
         instrId = 0;
         clockCycle = 0;
@@ -183,11 +182,10 @@ public class Program extends SystemVars{
             for(i = 0; i<currInstructions.size(); i++){
                 instruction = currInstructions.get(i);
                 if(instruction.presentStage == idStage){
-//                    if(!fastBranching){
-//                        instruction.unstall();
-//                    } 
-//                    else i++;
-                    i++;
+                    if(!fastBranching){
+                        instruction.unstall();
+                    } 
+                    else i++;
                     break;
                 }
             }
@@ -207,7 +205,6 @@ public class Program extends SystemVars{
                 i++;
             }
         }
-                    
         if (!programOver && stages.get(0).isFree() && programCounter+1< code.size()) {
             programCounter++;
             instrId++;
