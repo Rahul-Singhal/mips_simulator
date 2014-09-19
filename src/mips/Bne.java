@@ -25,8 +25,6 @@ public class Bne extends R2Iden implements Cloneable{
         }else{
             branchTaken = false;
         }
-        if (branchStrategy == SystemVars.branchStrategyType.HISTORY) 
-            SystemVars.branchHistory.get(programCounter % historySize).set(0, branchTaken);
     }
     
     public boolean execute(int pc){

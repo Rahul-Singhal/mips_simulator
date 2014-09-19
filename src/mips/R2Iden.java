@@ -103,7 +103,9 @@ public class R2Iden extends Instruction implements Cloneable {
                     }
                     return true; 
                 case EX:
-                    updateProgramCounterAfterPredicateCalculation();
+                    if(!fastBranching){
+                        updateProgramCounterAfterPredicateCalculation();
+                    }
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
                     stages.get(presentStage).setInstruction(id);
@@ -134,36 +136,57 @@ public class R2Iden extends Instruction implements Cloneable {
     public void updateProgramCounterAfterPredicateCalculation(){
         if (branchTaken) {
             if (branchStrategy == branchStrategyType.TAKEN) {
-                programCounter = this.id;
                 branchChanged = false;
             } else if (branchStrategy == branchStrategyType.NOTTAKEN) {
                 programCounter = fallbackInstructionMap.get(this.id);
                 branchChanged = true;
             } else {
-                //TODO(Rahul)
+                if(SystemVars.branchHistory.get(this.address % historySize).get(0)){
+                    // we predicted taken
+                    branchChanged = false;
+                } else {
+                    // we predicted not taken
+                    programCounter = fallbackInstructionMap.get(this.id);
+                    branchChanged = true;
+                }
+                SystemVars.branchHistory.get(this.address % historySize).set(0, true);
+
             }
         } else {
             if (branchStrategy == branchStrategyType.TAKEN) {
                 programCounter = fallbackInstructionMap.get(this.id);
                 branchChanged = true;
             } else if (branchStrategy == branchStrategyType.NOTTAKEN) {
-                programCounter = this.id;
                 branchChanged = false;
             } else {
-                //TODO(Rahul)
+                if(SystemVars.branchHistory.get(this.address % historySize).get(0)){
+                    // we predicted taken
+                    programCounter = fallbackInstructionMap.get(this.id);
+                    branchChanged = true;
+                } else {
+                    // we predicted not taken
+                    branchChanged = false;
+                }
+                SystemVars.branchHistory.get(this.address % historySize).set(0, false);
             }
         }
     }
     
     public void updateProgramCounterBeforePredicateCalculation(){
-        System.out.println("fallback set " + (labelMap.get(label)-1));
         if(branchStrategy == branchStrategyType.TAKEN){
             fallbackInstructionMap.put(this.id, programCounter);
             programCounter = (labelMap.get(label)-1);
         } else if(branchStrategy == branchStrategyType.NOTTAKEN){
             fallbackInstructionMap.put(this.id, labelMap.get(label)-1);
         } else {
-            //TODO(Rahul)
+            if(SystemVars.branchHistory.get(this.address % historySize).get(0)){
+                // branch was taken last time
+                fallbackInstructionMap.put(this.id, programCounter);
+                programCounter = (labelMap.get(label)-1);
+            } else {
+                // branch was not taken last time
+                fallbackInstructionMap.put(this.id, labelMap.get(label)-1);
+            }
         }
     }
 }

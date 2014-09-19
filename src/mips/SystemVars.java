@@ -51,7 +51,7 @@ public class SystemVars {
     static int clockCycle = 0;
     static boolean branchChanged = false;
     static HashMap<Integer, Integer> fallbackInstructionMap = new HashMap<Integer, Integer>();
-    static branchStrategyType branchStrategy = branchStrategyType.TAKEN;
+    static branchStrategyType branchStrategy = branchStrategyType.HISTORY;
     static enum branchStrategyType {TAKEN, NOTTAKEN, HISTORY};  
     static ArrayList<BitSet> branchHistory = new ArrayList<BitSet>(){
         {
@@ -181,6 +181,13 @@ public class SystemVars {
                 } 
             }
         };
+        branchHistory = new ArrayList<BitSet>(){
+            {
+                for (int i = 0; i < historySize; i++) {
+                    add(new BitSet(historyBits));
+                }
+            }
+        }; 
     }
     
     // constructor
