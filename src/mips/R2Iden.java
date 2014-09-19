@@ -64,7 +64,6 @@ public class R2Iden extends Instruction implements Cloneable {
             return false;
         } else {
             SystemVars.stageType sType = SystemVars.getStageType(stageToExecute);
-            System.out.println("Came here with stage " + sType);
             switch (sType) {
                 case DUMMY:
                 case IF:

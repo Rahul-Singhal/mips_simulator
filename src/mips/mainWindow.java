@@ -50,6 +50,7 @@ public class mainWindow extends javax.swing.JFrame{
     private int ttid;
     private int preferredHeight;
     private int preferredWidth;
+    private static String programFile = null;
     private InstructionJPanel instructionJPanel1;
     private static Program prog = null;
     
@@ -58,7 +59,7 @@ public class mainWindow extends javax.swing.JFrame{
      * Creates new form mainWindow
      */
     public mainWindow() {
-        SystemVars initSysVars = new SystemVars();
+        SystemVars s = new SystemVars();
         preferredHeight = 0;
         ttid = 3;
         tempID = 0;
@@ -70,7 +71,7 @@ public class mainWindow extends javax.swing.JFrame{
 
             public void keyReleased(KeyEvent e) {
                 if(prog != null && e.getKeyCode() == 32){
-                    drawNextQueue(prog.execute());
+                    if(!SystemVars.programOver)drawNextQueue(prog.execute());
                 }
             }
 
@@ -237,8 +238,14 @@ public class mainWindow extends javax.swing.JFrame{
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         pipelineMenuItem = new javax.swing.JMenuItem();
+        resetMenuItem = new javax.swing.JMenuItem();
+        settingsMenuItem = new javax.swing.JMenu();
         ForwardingCheckBox = new javax.swing.JCheckBoxMenuItem();
         FastBranchingTextBox = new javax.swing.JCheckBoxMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        predictTakenButton = new javax.swing.JMenuItem();
+        predictNotTakenButton = new javax.swing.JMenuItem();
+        historyBasedBranchButton = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentsMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -525,13 +532,27 @@ public class mainWindow extends javax.swing.JFrame{
         });
         editMenu.add(pipelineMenuItem);
 
+        resetMenuItem.setMnemonic('d');
+        resetMenuItem.setText("Reset");
+        resetMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetMenuItemActionPerformed(evt);
+            }
+        });
+        editMenu.add(resetMenuItem);
+
+        menuBar.add(editMenu);
+
+        settingsMenuItem.setMnemonic('e');
+        settingsMenuItem.setText("Settings");
+
         ForwardingCheckBox.setText("Forwarding");
         ForwardingCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ForwardingCheckBoxActionPerformed(evt);
             }
         });
-        editMenu.add(ForwardingCheckBox);
+        settingsMenuItem.add(ForwardingCheckBox);
 
         FastBranchingTextBox.setText("Fast Branching");
         FastBranchingTextBox.addActionListener(new java.awt.event.ActionListener() {
@@ -539,9 +560,37 @@ public class mainWindow extends javax.swing.JFrame{
                 FastBranchingTextBoxActionPerformed(evt);
             }
         });
-        editMenu.add(FastBranchingTextBox);
+        settingsMenuItem.add(FastBranchingTextBox);
 
-        menuBar.add(editMenu);
+        jMenu1.setText("Branching Strategy");
+
+        predictTakenButton.setText("Predict Taken");
+        predictTakenButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                predictTakenButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(predictTakenButton);
+
+        predictNotTakenButton.setText("Predict Not Taken");
+        predictNotTakenButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                predictNotTakenButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(predictNotTakenButton);
+
+        historyBasedBranchButton.setText("History Based");
+        historyBasedBranchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historyBasedBranchButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(historyBasedBranchButton);
+
+        settingsMenuItem.add(jMenu1);
+
+        menuBar.add(settingsMenuItem);
 
         helpMenu.setMnemonic('h');
         helpMenu.setText("Help");
@@ -580,8 +629,10 @@ public class mainWindow extends javax.swing.JFrame{
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         int returnVal =openFileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
+            resetProgram();
             File file = openFileChooser.getSelectedFile();
             if (!UIChecking) {
+                programFile = file.getAbsolutePath();
                 prog = new Program(file.getAbsolutePath());
                 prog.init();
             } 
@@ -700,7 +751,7 @@ public class mainWindow extends javax.swing.JFrame{
         if (saveImageChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             File imageFile = saveImageChooser.getSelectedFile();
             String fileName = imageFile.getName();
-            if(!fileName.substring(fileName.length() - 3).equals("jpg")){
+            if(fileName.length() <= 3 || !fileName.substring(fileName.length() - 3).equals("jpg")){
                 imageFile = new File(imageFile.getAbsoluteFile()+".jpg");
             }
             int width = preferredWidth == 0 ? stageJPanel1.getWidth() : preferredWidth;
@@ -721,13 +772,18 @@ public class mainWindow extends javax.swing.JFrame{
     }//GEN-LAST:event_saveAsMenuItemActionPerformed
     
     private void resetProgram(){
-        JOptionPane.showMessageDialog(
-            null, 
-            "Restarting the program!", 
-            "Pipeline configured ",
-            JOptionPane.INFORMATION_MESSAGE
-        );
-        SystemVars resetSystemVars = new SystemVars();   
+//        JOptionPane.showMessageDialog(
+//            null, 
+//            "Restarting the program!", 
+//            "Pipeline configured ",
+//            JOptionPane.INFORMATION_MESSAGE
+//        );
+        SystemVars.resetSystem();
+        stageJPanel1.resetSystem();
+        instructionJPanel1.resetSystem();
+        this.repaint();
+        prog = new Program(programFile);
+        prog.init();
     }
     
     private void ForwardingCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ForwardingCheckBoxActionPerformed
@@ -740,6 +796,32 @@ public class mainWindow extends javax.swing.JFrame{
         resetProgram();
     }//GEN-LAST:event_FastBranchingTextBoxActionPerformed
 
+    private void predictTakenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_predictTakenButtonActionPerformed
+        if(SystemVars.branchStrategy != SystemVars.branchStrategyType.TAKEN){
+            SystemVars.branchStrategy = SystemVars.branchStrategyType.TAKEN;
+            resetProgram();
+        }
+    }//GEN-LAST:event_predictTakenButtonActionPerformed
+
+    private void predictNotTakenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_predictNotTakenButtonActionPerformed
+        if(SystemVars.branchStrategy != SystemVars.branchStrategyType.NOTTAKEN){
+            SystemVars.branchStrategy = SystemVars.branchStrategyType.NOTTAKEN;
+            resetProgram();
+        }
+    }//GEN-LAST:event_predictNotTakenButtonActionPerformed
+
+    private void historyBasedBranchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyBasedBranchButtonActionPerformed
+        if(SystemVars.branchStrategy != SystemVars.branchStrategyType.HISTORY){
+            SystemVars.branchStrategy = SystemVars.branchStrategyType.HISTORY;
+            resetProgram();
+        }
+    }//GEN-LAST:event_historyBasedBranchButtonActionPerformed
+
+    private void resetMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetMenuItemActionPerformed
+        this.resetProgram();
+    }//GEN-LAST:event_resetMenuItemActionPerformed
+
+    
     /** TODO add your handling code here:
      * @param args the command line arguments
      */
@@ -767,14 +849,15 @@ public class mainWindow extends javax.swing.JFrame{
         }
         //</editor-fold>
         /* Create and display the form */
-        prog = new Program("test_files/simpleTest");
-        prog.init();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new mainWindow().setVisible(true);
             }
         });
-
+        // default open file for testing
+        programFile = "test_files/simpleTest";
+        prog = new Program(programFile);
+        prog.init();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -793,6 +876,7 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuItem historyBasedBranchButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -806,6 +890,7 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menuBar;
@@ -813,8 +898,12 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JFrame pipelineDepthEditor;
     private javax.swing.JMenuItem pipelineMenuItem;
+    private javax.swing.JMenuItem predictNotTakenButton;
+    private javax.swing.JMenuItem predictTakenButton;
+    private javax.swing.JMenuItem resetMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JFileChooser saveImageChooser;
+    private javax.swing.JMenu settingsMenuItem;
     private mips.StageJPanel stageJPanel1;
     // End of variables declaration//GEN-END:variables
 

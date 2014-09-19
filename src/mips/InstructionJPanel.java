@@ -4,6 +4,7 @@ package mips;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.JPanel;
@@ -18,24 +19,31 @@ import javax.swing.JPanel;
  *
  * @author rahul
  */
+
 public class InstructionJPanel extends JPanel{
     private int instHeight;
     private int instWidth;
     private int offsetFromTop;
     private Font guiFont;
+    private int sideBarWidth;
     private int preferredHeight;
     ArrayList<Pair<Integer, String>> instStrings;
     
     
     public InstructionJPanel(int height){
         super();
+        sideBarWidth = SystemVars.sideBarWidth;
         instStrings = new ArrayList<Pair<Integer, String>>();
         instHeight = 20;
         instWidth = 60;
         offsetFromTop = SystemVars.offsetFromTop;
         guiFont = SystemVars.guiFont;
         preferredHeight = 0;
-        this.setPreferredSize(new Dimension(140,height));
+        this.setPreferredSize(new Dimension(sideBarWidth,height));
+    }
+    
+    public void resetSystem(){
+        instStrings = new ArrayList<Pair<Integer, String>>();
     }
     
     public void paintComponent(Graphics g){
@@ -65,23 +73,32 @@ public class InstructionJPanel extends JPanel{
         if(preferredHeight == 0) preferredHeight = this.getHeight();
         if(preferredHeight < (instHeight+20)*totalInstructions + 80){
             preferredHeight += 150;
-            this.setPreferredSize(new Dimension(140, this.getHeight()));
+            this.setPreferredSize(new Dimension(sideBarWidth, this.getHeight()));
             revalidate();
             repaint();
         }
         Graphics g = this.getGraphics();
         g.setFont(guiFont);
-        g.drawString(inst.getDisplayString(),10,offsetFromTop + 15+(instHeight+20)*inst.getId());        
+        FontMetrics fm = g.getFontMetrics();
+        String label = inst.getDisplayString();
+        int stringWidth = fm.getStringBounds(label, g).getBounds().width;
+        if(stringWidth > sideBarWidth-20){
+            label = label.substring(0,19)+"..";
+        }
+        g.drawString(label,10,offsetFromTop + 15+(instHeight+20)*inst.getId());
     }
     
     public void drawHeaders(Graphics g){
         if(g == null) g = this.getGraphics();
         g.setFont(guiFont);
         g.setColor(new Color(193, 193, 193));
-        g.fillRect(0, 0, 140, offsetFromTop-10);
+        g.fillRect(0, 0, sideBarWidth, offsetFromTop-10);
         g.setColor(Color.black);
-        g.drawString("CLOCK TICKS",20,offsetFromTop - 50);
-        g.drawLine(10,offsetFromTop - 45,120,offsetFromTop - 45);
-        g.drawString("INSTRUCTIONS",20,offsetFromTop - 30);
+        FontMetrics fm = g.getFontMetrics();
+        int stringWidth = fm.getStringBounds("CLOCK TICKS", g).getBounds().width;
+        g.drawString("CLOCK TICKS",(sideBarWidth - stringWidth) / 2,offsetFromTop - 50);
+        stringWidth = fm.getStringBounds("INSTRUCTIONS", g).getBounds().width;
+        g.drawLine(10,offsetFromTop - 45,sideBarWidth-20,offsetFromTop - 45);
+        g.drawString("INSTRUCTIONS",(sideBarWidth - stringWidth) / 2,offsetFromTop - 30);
     }
 }

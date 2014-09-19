@@ -226,6 +226,9 @@ public class Program extends SystemVars{
         for (int i = 1; i < totalStages; i++) {
             sepInstructions.get(i).clear();
         }
+        if(currInstructions.size() == 0){
+            programOver = true;
+        }
         return returnInstructions;
     }
 

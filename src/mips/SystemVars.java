@@ -37,8 +37,8 @@ public class SystemVars {
         }
     };
     
-    static int programCounter = 1; // holds the index of the instruction which will be inserted 
-    static boolean forwardingEnabled = true;
+    static int programCounter = 0; // holds the index of the instruction which will be inserted 
+    static boolean forwardingEnabled = false;
     static int multSubStages = 4;
     static int divSubStages = 4;
     static boolean fastBranching = false;
@@ -69,7 +69,8 @@ public class SystemVars {
     static HashMap<Integer, stageType> baseStageMap = new HashMap();
     static HashMap<Integer, String> stageNameMap = new HashMap();
     static int offsetFromTop = 80;
-    static Font guiFont = new Font("Georgia", Font.BOLD, 11);
+    static int sideBarWidth = 180;
+    static Font guiFont = new Font("Arial", Font.BOLD, 11);
     
     public static stageType getStageType(Integer index){
         if(stageMap.containsKey(index)) return stageMap.get(index);
@@ -92,7 +93,7 @@ public class SystemVars {
         return stageMap.get(index);
     }
     
-    public void buildBaseStageMap(){
+    public static void buildBaseStageMap(){
         int x = 0;
         int j = 1;
         for(stageType sType: stageType.values()){
@@ -116,7 +117,7 @@ public class SystemVars {
         }
     }
     
-    public void buildStageNameMap(){
+    public static void buildStageNameMap(){
         int x = 0;
         int j = 1;
         String stageName;
@@ -153,8 +154,36 @@ public class SystemVars {
     // gui vars
     static HashMap<stageType, Color> stageColorMap = new HashMap<stageType, Color>();
     
+    public static void resetSystem(){
+        programOver = false;
+        buildReverseStageTypeMap();
+        buildBaseStageMap();
+        buildStageNameMap();
+        programCounter = 0;
+        memory = new Memory();
+        labelMap = new HashMap<>();
+        rStalls = 0;
+        sStalls = 0;
+        clockCycle = 0;
+        registers = new ArrayList<Register>(){
+            {
+                for (int i = 0; i < 32; i++) {
+                    add(new Register(i,0));
+                }            
+            }
+        };
+        stages = new ArrayList<Stage>(){
+            {
+                for (int i = 0; i < 11; i++) {
+                    add(new Stage(0));
+                } 
+            }
+        };
+    }
+    
     // constructor
     public SystemVars(){
+        programOver = false;
         buildReverseStageTypeMap();
         buildBaseStageMap();
         buildStageNameMap();
