@@ -6,8 +6,7 @@ li $t1 3
 li $t2 4
 add $t3 $t1 $t2
 li $t4 7
-
-beq $t3 $t4 main
+bne $t3 $t4 main
 
 error:
 li $t1 20

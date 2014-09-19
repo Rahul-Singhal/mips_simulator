@@ -42,7 +42,6 @@ public class Program extends SystemVars{
     private int prevPc;
     private int nextPc;
     private Boolean flush;
-    private int totalStages = 11;
     private int idStage;
     //  Parser parser;
     ArrayList <Instruction> code;
@@ -73,12 +72,15 @@ public class Program extends SystemVars{
             
             // TODO: fetch labelMap, and execute instructions accordingly
             code = new ArrayList <Instruction>();
+            int addr = 0;
             for(Instruction instruction : codeSnippet){
                 Instruction clonedInstruction = instruction.clone();
                 clonedInstruction.id = 0;
                 clonedInstruction.presentStage = 0;
                 clonedInstruction.stageToExecute = 1;
+                clonedInstruction.address = addr;
                 code.add(clonedInstruction);
+                addr++;
             }
             sepInstructions = new ArrayList <ArrayList <Instruction>>(totalStages);
             for(int i = 0; i < totalStages; i++){
@@ -96,7 +98,7 @@ public class Program extends SystemVars{
             stages.get(i).number = i;
         }
         // initialising the registers once and for all
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i < totalRegisters; i++) {
             if (i == 29) {
 //                registers.get(i).id = i;
                 registers.get(i).value = 10485756;
@@ -116,6 +118,7 @@ public class Program extends SystemVars{
         code.get(programCounter).id = instrId;
         code.get(programCounter).presentStage = 0;
         code.get(programCounter).stageToExecute = 1;
+        
         currInstructions = new ArrayList<Instruction>();
         currInstructions.add(code.get(programCounter));
         idStage = SystemVars.reverseStageTypeMap.get(SystemVars.stageType.ID);
@@ -143,7 +146,7 @@ public class Program extends SystemVars{
                 branchChanged = false;
                 sepInstructions.get(i).get(j).execute(programCounter);
                 if (branchChanged) {
-                    /*It means that some branch chenge instruction has been executed*/
+                    /*It means that some branch change instruction has been executed*/
                     if (programCounter != sepInstructions.get(i).get(j).address){
                         flush = true;
                     }
@@ -157,6 +160,7 @@ public class Program extends SystemVars{
             returnInstructions.add(instruction.clone());
         }
         nextPc = programCounter;
+//        System.out.println("The value of dest pc is" + flush + "and prog. count is " + programCounter);
         if (flush) {
             /*setting stages free*/
             stages.get(0).setFree();
@@ -179,9 +183,11 @@ public class Program extends SystemVars{
             for(i = 0; i<currInstructions.size(); i++){
                 instruction = currInstructions.get(i);
                 if(instruction.presentStage == idStage){
-                    if(!fastBranching){
-                        instruction.unstall();
-                    } else i++;
+//                    if(!fastBranching){
+//                        instruction.unstall();
+//                    } 
+//                    else i++;
+                    i++;
                     break;
                 }
             }
@@ -191,7 +197,6 @@ public class Program extends SystemVars{
                 i++;
             }
         }
-        
         /*removing completed instructions*/
         Instruction instruction;
         for(int i = 0; i < currInstructions.size(); ){
@@ -202,7 +207,7 @@ public class Program extends SystemVars{
                 i++;
             }
         }
-        
+                    
         if (!programOver && stages.get(0).isFree() && programCounter+1< code.size()) {
             programCounter++;
             instrId++;

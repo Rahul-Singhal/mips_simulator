@@ -19,9 +19,11 @@ import java.util.Map;
  */
 public class SystemVars {
     static boolean programOver;
+    static int totalStages = 11;
+    static int totalRegisters = 32;
     static ArrayList <Register> registers = new ArrayList<Register>(){
         {
-            for (int i = 0; i < 32; i++) {
+            for (int i = 0; i < totalRegisters; i++) {
                 add(new Register(i,0));
             }            
         }
@@ -29,15 +31,14 @@ public class SystemVars {
     static ArrayList <Stage> stages = new ArrayList<Stage>(){
         {
             
-            for (int i = 0; i < 11; i++) {
+            for (int i = 0; i < totalStages; i++) {
                 add(new Stage(0));
             } 
         }
     };
     
-    
     static int programCounter = 1; // holds the index of the instruction which will be inserted 
-    static boolean forwardingEnabled = false;
+    static boolean forwardingEnabled = true;
     static int multSubStages = 4;
     static int divSubStages = 4;
     static boolean fastBranching = false;
@@ -49,7 +50,7 @@ public class SystemVars {
     static int historySize = 1024;
     static int clockCycle = 0;
     static boolean branchChanged = false;
-    static branchStrategyType branchStrategy = branchStrategyType.NOTTAKEN;
+    static branchStrategyType branchStrategy = branchStrategyType.TAKEN;
     static enum branchStrategyType {TAKEN, NOTTAKEN, HISTORY};  
     static ArrayList<BitSet> branchHistory = new ArrayList<BitSet>(){
         {

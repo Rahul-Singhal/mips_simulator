@@ -64,6 +64,7 @@ public class R2Iden extends Instruction implements Cloneable {
             return false;
         } else {
             SystemVars.stageType sType = SystemVars.getStageType(stageToExecute);
+            System.out.println("Came here with stage " + sType);
             switch (sType) {
                 case DUMMY:
                 case IF:
@@ -105,6 +106,10 @@ public class R2Iden extends Instruction implements Cloneable {
                             programCounter = destPc - 1;
                             branchChanged = true;
                         }
+                        else {
+                            programCounter = this.id;
+                            branchChanged = false;
+                        }
                     }
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
@@ -125,6 +130,7 @@ public class R2Iden extends Instruction implements Cloneable {
     
     @Override
     void unstall() {
+        System.out.println("I came here " + rsIndex + " " + id);
         registers.get(rsIndex).unstall(id);
     }
 

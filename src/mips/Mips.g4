@@ -217,9 +217,6 @@ stmt    : add_stmt
         | srlv_stmt
         | sra_stmt
         | srav_stmt
-        | sllb_stmt
-        | srlb_stmt
-        | srab_stmt
         | slt_stmt
         | slti_stmt
         | sltiu_stmt
@@ -518,14 +515,6 @@ srav_stmt : 'srav' rd=REG (',')? rs=REG (',')? rt=REG
         );
         instructions.add(instr);
     };
-
-/*** Pending instructions ***/
-
-sllb_stmt : 'sllb' rd=REG (',')? rs=REG (',')? rt=REG  ;
-
-srlb_stmt : 'srlb' rd=REG (',')? rs=REG (',')? rt=REG  ;
-
-srab_stmt : 'srab' rd=REG (',')? rs=REG (',')? rt=REG  ;
 
 /***************************/
 

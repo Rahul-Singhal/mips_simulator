@@ -43,6 +43,11 @@ public class Bne extends R2Iden implements Cloneable{
                 return false;
             } 
         }
+        else if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.ID){
+            this.destPc = labelMap.get(label);
+            branchChanged = checkBranchChange();
+            if (branchChanged) programCounter = destPc - 1;
+        }
         
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX) calculate();
         return super.execute(pc);
