@@ -6,19 +6,27 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ActionMap;
 import javax.swing.CellRendererPane;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -65,20 +73,61 @@ public class mainWindow extends javax.swing.JFrame{
         tempID = 0;
         initComponents();
         instructionJPanel1 = new InstructionJPanel(stageJPanel1.getHeight());
-        addKeyListener(new KeyListener() {
-            public void keyPressed(KeyEvent e) {
-            }
-
-            public void keyReleased(KeyEvent e) {
-                if(prog != null && e.getKeyCode() == 32){
-                    if(!SystemVars.programOver)drawNextQueue(prog.execute());
-                }
-            }
-
-            public void keyTyped(KeyEvent e) {
-            }
-        });
         jScrollPane1.setRowHeaderView(instructionJPanel1);
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
+        jScrollPane1.getHorizontalScrollBar().setUnitIncrement(20);
+        setScrollKeys();
+    }
+    
+    public void runOneCycle(){
+        if(prog != null){
+            if(!SystemVars.programOver)drawNextQueue(prog.execute());
+        }
+    }
+    
+    public void runAllCycles(){
+        int i = 0;
+        for (i = 0; i < 200; i++) {
+            if (prog != null) {
+                if (!SystemVars.programOver) {
+                    drawNextQueue(prog.execute());
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        if (i == 200) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Ran 200 cycles. This program could possibly be an infinite loop.",
+                "Warning!",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        }
+    }
+    
+    
+    Action allCyclesAction = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            runAllCycles();
+        }
+    };
+    
+    Action nextCycleAction = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            runOneCycle();
+        }
+    };
+    
+    public void setScrollKeys(){
+        InputMap im = jScrollPane1.getInputMap(JComponent.WHEN_FOCUSED);
+        ActionMap am = jScrollPane1.getActionMap();
+        im.put(KeyStroke.getKeyStroke("N"),"nextCycleAction");
+        im.put(KeyStroke.getKeyStroke("A"),"allCyclesAction");
+        am.put("nextCycleAction",nextCycleAction);
+        am.put("allCyclesAction",allCyclesAction);
     }
     
     public void drawNextQueue(ArrayList<Instruction> a){
@@ -187,14 +236,6 @@ public class mainWindow extends javax.swing.JFrame{
         prog.execute();
         drawNextQueue(prog.currInstructions);
     }
-    
-    public void handleKeyPressEvent(){
-//        if (UIChecking) 
-//            addDummyInstructions();
-//        else 
-//            addInstructions();
-        
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -239,6 +280,9 @@ public class mainWindow extends javax.swing.JFrame{
         editMenu = new javax.swing.JMenu();
         pipelineMenuItem = new javax.swing.JMenuItem();
         resetMenuItem = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        nextCycleMenuItem = new javax.swing.JMenuItem();
+        allCyclesMenuItem = new javax.swing.JMenuItem();
         settingsMenuItem = new javax.swing.JMenu();
         ForwardingCheckBox = new javax.swing.JCheckBoxMenuItem();
         FastBranchingTextBox = new javax.swing.JCheckBoxMenuItem();
@@ -543,6 +587,28 @@ public class mainWindow extends javax.swing.JFrame{
 
         menuBar.add(editMenu);
 
+        jMenu2.setText("Run");
+
+        nextCycleMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, 0));
+        nextCycleMenuItem.setText("Next Cycle");
+        nextCycleMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextCycleMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(nextCycleMenuItem);
+
+        allCyclesMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, 0));
+        allCyclesMenuItem.setText("All Cycles");
+        allCyclesMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allCyclesMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(allCyclesMenuItem);
+
+        menuBar.add(jMenu2);
+
         settingsMenuItem.setMnemonic('e');
         settingsMenuItem.setText("Settings");
 
@@ -821,6 +887,14 @@ public class mainWindow extends javax.swing.JFrame{
         this.resetProgram();
     }//GEN-LAST:event_resetMenuItemActionPerformed
 
+    private void nextCycleMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextCycleMenuItemActionPerformed
+        runOneCycle();
+    }//GEN-LAST:event_nextCycleMenuItemActionPerformed
+
+    private void allCyclesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allCyclesMenuItemActionPerformed
+        runAllCycles();
+    }//GEN-LAST:event_allCyclesMenuItemActionPerformed
+
     
     /** TODO add your handling code here:
      * @param args the command line arguments
@@ -871,6 +945,7 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JTextField MULTField;
     private javax.swing.JTextField WBField;
     private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JMenuItem allCyclesMenuItem;
     private javax.swing.JMenuItem contentsMenuItem;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
@@ -891,9 +966,11 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem nextCycleMenuItem;
     private javax.swing.JFileChooser openFileChooser;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JFrame pipelineDepthEditor;

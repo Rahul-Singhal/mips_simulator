@@ -67,8 +67,10 @@ public class InstructionJPanel extends JPanel{
     
     public void handleNewInstruction(Instruction inst, int frameHeight){
         int totalInstructions = instStrings.size();
-        instStrings.add(new Pair<Integer, String>(inst.getId(), inst.getDisplayString()));
-        totalInstructions++;
+        if(totalInstructions <= inst.getId()){
+            instStrings.add(new Pair<Integer, String>(inst.getId(), inst.getDisplayString()));
+            totalInstructions++;
+        }
         // draw only new one or repaint
         if(preferredHeight == 0) preferredHeight = this.getHeight();
         if(preferredHeight < (instHeight+20)*totalInstructions + 80){
