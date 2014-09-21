@@ -223,7 +223,12 @@ public class Program extends SystemVars{
         for (int i = 1; i < totalStages; i++) {
             sepInstructions.get(i).clear();
         }
-        if(currInstructions.size() == 0){
+        // Printing register values to check
+//        for (int i = 0; i < 32; i++) {
+//            System.out.print(Register.registerMapInverse.get(i) + " " + registers.get(i).value + ", ");
+//        }
+//        System.out.println();
+        if(currInstructions.isEmpty()){
             programOver = true;
         }
         return returnInstructions;

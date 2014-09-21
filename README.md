@@ -1,31 +1,69 @@
-mips_simulator
+MIPS Simulator
 ==============
 
-Instructions for setting up Antlr on your system :
+Steps for setting up Antlr on your system are available here:
+http://www.antlr.org/
 
-OS X :
-- cd /usr/local/lib
-- sudo curl -O http://www.antlr.org/download/antlr-4.4-complete.jar
-- export CLASSPATH=".:/usr/local/lib/antlr-4.4-complete.jar:$CLASSPATH"
-- alias antlr4='java -jar /usr/local/lib/antlr-4.4-complete.jar'
-- alias grun='java org.antlr.v4.runtime.misc.TestRig'
+Instructions that we are supporting:
 
-LINUX :
+ARITHMETIC 
+- add
+- addi
+- addiu
+- addu
+- mult
+- multu
+- div
+- divu
+- sub
+- subu
 
-- cd /usr/local/lib
-- wget http://antlr.org/download/antlr-4.4-complete.jar
-- export CLASSPATH=".:/usr/local/lib/antlr-4.4-complete.jar:$CLASSPATH"
-- alias antlr4='java -jar /usr/local/lib/antlr-4.4-complete.jar'
-- alias grun='java org.antlr.v4.runtime.misc.TestRig'
+BIT OPERATIONS
+- and
+- andi
+- nor
+- or
+- ori
+- xor
+- xori
+- sll
+- sllv
+- srl
+- srlv
+- sra
+- srav
+- sllb ???
+- srlb ???
+- srab ???
 
-Windows :
+CONDITIONALS
+- slt
+- slti
+- sltiu
+- sltu
+- beq
+- bne
+- blt
+- bgt
+- ble
+- bge
 
-1. Download http://antlr.org/download/antlr-4.4-complete.jar.
-2. Add antlr4-complete.jar to CLASSPATH, either:
-	1. Permanently: Using System Properties dialog > Environment variables > 
-		Create or append to CLASSPATH variable
-	2. Temporarily, at command line:
-		SET CLASSPATH=.;C:\Javalib\antlr4-complete.jar;%CLASSPATH%
-3. Create batch commands for ANTLR Tool, TestRig in dir in PATH
- 	antlr4.bat: java org.antlr.v4.Tool %*
- 	grun.bat:   java org.antlr.v4.runtime.misc.TestRig %*
+JUMP
+- j
+- jal
+- jr
+- jalr
+- exit ??? 
+
+LOAD/STORE
+- lb
+- lbu
+- lh
+- lhu
+- lui
+- lw
+- li
+- la
+- sb
+- sw
+- sh

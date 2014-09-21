@@ -1,0 +1,15 @@
+.data 
+str: .asciiz "Check"
+number: .word 15
+
+.text
+
+main:
+addi $t2, $zero, 9 #initialise
+lh $t3, ($t2) #get operand from older
+
+addi $t4, $zero, 1020 #initialise
+sb $t4, -1($t2) #get operand from older instr
+
+lb $t1, -1($t2) #give operand to next instr
+add $t1, $t1, $t1

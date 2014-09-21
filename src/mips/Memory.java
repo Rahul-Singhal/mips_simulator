@@ -26,10 +26,10 @@ class Memory {
 
     void storeWord(int address, int word){
         if (address >= 0 && address + 4 <= store.length) {
-            store[address + 3] = (char) (word & 0xFF);
-            store[address + 2] = (char) (word & 0xFF00);
-            store[address + 1] = (char) (word & 0xFF0000);
-            store[address] = (char) (word & 0xFF000000);
+            store[address + 3] = (char) ((word >> 0) & 0xFF);
+            store[address + 2] = (char) ((word >> 8) & 0xFF);
+            store[address + 1] = (char) ((word >> 16) & 0xFF);
+            store[address] = (char) ((word >> 24) & 0xFF);
         } else {
             System.out.printf("Memory out of bounds exception! %d\n", address);
             System.exit(0);
@@ -40,8 +40,8 @@ class Memory {
     // Should we also do that?
     void storeHalfWord(int address, int word){
         if (address >= 0 && address + 2 <= store.length) {
-            store[address + 1] = (char) (word & 0xFF);
-            store[address] = (char) (word & 0xFF00);
+            store[address + 1] = (char) ((word >> 0) & 0xFF);
+            store[address] = (char) ((word >> 8) & 0xFF);
         } else {
             System.out.printf("Memory out of bounds exception! %d\n", address);
             System.exit(0);

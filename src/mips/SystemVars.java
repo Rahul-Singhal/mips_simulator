@@ -38,7 +38,7 @@ public class SystemVars {
     };
     
     static int programCounter = 0; // holds the index of the instruction which will be inserted 
-    static boolean forwardingEnabled = false;
+    static boolean forwardingEnabled = true;
     static int multSubStages = 4;
     static int divSubStages = 4;
     static boolean fastBranching = false;
