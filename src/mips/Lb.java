@@ -15,7 +15,7 @@ public class Lb extends R2ImmLS implements Cloneable{
         super(rtIndex,rsIndex,signExtImm,id);
         isLoad = true;
         isStore = false;
-        category = 1; // byte
+        category = 1; // signed byte
     }
     
     public Lb(Lb lw){

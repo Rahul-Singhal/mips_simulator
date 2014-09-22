@@ -929,7 +929,7 @@ public class mainWindow extends javax.swing.JFrame{
             }
         });
         // default open file for testing
-        programFile = "test_files/basicTesting";
+        programFile = "test_files/TestLS4.s";
         prog = new Program(programFile);
         prog.init();
     }

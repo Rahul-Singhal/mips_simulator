@@ -15,7 +15,7 @@ public class Lbu extends R2ImmLS implements Cloneable{
         super(rtIndex,rsIndex,signExtImm,id);
         isLoad = true;
         isStore = false;
-        category = 1; // byte
+        category = 3; // unsigned byte
     }
     
     public Lbu(Lbu lw){

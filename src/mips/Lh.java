@@ -15,7 +15,7 @@ public class Lh extends R2ImmLS implements Cloneable{
         super(rtIndex,rsIndex,signExtImm,id);
         isLoad = true;
         isStore = false;
-        category = 2; // halfword
+        category = 2; // signed halfword
     }
     
     public Lh(Lh lw){

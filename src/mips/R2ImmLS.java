@@ -159,6 +159,12 @@ public class R2ImmLS extends Instruction implements Cloneable {
                             }else if(category == 2){
                                 // HALF WORD   
                                 registers.get(rtIndex).unstallRegister(memory.loadHalfWord(sum), id);
+                            }else if(category == 3){
+                                // UNSIGNED BYTE
+                                registers.get(rtIndex).unstallRegister(memory.loadUnsignedByte(sum), id);
+                            }else if(category == 4){
+                                // UNSIGNED HALFWORD
+                                registers.get(rtIndex).unstallRegister(memory.loadUnsignedHalfWord(sum), id);
                             }
                         }
                     }
@@ -180,6 +186,12 @@ public class R2ImmLS extends Instruction implements Cloneable {
                             }else if(category == 2){
                                 // HALF WORD   
                                 registers.get(rtIndex).unstallRegister(memory.loadHalfWord(sum), id);
+                            }else if(category == 3){
+                                // UNSIGNED BYTE
+                                registers.get(rtIndex).unstallRegister(memory.loadUnsignedByte(sum), id);
+                            }else if(category == 4){
+                                // UNSIGNED HALFWORD
+                                registers.get(rtIndex).unstallRegister(memory.loadUnsignedHalfWord(sum), id);
                             }
                         }
                     }

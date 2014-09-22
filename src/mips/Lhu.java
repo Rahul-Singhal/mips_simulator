@@ -15,7 +15,7 @@ public class Lhu extends R2ImmLS implements Cloneable{
         super(rtIndex,rsIndex,signExtImm,id);
         isLoad = true;
         isStore = false;
-        category = 2; // halfword
+        category = 4; // unsigned halfword
     }
     
     public Lhu(Lhu lw){
