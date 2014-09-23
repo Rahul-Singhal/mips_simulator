@@ -77,7 +77,7 @@ public class mainWindow extends javax.swing.JFrame{
         jScrollPane1.setRowHeaderView(instructionJPanel1);
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
         jScrollPane1.getHorizontalScrollBar().setUnitIncrement(20);
-        setScrollKeys();
+        setKeyboardKeys();
     }
     
     public void runOneCycle(){
@@ -122,13 +122,21 @@ public class mainWindow extends javax.swing.JFrame{
         }
     };
     
-    public void setScrollKeys(){
+    Action registerStateBarAction = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            registerStateMenuItemActionPerformed(null);
+        }
+    };
+    
+    public void setKeyboardKeys(){
         InputMap im = jScrollPane1.getInputMap(JComponent.WHEN_FOCUSED);
         ActionMap am = jScrollPane1.getActionMap();
         im.put(KeyStroke.getKeyStroke("N"),"nextCycleAction");
         im.put(KeyStroke.getKeyStroke("A"),"allCyclesAction");
+        im.put(KeyStroke.getKeyStroke("R"),"registerStateBarAction");
         am.put("nextCycleAction",nextCycleAction);
         am.put("allCyclesAction",allCyclesAction);
+        am.put("registerStateBarAction",registerStateBarAction);
     }
     
     public void drawNextQueue(ArrayList<Instruction> a){
