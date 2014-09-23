@@ -328,6 +328,738 @@
         </Property>
       </Properties>
     </Component>
+    <Container class="javax.swing.JFrame" name="registerStatePanel">
+      <Properties>
+        <Property name="locationByPlatform" type="boolean" value="true"/>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[800, 370]"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel2" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jButton4" min="-2" pref="92" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                  <Component id="jPanel2" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton4" min="-2" pref="29" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="jPanel2">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Register Values">
+                  <Font PropertyName="font" name="Dialog" size="12" style="1"/>
+                </TitledBorder>
+              </Border>
+            </Property>
+          </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Register Values"/>
+          </AccessibilityProperties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace pref="48" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="regiterNameLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="registerValueLabel8" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel7" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel6" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel5" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel4" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel2" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="50" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="registerValueLabel16" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel15" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel14" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel13" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel12" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel9" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel10" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel11" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="50" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="registerValueLabel24" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel23" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel22" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel21" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel20" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel17" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel18" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel19" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="50" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel26" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel29" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel30" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel31" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerNameLabel32" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="registerValueLabel32" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel31" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel30" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel29" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel28" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel25" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel26" min="-2" max="-2" attributes="0"/>
+                          <Component id="registerValueLabel27" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="50" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel30" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel30" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel31" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel31" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="registerNameLabel10" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="registerNameLabel11" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registerNameLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="regiterNameLabel1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="registerNameLabel2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="registerNameLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="registerValueLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="registerNameLabel4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="registerNameLabel5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="registerNameLabel6" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="registerNameLabel7" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="registerNameLabel8" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabel7">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ubuntu" size="15" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Register"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel8">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ubuntu" size="15" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Value"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="regiterNameLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$at"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$v0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$v1"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$a0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel6">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$a1"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel7">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$a2"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel8">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$a3"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel17">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$s0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel9">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ubuntu" size="15" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Register"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel10">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ubuntu" size="15" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Value"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel18">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$s1"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel19">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$s2"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel20">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$s3"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel21">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$s4"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel22">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$s5"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel23">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$s6"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel24">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$s7"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel9">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$t0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel11">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ubuntu" size="15" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Register"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel17">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ubuntu" size="15" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Value"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel10">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$t1"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel11">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$t2"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel12">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$t3"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel13">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$t4"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel14">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$t5"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel15">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$t6"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel16">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$t7"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel25">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$t8"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel18">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ubuntu" size="15" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Register"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel19">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ubuntu" size="15" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Value"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel26">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$t9"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel27">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$k0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel28">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$k1"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel29">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$gp"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel30">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$sp"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel31">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$fp"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerNameLabel32">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$ra"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel6">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel7">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel8">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel9">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel10">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel11">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel12">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel13">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel14">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel15">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel16">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel17">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel18">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel19">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel20">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel21">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel22">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel23">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel24">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel25">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel26">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel27">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel28">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel29">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel30">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel31">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="registerValueLabel32">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="$zero"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JButton" name="jButton4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ok"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="fileMenu">
@@ -426,6 +1158,26 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="allCyclesMenuItemActionPerformed"/>
               </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="showMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Show"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="registerStateMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Register State"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registerStateMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="memoryStateMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Memory State"/>
+              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -25,6 +25,7 @@ import javax.swing.CellRendererPane;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
@@ -270,6 +271,81 @@ public class mainWindow extends javax.swing.JFrame{
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         saveImageChooser = new javax.swing.JFileChooser();
+        registerStatePanel = new javax.swing.JFrame();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        regiterNameLabel1 = new javax.swing.JLabel();
+        registerNameLabel2 = new javax.swing.JLabel();
+        registerNameLabel3 = new javax.swing.JLabel();
+        registerNameLabel4 = new javax.swing.JLabel();
+        registerNameLabel5 = new javax.swing.JLabel();
+        registerNameLabel6 = new javax.swing.JLabel();
+        registerNameLabel7 = new javax.swing.JLabel();
+        registerNameLabel8 = new javax.swing.JLabel();
+        registerNameLabel17 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        registerNameLabel18 = new javax.swing.JLabel();
+        registerNameLabel19 = new javax.swing.JLabel();
+        registerNameLabel20 = new javax.swing.JLabel();
+        registerNameLabel21 = new javax.swing.JLabel();
+        registerNameLabel22 = new javax.swing.JLabel();
+        registerNameLabel23 = new javax.swing.JLabel();
+        registerNameLabel24 = new javax.swing.JLabel();
+        registerNameLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        registerNameLabel10 = new javax.swing.JLabel();
+        registerNameLabel11 = new javax.swing.JLabel();
+        registerNameLabel12 = new javax.swing.JLabel();
+        registerNameLabel13 = new javax.swing.JLabel();
+        registerNameLabel14 = new javax.swing.JLabel();
+        registerNameLabel15 = new javax.swing.JLabel();
+        registerNameLabel16 = new javax.swing.JLabel();
+        registerNameLabel25 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        registerNameLabel26 = new javax.swing.JLabel();
+        registerNameLabel27 = new javax.swing.JLabel();
+        registerNameLabel28 = new javax.swing.JLabel();
+        registerNameLabel29 = new javax.swing.JLabel();
+        registerNameLabel30 = new javax.swing.JLabel();
+        registerNameLabel31 = new javax.swing.JLabel();
+        registerNameLabel32 = new javax.swing.JLabel();
+        registerValueLabel1 = new javax.swing.JLabel();
+        registerValueLabel2 = new javax.swing.JLabel();
+        registerValueLabel3 = new javax.swing.JLabel();
+        registerValueLabel4 = new javax.swing.JLabel();
+        registerValueLabel5 = new javax.swing.JLabel();
+        registerValueLabel6 = new javax.swing.JLabel();
+        registerValueLabel7 = new javax.swing.JLabel();
+        registerValueLabel8 = new javax.swing.JLabel();
+        registerValueLabel9 = new javax.swing.JLabel();
+        registerValueLabel10 = new javax.swing.JLabel();
+        registerValueLabel11 = new javax.swing.JLabel();
+        registerValueLabel12 = new javax.swing.JLabel();
+        registerValueLabel13 = new javax.swing.JLabel();
+        registerValueLabel14 = new javax.swing.JLabel();
+        registerValueLabel15 = new javax.swing.JLabel();
+        registerValueLabel16 = new javax.swing.JLabel();
+        registerValueLabel17 = new javax.swing.JLabel();
+        registerValueLabel18 = new javax.swing.JLabel();
+        registerValueLabel19 = new javax.swing.JLabel();
+        registerValueLabel20 = new javax.swing.JLabel();
+        registerValueLabel21 = new javax.swing.JLabel();
+        registerValueLabel22 = new javax.swing.JLabel();
+        registerValueLabel23 = new javax.swing.JLabel();
+        registerValueLabel24 = new javax.swing.JLabel();
+        registerValueLabel25 = new javax.swing.JLabel();
+        registerValueLabel26 = new javax.swing.JLabel();
+        registerValueLabel27 = new javax.swing.JLabel();
+        registerValueLabel28 = new javax.swing.JLabel();
+        registerValueLabel29 = new javax.swing.JLabel();
+        registerValueLabel30 = new javax.swing.JLabel();
+        registerValueLabel31 = new javax.swing.JLabel();
+        registerValueLabel32 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         stageJPanel1 = new mips.StageJPanel();
         menuBar = new javax.swing.JMenuBar();
@@ -283,6 +359,9 @@ public class mainWindow extends javax.swing.JFrame{
         jMenu2 = new javax.swing.JMenu();
         nextCycleMenuItem = new javax.swing.JMenuItem();
         allCyclesMenuItem = new javax.swing.JMenuItem();
+        showMenu = new javax.swing.JMenu();
+        registerStateMenuItem = new javax.swing.JMenuItem();
+        memoryStateMenuItem = new javax.swing.JMenuItem();
         settingsMenuItem = new javax.swing.JMenu();
         ForwardingCheckBox = new javax.swing.JCheckBoxMenuItem();
         FastBranchingTextBox = new javax.swing.JCheckBoxMenuItem();
@@ -509,6 +588,435 @@ public class mainWindow extends javax.swing.JFrame{
         saveImageChooser.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         saveImageChooser.setFileFilter(new imageSaveFilter());
 
+        registerStatePanel.setLocationByPlatform(true);
+        registerStatePanel.setMinimumSize(new java.awt.Dimension(800, 370));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Register Values", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel7.setText("Register");
+
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel8.setText("Value");
+
+        regiterNameLabel1.setText("$zero");
+
+        registerNameLabel2.setText("$at");
+
+        registerNameLabel3.setText("$v0");
+
+        registerNameLabel4.setText("$v1");
+
+        registerNameLabel5.setText("$a0");
+
+        registerNameLabel6.setText("$a1");
+
+        registerNameLabel7.setText("$a2");
+
+        registerNameLabel8.setText("$a3");
+
+        registerNameLabel17.setText("$s0");
+
+        jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel9.setText("Register");
+
+        jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel10.setText("Value");
+
+        registerNameLabel18.setText("$s1");
+
+        registerNameLabel19.setText("$s2");
+
+        registerNameLabel20.setText("$s3");
+
+        registerNameLabel21.setText("$s4");
+
+        registerNameLabel22.setText("$s5");
+
+        registerNameLabel23.setText("$s6");
+
+        registerNameLabel24.setText("$s7");
+
+        registerNameLabel9.setText("$t0");
+
+        jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel11.setText("Register");
+
+        jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel17.setText("Value");
+
+        registerNameLabel10.setText("$t1");
+
+        registerNameLabel11.setText("$t2");
+
+        registerNameLabel12.setText("$t3");
+
+        registerNameLabel13.setText("$t4");
+
+        registerNameLabel14.setText("$t5");
+
+        registerNameLabel15.setText("$t6");
+
+        registerNameLabel16.setText("$t7");
+
+        registerNameLabel25.setText("$t8");
+
+        jLabel18.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel18.setText("Register");
+
+        jLabel19.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel19.setText("Value");
+
+        registerNameLabel26.setText("$t9");
+
+        registerNameLabel27.setText("$k0");
+
+        registerNameLabel28.setText("$k1");
+
+        registerNameLabel29.setText("$gp");
+
+        registerNameLabel30.setText("$sp");
+
+        registerNameLabel31.setText("$fp");
+
+        registerNameLabel32.setText("$ra");
+
+        registerValueLabel1.setText("$zero");
+
+        registerValueLabel2.setText("$zero");
+
+        registerValueLabel3.setText("$zero");
+
+        registerValueLabel4.setText("$zero");
+
+        registerValueLabel5.setText("$zero");
+
+        registerValueLabel6.setText("$zero");
+
+        registerValueLabel7.setText("$zero");
+
+        registerValueLabel8.setText("$zero");
+
+        registerValueLabel9.setText("$zero");
+
+        registerValueLabel10.setText("$zero");
+
+        registerValueLabel11.setText("$zero");
+
+        registerValueLabel12.setText("$zero");
+
+        registerValueLabel13.setText("$zero");
+
+        registerValueLabel14.setText("$zero");
+
+        registerValueLabel15.setText("$zero");
+
+        registerValueLabel16.setText("$zero");
+
+        registerValueLabel17.setText("$zero");
+
+        registerValueLabel18.setText("$zero");
+
+        registerValueLabel19.setText("$zero");
+
+        registerValueLabel20.setText("$zero");
+
+        registerValueLabel21.setText("$zero");
+
+        registerValueLabel22.setText("$zero");
+
+        registerValueLabel23.setText("$zero");
+
+        registerValueLabel24.setText("$zero");
+
+        registerValueLabel25.setText("$zero");
+
+        registerValueLabel26.setText("$zero");
+
+        registerValueLabel27.setText("$zero");
+
+        registerValueLabel28.setText("$zero");
+
+        registerValueLabel29.setText("$zero");
+
+        registerValueLabel30.setText("$zero");
+
+        registerValueLabel31.setText("$zero");
+
+        registerValueLabel32.setText("$zero");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(48, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(regiterNameLabel1)
+                    .addComponent(registerNameLabel2)
+                    .addComponent(registerNameLabel3)
+                    .addComponent(registerNameLabel4)
+                    .addComponent(registerNameLabel5)
+                    .addComponent(registerNameLabel6)
+                    .addComponent(registerNameLabel7)
+                    .addComponent(registerNameLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(registerValueLabel8)
+                    .addComponent(registerValueLabel7)
+                    .addComponent(registerValueLabel6)
+                    .addComponent(registerValueLabel5)
+                    .addComponent(registerValueLabel4)
+                    .addComponent(jLabel8)
+                    .addComponent(registerValueLabel1)
+                    .addComponent(registerValueLabel2)
+                    .addComponent(registerValueLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(registerNameLabel9)
+                    .addComponent(registerNameLabel10)
+                    .addComponent(registerNameLabel11)
+                    .addComponent(registerNameLabel12)
+                    .addComponent(registerNameLabel13)
+                    .addComponent(registerNameLabel14)
+                    .addComponent(registerNameLabel15)
+                    .addComponent(registerNameLabel16))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(registerValueLabel16)
+                    .addComponent(registerValueLabel15)
+                    .addComponent(registerValueLabel14)
+                    .addComponent(registerValueLabel13)
+                    .addComponent(registerValueLabel12)
+                    .addComponent(jLabel17)
+                    .addComponent(registerValueLabel9)
+                    .addComponent(registerValueLabel10)
+                    .addComponent(registerValueLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(registerNameLabel17)
+                    .addComponent(registerNameLabel18)
+                    .addComponent(registerNameLabel19)
+                    .addComponent(registerNameLabel20)
+                    .addComponent(registerNameLabel21)
+                    .addComponent(registerNameLabel22)
+                    .addComponent(registerNameLabel23)
+                    .addComponent(registerNameLabel24))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(registerValueLabel24)
+                    .addComponent(registerValueLabel23)
+                    .addComponent(registerValueLabel22)
+                    .addComponent(registerValueLabel21)
+                    .addComponent(registerValueLabel20)
+                    .addComponent(jLabel10)
+                    .addComponent(registerValueLabel17)
+                    .addComponent(registerValueLabel18)
+                    .addComponent(registerValueLabel19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18)
+                    .addComponent(registerNameLabel25)
+                    .addComponent(registerNameLabel26)
+                    .addComponent(registerNameLabel27)
+                    .addComponent(registerNameLabel28)
+                    .addComponent(registerNameLabel29)
+                    .addComponent(registerNameLabel30)
+                    .addComponent(registerNameLabel31)
+                    .addComponent(registerNameLabel32))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(registerValueLabel32)
+                    .addComponent(registerValueLabel31)
+                    .addComponent(registerValueLabel30)
+                    .addComponent(registerValueLabel29)
+                    .addComponent(registerValueLabel28)
+                    .addComponent(jLabel19)
+                    .addComponent(registerValueLabel25)
+                    .addComponent(registerValueLabel26)
+                    .addComponent(registerValueLabel27))
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel19))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel25)
+                            .addComponent(registerValueLabel25))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel26)
+                            .addComponent(registerValueLabel26))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel27)
+                            .addComponent(registerValueLabel19)
+                            .addComponent(registerValueLabel27))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel28)
+                            .addComponent(registerValueLabel20)
+                            .addComponent(registerValueLabel28))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel29)
+                            .addComponent(registerValueLabel21)
+                            .addComponent(registerValueLabel29))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel30)
+                            .addComponent(registerValueLabel22)
+                            .addComponent(registerValueLabel30))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel31)
+                            .addComponent(registerValueLabel23)
+                            .addComponent(registerValueLabel31))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel32)
+                            .addComponent(registerValueLabel24)
+                            .addComponent(registerValueLabel32)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel17))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel9)
+                            .addComponent(registerValueLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(registerNameLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(registerNameLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel12)
+                            .addComponent(registerValueLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel13)
+                            .addComponent(registerValueLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel14)
+                            .addComponent(registerValueLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel15)
+                            .addComponent(registerValueLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel16)
+                            .addComponent(registerValueLabel8)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel17)
+                            .addComponent(registerValueLabel17))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel18)
+                            .addComponent(registerValueLabel10)
+                            .addComponent(registerValueLabel18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel19)
+                            .addComponent(registerValueLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel20)
+                            .addComponent(registerValueLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel21)
+                            .addComponent(registerValueLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel22)
+                            .addComponent(registerValueLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel23)
+                            .addComponent(registerValueLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerNameLabel24)
+                            .addComponent(registerValueLabel16)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(regiterNameLabel1)
+                            .addComponent(registerValueLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(registerNameLabel2)
+                            .addComponent(registerValueLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(registerNameLabel3)
+                            .addComponent(registerValueLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(registerNameLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(registerNameLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(registerNameLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(registerNameLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(registerNameLabel8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton4.setText("Ok");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout registerStatePanelLayout = new javax.swing.GroupLayout(registerStatePanel.getContentPane());
+        registerStatePanel.getContentPane().setLayout(registerStatePanelLayout);
+        registerStatePanelLayout.setHorizontalGroup(
+            registerStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registerStatePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registerStatePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
+        );
+        registerStatePanelLayout.setVerticalGroup(
+            registerStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registerStatePanelLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel2.getAccessibleContext().setAccessibleName("Register Values");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS));
 
@@ -609,6 +1117,21 @@ public class mainWindow extends javax.swing.JFrame{
 
         menuBar.add(jMenu2);
 
+        showMenu.setText("Show");
+
+        registerStateMenuItem.setText("Register State");
+        registerStateMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerStateMenuItemActionPerformed(evt);
+            }
+        });
+        showMenu.add(registerStateMenuItem);
+
+        memoryStateMenuItem.setText("Memory State");
+        showMenu.add(memoryStateMenuItem);
+
+        menuBar.add(showMenu);
+
         settingsMenuItem.setMnemonic('e');
         settingsMenuItem.setText("Settings");
 
@@ -707,38 +1230,6 @@ public class mainWindow extends javax.swing.JFrame{
             System.out.println("File access cancelled by user.");
         }
     }//GEN-LAST:event_openMenuItemActionPerformed
-
-    private void IFFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IFFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IFFieldActionPerformed
-
-    private void EXFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EXFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EXFieldActionPerformed
-
-    private void IDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IDFieldActionPerformed
-
-    private void MEMFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MEMFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MEMFieldActionPerformed
-
-    private void DIVFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DIVFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DIVFieldActionPerformed
-
-    private void MULTFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MULTFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MULTFieldActionPerformed
-
-    private void WBFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WBFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_WBFieldActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        pipelineDepthEditor.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private boolean validatePositiveNumber(String input){
         return Pattern.matches("\\d+", input);
@@ -895,6 +1386,85 @@ public class mainWindow extends javax.swing.JFrame{
         runAllCycles();
     }//GEN-LAST:event_allCyclesMenuItemActionPerformed
 
+    private void MEMFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MEMFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MEMFieldActionPerformed
+
+    private void EXFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EXFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EXFieldActionPerformed
+
+    private void IDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IDFieldActionPerformed
+
+    private void IFFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IFFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IFFieldActionPerformed
+
+    private void DIVFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DIVFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DIVFieldActionPerformed
+
+    private void MULTFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MULTFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MULTFieldActionPerformed
+
+    private void WBFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WBFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_WBFieldActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        pipelineDepthEditor.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        registerStatePanel.setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void registerStateMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerStateMenuItemActionPerformed
+        registerStatePanel.setLocation(this.getLocation());
+        ArrayList <Register> registers = SystemVars.registers;
+        ArrayList <JLabel> registerValueLabels = new ArrayList<JLabel>(Arrays.asList(
+            registerValueLabel1,
+            registerValueLabel2,
+            registerValueLabel3,
+            registerValueLabel4,
+            registerValueLabel5,
+            registerValueLabel6,
+            registerValueLabel7,
+            registerValueLabel8,
+            registerValueLabel9,
+            registerValueLabel10,
+            registerValueLabel11,
+            registerValueLabel12,
+            registerValueLabel13,
+            registerValueLabel14,
+            registerValueLabel15,
+            registerValueLabel16,
+            registerValueLabel17,
+            registerValueLabel18,
+            registerValueLabel19,
+            registerValueLabel20,
+            registerValueLabel21,
+            registerValueLabel22,
+            registerValueLabel23,
+            registerValueLabel24,
+            registerValueLabel25,
+            registerValueLabel26,
+            registerValueLabel27,
+            registerValueLabel28,
+            registerValueLabel29,
+            registerValueLabel30,
+            registerValueLabel31,
+            registerValueLabel32
+        ));
+        for(int i = 0 ; i<32; i++){
+            registerValueLabels.get(i).setText("0x" + String.format("%08x", (0xFFFFFFFF & registers.get(i).value)).toUpperCase());
+        }
+        registerStatePanel.setVisible(true);
+    }//GEN-LAST:event_registerStateMenuItemActionPerformed
+
     
     /** TODO add your handling code here:
      * @param args the command line arguments
@@ -954,21 +1524,32 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JMenuItem historyBasedBranchButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem memoryStateMenuItem;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem nextCycleMenuItem;
     private javax.swing.JFileChooser openFileChooser;
@@ -977,10 +1558,77 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JMenuItem pipelineMenuItem;
     private javax.swing.JMenuItem predictNotTakenButton;
     private javax.swing.JMenuItem predictTakenButton;
+    private javax.swing.JLabel registerNameLabel10;
+    private javax.swing.JLabel registerNameLabel11;
+    private javax.swing.JLabel registerNameLabel12;
+    private javax.swing.JLabel registerNameLabel13;
+    private javax.swing.JLabel registerNameLabel14;
+    private javax.swing.JLabel registerNameLabel15;
+    private javax.swing.JLabel registerNameLabel16;
+    private javax.swing.JLabel registerNameLabel17;
+    private javax.swing.JLabel registerNameLabel18;
+    private javax.swing.JLabel registerNameLabel19;
+    private javax.swing.JLabel registerNameLabel2;
+    private javax.swing.JLabel registerNameLabel20;
+    private javax.swing.JLabel registerNameLabel21;
+    private javax.swing.JLabel registerNameLabel22;
+    private javax.swing.JLabel registerNameLabel23;
+    private javax.swing.JLabel registerNameLabel24;
+    private javax.swing.JLabel registerNameLabel25;
+    private javax.swing.JLabel registerNameLabel26;
+    private javax.swing.JLabel registerNameLabel27;
+    private javax.swing.JLabel registerNameLabel28;
+    private javax.swing.JLabel registerNameLabel29;
+    private javax.swing.JLabel registerNameLabel3;
+    private javax.swing.JLabel registerNameLabel30;
+    private javax.swing.JLabel registerNameLabel31;
+    private javax.swing.JLabel registerNameLabel32;
+    private javax.swing.JLabel registerNameLabel4;
+    private javax.swing.JLabel registerNameLabel5;
+    private javax.swing.JLabel registerNameLabel6;
+    private javax.swing.JLabel registerNameLabel7;
+    private javax.swing.JLabel registerNameLabel8;
+    private javax.swing.JLabel registerNameLabel9;
+    private javax.swing.JMenuItem registerStateMenuItem;
+    private javax.swing.JFrame registerStatePanel;
+    private javax.swing.JLabel registerValueLabel1;
+    private javax.swing.JLabel registerValueLabel10;
+    private javax.swing.JLabel registerValueLabel11;
+    private javax.swing.JLabel registerValueLabel12;
+    private javax.swing.JLabel registerValueLabel13;
+    private javax.swing.JLabel registerValueLabel14;
+    private javax.swing.JLabel registerValueLabel15;
+    private javax.swing.JLabel registerValueLabel16;
+    private javax.swing.JLabel registerValueLabel17;
+    private javax.swing.JLabel registerValueLabel18;
+    private javax.swing.JLabel registerValueLabel19;
+    private javax.swing.JLabel registerValueLabel2;
+    private javax.swing.JLabel registerValueLabel20;
+    private javax.swing.JLabel registerValueLabel21;
+    private javax.swing.JLabel registerValueLabel22;
+    private javax.swing.JLabel registerValueLabel23;
+    private javax.swing.JLabel registerValueLabel24;
+    private javax.swing.JLabel registerValueLabel25;
+    private javax.swing.JLabel registerValueLabel26;
+    private javax.swing.JLabel registerValueLabel27;
+    private javax.swing.JLabel registerValueLabel28;
+    private javax.swing.JLabel registerValueLabel29;
+    private javax.swing.JLabel registerValueLabel3;
+    private javax.swing.JLabel registerValueLabel30;
+    private javax.swing.JLabel registerValueLabel31;
+    private javax.swing.JLabel registerValueLabel32;
+    private javax.swing.JLabel registerValueLabel4;
+    private javax.swing.JLabel registerValueLabel5;
+    private javax.swing.JLabel registerValueLabel6;
+    private javax.swing.JLabel registerValueLabel7;
+    private javax.swing.JLabel registerValueLabel8;
+    private javax.swing.JLabel registerValueLabel9;
+    private javax.swing.JLabel regiterNameLabel1;
     private javax.swing.JMenuItem resetMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JFileChooser saveImageChooser;
     private javax.swing.JMenu settingsMenuItem;
+    private javax.swing.JMenu showMenu;
     private mips.StageJPanel stageJPanel1;
     // End of variables declaration//GEN-END:variables
 

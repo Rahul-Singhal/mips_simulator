@@ -43,7 +43,7 @@ public class StageJPanel extends JPanel {
         stagePropertiesMap = new HashMap<Integer, Pair<String, Color>>();
         offsetFromTop = SystemVars.offsetFromTop;
         buildStagePropertiesMap();
-        idStage = SystemVars.reverseStageTypeMap.get(SystemVars.stageType.ID);
+       //idStage = SystemVars.reverseStageTypeMap.get(SystemVars.stageType.ID);
         preferredWidth = 0;
     }
     
