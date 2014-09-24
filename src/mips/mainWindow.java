@@ -1507,7 +1507,7 @@ public class mainWindow extends javax.swing.JFrame{
             }
         });
         // default open file for testing
-        programFile = "test_files/TestLS4.s";
+        programFile = "test_files/Test1";
         prog = new Program(programFile);
         prog.init();
     }

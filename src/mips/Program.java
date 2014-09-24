@@ -192,7 +192,6 @@ public class Program extends SystemVars{
             /*removing elements after the branch instructions from the queue*/
             while (i<currInstructions.size()) {
                 currInstructions.remove(i);
-                i++;
             }
         }
         /*removing completed instructions*/

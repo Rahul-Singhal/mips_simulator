@@ -103,7 +103,10 @@ class Register {
     
     public static void removeAll(ArrayList<Integer> a, int val){
         for(int i = 0 ;i<a.size(); i++){
-           if(a.get(i) == val) a.remove(i);
+           if(a.get(i) == val) {
+               a.remove(i);
+               i--;
+           }
         }
     }
     

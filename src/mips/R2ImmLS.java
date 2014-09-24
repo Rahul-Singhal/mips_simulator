@@ -207,7 +207,17 @@ public class R2ImmLS extends Instruction implements Cloneable {
 
     @Override   // This function is different for store and load, so override in inherited classes
     void unstall() {
-        return;
+        if (category == 0) {
+            registers.get(rtIndex).unstall(id);
+        } else if (category == 1) {
+            registers.get(rtIndex).unstall(id);
+        } else if (category == 2) {
+            registers.get(rtIndex).unstall(id);
+        } else if (category == 3) {
+            registers.get(rtIndex).unstall(id);
+        } else if (category == 4) {
+            registers.get(rtIndex).unstall(id);
+        }
     }
 
     @Override
