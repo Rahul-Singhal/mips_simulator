@@ -50,6 +50,7 @@ public class StageJPanel extends JPanel {
     public void resetSystem(){
         allInstructions = new ArrayList<ArrayList<Instruction>>();
         stagePropertiesMap = new HashMap<Integer, Pair<String, Color>>();
+        idStage = SystemVars.reverseStageTypeMap.get(SystemVars.stageType.ID);
         buildStagePropertiesMap();
     }
 

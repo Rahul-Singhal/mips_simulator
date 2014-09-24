@@ -13,8 +13,8 @@ package mips;
 public class Div extends R3Mult implements Cloneable{
     Div(int rdIndex, int rsIndex, int rtIndex, int id) {
         super(rdIndex,rsIndex,rtIndex,id);
-        isDiv = true;
         isMult = false;
+        isDiv = true;
     }
     
     public Div(Div m){

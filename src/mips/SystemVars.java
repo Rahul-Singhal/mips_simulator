@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class SystemVars {
     static boolean programOver;
-    static int totalStages = 11;
+    static int totalStages = 17;
     static int totalRegisters = 32;
     static ArrayList <Register> registers = new ArrayList<Register>(){
         {
@@ -39,8 +39,6 @@ public class SystemVars {
     
     static int programCounter = 0; // holds the index of the instruction which will be inserted 
     static boolean forwardingEnabled = false;
-    static int multSubStages = 4;
-    static int divSubStages = 4;
     static boolean fastBranching = false;
     static Memory memory = new Memory();
     static Map<String, Integer> labelMap = new HashMap<>();
@@ -62,9 +60,8 @@ public class SystemVars {
     }; 
     // generalization variables
     // default depths for 8 stage pipelines
-    static int totalDepth = 8;
     static enum stageType {IF, ID, EX, MULT, DIV, MEM, WB, DUMMY};
-    static int[] stageDepths = {2,1,1,1,1,3,1};
+    static int[] stageDepths = {2,1,1,4,4,3,1};
     static HashMap<Integer, stageType> stageMap = new HashMap();
     static HashMap<stageType, Integer> reverseStageTypeMap= new HashMap();
     static HashMap<Integer, stageType> baseStageMap = new HashMap();
@@ -88,7 +85,7 @@ public class SystemVars {
                 x++;
             }
         }
-        for(int i = 1; i<=totalDepth+2; i++){
+        for(int i = 1; i<totalStages; i++){
             if(!stageMap.containsKey(i)) stageMap.put(i, stageType.DUMMY);
         }  
         return stageMap.get(index);
@@ -134,16 +131,6 @@ public class SystemVars {
         }
     }
     
-    public static void resetPipelineDepth(int[] depths){
-        // depths is an array of length 5
-        System.arraycopy(depths, 0, stageDepths, 0, 3);
-        // mult and div
-        depths[3] = 1;
-        depths[4] = 1;
-        for(int i = 5; i<7; i++) stageDepths[i] = depths[i-2];
-        stageMap.clear();
-    }
-    
     public static int getTotalDifferentStages(){
         int sum = 0;
         for(int i = 0; i<stageDepths.length; i++){
@@ -158,15 +145,16 @@ public class SystemVars {
     public static void resetSystem(){
         fallbackInstructionMap = new HashMap<Integer, Integer>();
         programOver = false;
-        buildReverseStageTypeMap();
-        buildBaseStageMap();
-        buildStageNameMap();
         programCounter = 0;
         memory = new Memory();
         labelMap = new HashMap<>();
         rStalls = 0;
         sStalls = 0;
         clockCycle = 0;
+        totalStages = 1;
+        for(int i = 0 ; i<stageDepths.length; i++){
+            totalStages += stageDepths[i];
+        }
         registers = new ArrayList<Register>(){
             {
                 for (int i = 0; i < 32; i++) {
@@ -176,7 +164,7 @@ public class SystemVars {
         };
         stages = new ArrayList<Stage>(){
             {
-                for (int i = 0; i < 11; i++) {
+                for (int i = 0; i < totalStages; i++) {
                     add(new Stage(0));
                 } 
             }
@@ -188,14 +176,15 @@ public class SystemVars {
                 }
             }
         }; 
+        stageMap.clear();
+        buildReverseStageTypeMap();
+        buildBaseStageMap();
+        buildStageNameMap();
     }
     
     // constructor
     public SystemVars(){
-        programOver = false;
-        buildReverseStageTypeMap();
-        buildBaseStageMap();
-        buildStageNameMap();
+        resetSystem();
         stageColorMap.put(stageType.IF, new Color((float)0.372549,(float)0.619608,(float)0.62745));
         stageColorMap.put(stageType.ID, new Color((float)1,(float)0.498039,(float)0.313725));
         stageColorMap.put(stageType.EX, new Color((float)0.662745,(float)0.662745,(float)0.662745));

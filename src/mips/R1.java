@@ -103,7 +103,7 @@ public class R1 extends Instruction implements Cloneable {
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
                     stages.get(presentStage).setInstruction(id);
-                    stageToExecute += 3;
+                    stageToExecute += (stageDepths[3] + stageDepths[4] + 1);
                     return true;
                 case WB:
                     if(isLink && !forwardingEnabled){

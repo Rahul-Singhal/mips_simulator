@@ -131,7 +131,7 @@ public class R3 extends Instruction implements Cloneable{
                 presentStage = stageToExecute;
                 stages.get(presentStage).setInstruction(id);
                 /*Stage to execute will be MEM1 which is stage 7*/
-                stageToExecute += 3;
+                stageToExecute += (stageDepths[3] + stageDepths[4] + 1);
                 return true;
             case WB:
                 registers.get(rdIndex).unforwardIt(id);

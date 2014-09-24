@@ -1305,9 +1305,7 @@ public class mainWindow extends javax.swing.JFrame{
         }
         
         pipelineDepthEditor.setVisible(false);
-        SystemVars.stageDepths = new int[]{newIF,newID,newEX,1,1,newMEM,newWB};
-        SystemVars.multSubStages = newMULT;
-        SystemVars.divSubStages = newDIV;
+        SystemVars.stageDepths = new int[]{newIF,newID,newEX,newMULT,newDIV,newMEM,newWB};
         resetProgram();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -1509,7 +1507,7 @@ public class mainWindow extends javax.swing.JFrame{
             }
         });
         // default open file for testing
-        programFile = "test_files/simpleTest";
+        programFile = "test_files/TestMult";
         prog = new Program(programFile);
         prog.init();
     }

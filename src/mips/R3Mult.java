@@ -15,7 +15,6 @@ public class R3Mult extends Instruction implements Cloneable {
     int rsIndex;
     int rtIndex;
     int product;
-    int presentSubStage;
     int a, b;
 
     boolean isMult;
@@ -27,7 +26,6 @@ public class R3Mult extends Instruction implements Cloneable {
         this.rsIndex = rsIndex;
         this.rtIndex = rtIndex;
         this.id = id;
-        this.presentSubStage = 0;
         this.display = String.format(
             "%s %s, %s, %s", 
             this.getInstructionName(),
@@ -59,7 +57,6 @@ public class R3Mult extends Instruction implements Cloneable {
         this.product = i.product;
         this.a = i.a;
         this.b = i.b;
-        this.presentSubStage = 0;
         this.isDiv = i.isDiv;
         this.isMult = i.isMult;
     }
@@ -87,18 +84,28 @@ public class R3Mult extends Instruction implements Cloneable {
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
                     stages.get(presentStage).setInstruction(id);
-                    if (!registers.get(rsIndex).isValid()) {
-                        stalled = true;
-                        stallingRegister = rsIndex;
-                        stallingInstructionId = registers.get(rsIndex).instructionId;
-                        rStalls++;
-                        return false;
-                    } else if (!registers.get(rtIndex).isValid()) {
-                        stalled = true;
-                        stallingRegister = rtIndex;
-                        stallingInstructionId = registers.get(rtIndex).instructionId;
-                        rStalls++;
-                        return false;
+                    boolean rsBusy = false;
+                    boolean rtBusy = false;
+                    if(!registers.get(rsIndex).isValid()){
+                        rsBusy = true;
+                    }
+                    if(!registers.get(rtIndex).isValid()){
+                        rtBusy = true;
+                    }
+                    if(rsBusy && rtBusy){
+                        if(registers.get(rsIndex).instructionId > registers.get(rtIndex).instructionId){
+                            stallInstructionRegisterBusy(rsIndex);
+                            return false;
+                        } else {
+                            stallInstructionRegisterBusy(rtIndex);
+                            return false;
+                        }
+                    } else if(rsBusy){
+                            stallInstructionRegisterBusy(rsIndex);
+                            return false;
+                    } else if(rtBusy){
+                            stallInstructionRegisterBusy(rtIndex);
+                            return false;
                     } else {
                         registers.get(rdIndex).stallRegister(id);
                         int lastTime = -1;
@@ -116,9 +123,9 @@ public class R3Mult extends Instruction implements Cloneable {
                         a = registers.get(rsIndex).value;
                         b = registers.get(rtIndex).value;
                         if(isMult)
-                            stageToExecute += 2;
+                            stageToExecute += (stageDepths[2]+1);
                         else
-                            stageToExecute += 3;
+                            stageToExecute += (stageDepths[2] + stageDepths[3] + 1);
                         stalled = false;
                         return true;
                     }
@@ -127,35 +134,25 @@ public class R3Mult extends Instruction implements Cloneable {
                         stages.get(presentStage).setFree();
                         presentStage = stageToExecute;
                         stages.get(presentStage).setInstruction(id);
-                        presentSubStage++;
-                        if (presentSubStage == multSubStages) {
-                            /*Next stage is MEM1 which is stage 7*/
-                            // registers.get(rdIndex).write(product,id,stageToExecute); // TODO : Will it ever return false?
-                            if (forwardingEnabled) {
-                                registers.get(rdIndex).forwardIt(id, clockCycle);
-                                registers.get(rdIndex).unstallRegister(product, id);
-                            }
-                            stageToExecute += 2;
+                        if (forwardingEnabled) {
+                            registers.get(rdIndex).forwardIt(id, clockCycle);
+                            registers.get(rdIndex).unstallRegister(product, id);
                         }
-                        return true;
-                    } 
+                        stageToExecute += (stageDepths[3] + 1);
+                    }
+                    return true;
                 case DIV:
                     if (isDiv) {
                         stages.get(presentStage).setFree();
                         presentStage = stageToExecute;
                         stages.get(presentStage).setInstruction(id);
-                        presentSubStage++;
-                        if (presentSubStage == multSubStages) {
-                            /*Next stage is MEM1 which is stage 7*/
-                            // registers.get(rdIndex).write(product,id,stageToExecute); // TODO : Will it ever return false?
-                            if (forwardingEnabled) {
-                                registers.get(rdIndex).forwardIt(id, clockCycle);
-                                registers.get(rdIndex).unstallRegister(product, id);
-                            }
-                            stageToExecute += 1;
+                        if (forwardingEnabled) {
+                            registers.get(rdIndex).forwardIt(id, clockCycle);
+                            registers.get(rdIndex).unstallRegister(product, id);
                         }
-                        return true;
+                        stageToExecute += 1;
                     }
+                    return true;
                 case WB:
                     registers.get(rdIndex).unforwardIt(id);
                     if (!forwardingEnabled) {

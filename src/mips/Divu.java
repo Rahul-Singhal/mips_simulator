@@ -13,8 +13,8 @@ package mips;
 public class Divu extends R3Mult implements Cloneable{
     Divu(int rdIndex, int rsIndex, int rtIndex, int id) {
         super(rdIndex,rsIndex,rtIndex,id);
-        isDiv = true;
         isMult = false;
+        isDiv = true;
     }
     
     public Divu(Divu m){
