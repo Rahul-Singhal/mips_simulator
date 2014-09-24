@@ -159,13 +159,25 @@ public class Program extends SystemVars{
             returnInstructions.add(instruction.clone());
         }
         nextPc = programCounter;
-//        System.out.println("The value of dest pc is" + flush + "and prog. count is " + programCounter);
         if (flush) {
-            /*setting stages free*/
-            stages.get(0).setFree();
-            stages.get(1).setFree();
-            stages.get(2).setFree();
-            stages.get(3).setFree();
+            /*setting stage-0 free*/
+            int stageNum = 0;
+            stages.get(stageNum).setFree();
+            /*setting IF stages free*/
+            for(int i = 0; i<stageDepths[0]; i++){
+                stages.get(stageNum).setFree();
+                stageNum++;
+            }
+            /*setting ID stages free*/
+            for(int i = 0; i<stageDepths[1]; i++){
+                stages.get(stageNum).setFree();
+                stageNum++;
+            }
+            /*setting all EX stages but last free*/
+            for(int i = 0; i<stageDepths[2]-1; i++){
+                stages.get(stageNum).setFree();
+                stageNum++;
+            }
 
             /*complications!
              if predicate is calculated in EX then there is a chance

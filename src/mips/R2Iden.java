@@ -77,12 +77,28 @@ public class R2Iden extends Instruction implements Cloneable {
                     stages.get(presentStage).setFree();
                     presentStage = stageToExecute;
                     stages.get(presentStage).setInstruction(id);
-                    if (!registers.get(rsIndex).isValid()) {
-                        stallInstructionRegisterBusy(rsIndex);
-                        return false;
-                    } else if (!registers.get(rtIndex).isValid()) {
-                        stallInstructionRegisterBusy(rtIndex);
-                        return false;
+                    boolean rsBusy = false;
+                    boolean rtBusy = false;
+                    if(!registers.get(rsIndex).isValid()){
+                        rsBusy = true;
+                    }
+                    if(!registers.get(rtIndex).isValid()){
+                        rtBusy = true;
+                    }
+                    if(rsBusy && rtBusy){
+                        if(registers.get(rsIndex).instructionId > registers.get(rtIndex).instructionId){
+                            stallInstructionRegisterBusy(rsIndex);
+                            return false;
+                        } else {
+                            stallInstructionRegisterBusy(rtIndex);
+                            return false;
+                        }
+                    } else if(rsBusy){
+                            stallInstructionRegisterBusy(rsIndex);
+                            return false;
+                    } else if(rtBusy){
+                            stallInstructionRegisterBusy(rtIndex);
+                            return false;
                     } else {
                         a = registers.get(rsIndex).value;
                         b = registers.get(rtIndex).value;

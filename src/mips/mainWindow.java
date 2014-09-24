@@ -1346,6 +1346,8 @@ public class mainWindow extends javax.swing.JFrame{
         SystemVars.resetSystem();
         stageJPanel1.resetSystem();
         instructionJPanel1.resetSystem();
+        jScrollPane1.getHorizontalScrollBar().setValue(0);
+        jScrollPane1.getVerticalScrollBar().setValue(0);
         this.repaint();
         prog = new Program(programFile);
         prog.init();
@@ -1507,7 +1509,7 @@ public class mainWindow extends javax.swing.JFrame{
             }
         });
         // default open file for testing
-        programFile = "test_files/Test1";
+        programFile = "test_files/simpleTest";
         prog = new Program(programFile);
         prog.init();
     }
