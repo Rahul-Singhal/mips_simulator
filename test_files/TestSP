@@ -1,0 +1,13 @@
+.data
+	number: .word 1
+.text
+	main:
+		addi $t1 $zero 1
+		jal check
+		addi $s0 $zero 1
+		beq $s0 $t1 main
+
+
+	check:
+		addi $t2 $zero 5
+		jr $ra

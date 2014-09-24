@@ -703,6 +703,7 @@ jr_stmt : 'jr' rs=REG
             Register.registerToInteger($rs.text),
             0
         );
+        instructions.add(instr);
     };
 
 jalr_stmt : 'jalr' rs=REG 
@@ -711,6 +712,7 @@ jalr_stmt : 'jalr' rs=REG
             Register.registerToInteger($rs.text),
             0
         );
+        instructions.add(instr);
     };
 
 // Pending instruction.

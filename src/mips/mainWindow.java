@@ -1507,7 +1507,7 @@ public class mainWindow extends javax.swing.JFrame{
             }
         });
         // default open file for testing
-        programFile = "test_files/TestMult";
+        programFile = "test_files/TestSP";
         prog = new Program(programFile);
         prog.init();
     }
