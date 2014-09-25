@@ -138,7 +138,7 @@ public class R3Mult extends Instruction implements Cloneable {
                             registers.get(rdIndex).forwardIt(id, clockCycle);
                             registers.get(rdIndex).unstallRegister(product, id);
                         }
-                        stageToExecute += (stageDepths[3] + 1);
+                        stageToExecute += (stageDepths[4] + 1);
                     }
                     return true;
                 case DIV:
