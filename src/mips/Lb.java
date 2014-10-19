@@ -18,14 +18,26 @@ public class Lb extends R2ImmLS implements Cloneable{
         category = 1; // signed byte
     }
     
+    /**
+     *
+     * @param lw
+     */
     public Lb(Lb lw){
         super(lw);
     }
     
+    /**
+     *
+     */
     public void calculate(){
         sum = a+b;
     }
     
+    /**
+     *
+     * @param pc
+     * @return
+     */
     public boolean execute(int pc){
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX) calculate();
         return super.execute(pc);

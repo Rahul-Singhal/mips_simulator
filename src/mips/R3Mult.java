@@ -6,7 +6,8 @@
 package mips;
 
 /**
- *
+ * <p> Implements common functionalities of Mult and Div. </p>
+ * <p> Two input registers and one output register </p>
  * @author vedratn
  */
 public class R3Mult extends Instruction implements Cloneable {
@@ -20,6 +21,13 @@ public class R3Mult extends Instruction implements Cloneable {
     boolean isMult;
     boolean isDiv;
 
+    /**
+     * Constructor
+     * @param rdIndex destination register index
+     * @param rsIndex source1 register index
+     * @param rtIndex source2 register index
+     * @param id unique instruction id
+     */
     R3Mult(int rdIndex, int rsIndex, int rtIndex, int id) {
         super(); // Calling the Instruction() constructor for initialization
         this.rdIndex = rdIndex;
@@ -40,6 +48,10 @@ public class R3Mult extends Instruction implements Cloneable {
 
     }
 
+    /**
+     * Copy Constructor
+     * @param i Instruction to be copied
+     */
     R3Mult(R3Mult i) {
         this.stageToExecute = i.stageToExecute;
         this.presentStage = i.presentStage;
@@ -65,6 +77,14 @@ public class R3Mult extends Instruction implements Cloneable {
         return (R3Mult) super.clone();
     }
 
+    /**
+     *  <p> Main execution logic of all Mult and Div Instructions </p>
+     *  <p> Only logic specific to the children classes is calculation of "product",
+     *  which is a result of the arithmetic calculations specific to the children </p>
+     * 
+     * @param pc current program counter i.e. index of {@link mips.Instruction} in {@link mips.Program#code}
+     * @return boolean { true: successful execution, false: unsuccessful, instruction stalled} 
+     */
     boolean execute(int pc) {
         forwarded = false;
         stalled = false;
@@ -168,6 +188,9 @@ public class R3Mult extends Instruction implements Cloneable {
         }
     }
 
+    /**
+     * Unstalls the register which was being written into by <b>this</b> Instruction
+     */
     void unstall() {
         registers.get(rdIndex).unstall(id);
     }

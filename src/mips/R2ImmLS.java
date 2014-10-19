@@ -6,7 +6,9 @@
 package mips;
 
 /**
- *
+ *  <p> Main execution logic of all load and store type Instructions </p>
+ *  <p> Only logic specific to the children classes is calculation of destination address </p>
+ * 
  * @author vedratn
  */
 public class R2ImmLS extends Instruction implements Cloneable {
@@ -23,6 +25,13 @@ public class R2ImmLS extends Instruction implements Cloneable {
     boolean isStore;
     Integer category; // 0 : WORK, 1 : BYTE, 2 : HALFWORD
 
+    /**
+     * Constructor
+     * @param rtIndex register index
+     * @param rsIndex register index having memory address
+     * @param signExtImm offset to be added to memory address
+     * @param id unique integral id
+     */
     R2ImmLS(int rtIndex, int rsIndex, int signExtImm, int id) {
         super(); // Calling the Instruction() constructor for initialization
         this.rsIndex = rsIndex;
@@ -38,6 +47,11 @@ public class R2ImmLS extends Instruction implements Cloneable {
         );
     }
 
+    /**
+     * Copy Constructor
+     * 
+     * @param i instructor to be copied
+     */
     R2ImmLS(R2ImmLS i) {
         this.stageToExecute = i.stageToExecute;
         this.presentStage = i.presentStage;
@@ -60,6 +74,14 @@ public class R2ImmLS extends Instruction implements Cloneable {
         this.category = i.category;
     }
 
+    /**
+     *  <p> Main execution logic of all load and store Instructions </p>
+     *  <p> Only logic specific to the children classes is calculation of memory address </p>
+     *  <p> different memory methods are called depending on type of instructor (Load/Store) and granularity of data (Word/HaldWord/Byte) </p>
+     * 
+     * @param pc current program counter i.e. index of {@link mips.Instruction} in {@link mips.Program#code}
+     * @return boolean { true: successful execution, false: unsuccessful, instruction stalled} 
+     */
     boolean execute(int pc) {
         forwarded = false;
         stalled = false;

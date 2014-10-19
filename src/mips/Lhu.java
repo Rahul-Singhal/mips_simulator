@@ -18,14 +18,26 @@ public class Lhu extends R2ImmLS implements Cloneable{
         category = 4; // unsigned halfword
     }
     
+    /**
+     *
+     * @param lw
+     */
     public Lhu(Lhu lw){
         super(lw);
     }
     
+    /**
+     *
+     */
     public void calculate(){
         sum = a+b;
     }
     
+    /**
+     *
+     * @param pc
+     * @return
+     */
     public boolean execute(int pc){
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX) calculate();
         return super.execute(pc);

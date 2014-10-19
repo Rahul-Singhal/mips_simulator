@@ -11,14 +11,26 @@ public class Multu extends R3Mult implements Cloneable{
         isDiv = false;
     }
     
+    /**
+     *
+     * @param m
+     */
     public Multu(Multu m){
         super(m);
     }
     
+    /**
+     *
+     */
     public void calculate(){
         product = a*b;
     }
     
+    /**
+     *
+     * @param pc
+     * @return
+     */
     public boolean execute(int pc){
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.MULT && forwardingEnabled) calculate();
         else if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.WB && !forwardingEnabled) calculate();

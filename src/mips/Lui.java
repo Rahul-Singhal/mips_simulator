@@ -15,14 +15,26 @@ public class Lui extends RImm implements Cloneable{
         super(rdIndex,immediate,id); // Calling the RImm() constructor for initialization
     }
     
+    /**
+     *
+     * @param l
+     */
     public Lui(Lui l){
         super(l);
     }
     
+    /**
+     *
+     */
     public void calculate(){
         immediate = immediate << 16;
     }
     
+    /**
+     *
+     * @param pc
+     * @return
+     */
     public boolean execute(int pc){
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX && forwardingEnabled) calculate();
         else if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.WB && !forwardingEnabled) calculate();

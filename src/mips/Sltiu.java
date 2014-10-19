@@ -13,15 +13,31 @@ package mips;
  */
 public class Sltiu extends R2Imm implements Cloneable{
 
+    /**
+     *
+     * @param rdIndex
+     * @param rsIndex
+     * @param imm
+     * @param id
+     */
     public Sltiu(int rdIndex, int rsIndex, int imm, int id) {
         super(rdIndex, rsIndex, imm, id);
     }
     
+    /**
+     *
+     * @param sltiu
+     */
     public Sltiu(Sltiu sltiu){
         super(sltiu);
     }
     
     /* http://www.javamex.com/java_equivalents/unsigned_arithmetic.shtml */
+
+    /**
+     *
+     */
+    
     public void calculate(){
        long unsignedA = a & 0xffffffffL;
        long unsignedB = b & 0xffffffffL;
@@ -29,6 +45,11 @@ public class Sltiu extends R2Imm implements Cloneable{
        else sum = 0;
     }
     
+    /**
+     *
+     * @param pc
+     * @return
+     */
     public boolean execute(int pc){
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX) calculate();
         return super.execute(pc);

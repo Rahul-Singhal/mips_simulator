@@ -80,12 +80,18 @@ public class mainWindow extends javax.swing.JFrame{
         setKeyboardKeys();
     }
     
+    /**
+     *
+     */
     public void runOneCycle(){
         if(prog != null){
             if(!SystemVars.programOver)drawNextQueue(prog.execute());
         }
     }
     
+    /**
+     *
+     */
     public void runAllCycles(){
         int i = 0;
         for (i = 0; i < 200; i++) {
@@ -128,6 +134,9 @@ public class mainWindow extends javax.swing.JFrame{
         }
     };
     
+    /**
+     *
+     */
     public void setKeyboardKeys(){
         InputMap im = jScrollPane1.getInputMap(JComponent.WHEN_FOCUSED);
         ActionMap am = jScrollPane1.getActionMap();
@@ -139,6 +148,10 @@ public class mainWindow extends javax.swing.JFrame{
         am.put("registerStateBarAction",registerStateBarAction);
     }
     
+    /**
+     *
+     * @param a
+     */
     public void drawNextQueue(ArrayList<Instruction> a){
         int newPreferredWidth = stageJPanel1.drawFinishedQueue(a, this.getWidth()-instructionJPanel1.getWidth(), this.getHeight());
         int newPreferredHeight = instructionJPanel1.drawFinishedQueue(a, this.getHeight());
@@ -154,6 +167,9 @@ public class mainWindow extends javax.swing.JFrame{
         stageJPanel1.revalidate();
     }
     
+    /**
+     *
+     */
     public void addDummyInstructions(){
         Instruction inst1 = new Instruction(1,1,false,1, 20, false, 10, 20, "add $t1, $t2, $t3", 0);
         Instruction inst2 = new Instruction(4,2,false,1, 20, false, 10, 20, "hey there2", 0);
@@ -241,6 +257,9 @@ public class mainWindow extends javax.swing.JFrame{
         drawNextQueue(v);
     }
     
+    /**
+     *
+     */
     public void addInstructions(){
         prog.execute();
         drawNextQueue(prog.currInstructions);

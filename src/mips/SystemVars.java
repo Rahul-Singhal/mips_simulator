@@ -70,6 +70,11 @@ public class SystemVars {
     static int sideBarWidth = 180;
     static Font guiFont = new Font("Arial", Font.BOLD, 11);
     
+    /**
+     *
+     * @param index
+     * @return
+     */
     public static stageType getStageType(Integer index){
         if(stageMap.containsKey(index)) return stageMap.get(index);
         // stageMap not yet calculated. do it now
@@ -91,6 +96,9 @@ public class SystemVars {
         return stageMap.get(index);
     }
     
+    /**
+     *
+     */
     public static void buildBaseStageMap(){
         int x = 0;
         int j = 1;
@@ -104,6 +112,9 @@ public class SystemVars {
         }
     }
     
+    /**
+     *
+     */
     public static void buildReverseStageTypeMap(){
         int index = 0; 
         int sum = 0;
@@ -115,6 +126,9 @@ public class SystemVars {
         }
     }
     
+    /**
+     *
+     */
     public static void buildStageNameMap(){
         int x = 0;
         int j = 1;
@@ -131,6 +145,10 @@ public class SystemVars {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public static int getTotalDifferentStages(){
         int sum = 0;
         for(int i = 0; i<stageDepths.length; i++){
@@ -142,6 +160,9 @@ public class SystemVars {
     // gui vars
     static HashMap<stageType, Color> stageColorMap = new HashMap<stageType, Color>();
     
+    /**
+     *
+     */
     public static void resetSystem(){
         fallbackInstructionMap = new HashMap<Integer, Integer>();
         programOver = false;
@@ -183,7 +204,11 @@ public class SystemVars {
     }
     
     // constructor
-    public SystemVars(){
+
+    /**
+     *
+     */
+        public SystemVars(){
         resetSystem();
         stageColorMap.put(stageType.IF, new Color((float)0.372549,(float)0.619608,(float)0.62745));
         stageColorMap.put(stageType.ID, new Color((float)1,(float)0.498039,(float)0.313725));

@@ -29,7 +29,10 @@ public class InstructionJPanel extends JPanel{
     private int preferredHeight;
     ArrayList<Pair<Integer, String>> instStrings;
     
-    
+    /**
+     *
+     * @param height
+     */
     public InstructionJPanel(int height){
         super();
         sideBarWidth = SystemVars.sideBarWidth;
@@ -42,6 +45,9 @@ public class InstructionJPanel extends JPanel{
         this.setPreferredSize(new Dimension(sideBarWidth,height));
     }
     
+    /**
+     *
+     */
     public void resetSystem(){
         instStrings = new ArrayList<Pair<Integer, String>>();
     }
@@ -55,6 +61,12 @@ public class InstructionJPanel extends JPanel{
         }
     }
     
+    /**
+     *
+     * @param v
+     * @param frameHeight
+     * @return
+     */
     public int drawFinishedQueue(ArrayList<Instruction> v, int frameHeight){
         Graphics g = this.getGraphics();
         for(int i = 0 ; i<v.size(); i++){
@@ -65,6 +77,11 @@ public class InstructionJPanel extends JPanel{
         return preferredHeight;
     }
     
+    /**
+     *
+     * @param inst
+     * @param frameHeight
+     */
     public void handleNewInstruction(Instruction inst, int frameHeight){
         int totalInstructions = instStrings.size();
         if(totalInstructions <= inst.getId()){
@@ -90,6 +107,10 @@ public class InstructionJPanel extends JPanel{
         g.drawString(label,10,offsetFromTop + 15+(instHeight+20)*inst.getId());
     }
     
+    /**
+     *
+     * @param g
+     */
     public void drawHeaders(Graphics g){
         if(g == null) g = this.getGraphics();
         g.setFont(guiFont);

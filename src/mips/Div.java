@@ -17,14 +17,26 @@ public class Div extends R3Mult implements Cloneable{
         isDiv = true;
     }
     
+    /**
+     *
+     * @param m
+     */
     public Div(Div m){
         super(m);
     }
     
+    /**
+     *
+     */
     public void calculate(){
         product = a/b;
     }
     
+    /**
+     *
+     * @param pc
+     * @return
+     */
     public boolean execute(int pc){
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.DIV && forwardingEnabled) calculate();
         else if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.WB && !forwardingEnabled) calculate();

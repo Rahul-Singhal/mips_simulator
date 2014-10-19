@@ -6,7 +6,8 @@
 package mips;
 
 /**
- *
+ *  <p> Implements execution for Instruction Lui</p>
+ *  <p> One destination register index, immediate value to be loaded </p>
  * @author vedratn
  */
 public class RImm extends Instruction implements Cloneable {
@@ -14,6 +15,12 @@ public class RImm extends Instruction implements Cloneable {
     int rdIndex;
     int immediate;
 
+    /**
+     * Constructor
+     * @param rdIndex Destination register
+     * @param immediate immediate value to be loaded
+     * @param id unique integral identity
+     */
     RImm(int rdIndex, int immediate, int id) {
         super(); // Calling the Instruction() constructor for initialization
         this.rdIndex = rdIndex;
@@ -28,6 +35,11 @@ public class RImm extends Instruction implements Cloneable {
 
     }
 
+    /**
+     * Copy Constructor
+     * 
+     * @param i Instruction to be copied
+     */
     RImm(RImm i) {
         this.stageToExecute = i.stageToExecute;
         this.presentStage = i.presentStage;
@@ -44,6 +56,13 @@ public class RImm extends Instruction implements Cloneable {
         this.immediate = i.immediate;
     }
 
+    /**
+     *  <p> Main execution logic of Lui Instruction </p>
+     *  <p> Only logic specific to the children classes is bit shift operations on immediate </p>
+     * 
+     * @param pc current program counter i.e. index of {@link mips.Instruction} in {@link mips.Program#code}
+     * @return boolean { true: successful execution, false: unsuccessful, instruction stalled} 
+     */
     @Override
     boolean execute(int pc) {
         forwarded = false;
@@ -92,6 +111,9 @@ public class RImm extends Instruction implements Cloneable {
         }
     }
 
+    /**
+     * Unstalls register rdIndex which was being written into incase of Lui
+     */
     @Override
     void unstall() {
         if (!registers.get(rdIndex).isValid()) {

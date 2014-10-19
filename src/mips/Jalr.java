@@ -11,11 +11,21 @@ package mips;
  * @author vedratn
  */
 public class Jalr extends R1 implements Cloneable{
+
+    /**
+     *
+     * @param rsIndex
+     * @param id
+     */
     public Jalr(int rsIndex, int id) {
         super(rsIndex,id);
         this.isLink = true;
     }
     
+    /**
+     *
+     * @param jr
+     */
     public Jalr(Jr jr){
         super(jr);
     }

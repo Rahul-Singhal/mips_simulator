@@ -13,18 +13,37 @@ package mips;
  */
 public class Xor extends R3 implements Cloneable{
 
+    /**
+     *
+     * @param rdIndex
+     * @param rsIndex
+     * @param rtIndex
+     * @param id
+     */
     public Xor(int rdIndex, int rsIndex, int rtIndex, int id) {
         super(rdIndex, rsIndex, rtIndex, id);
     }
     
+    /**
+     *
+     * @param xor
+     */
     public Xor(Xor xor){
         super(xor);
     }
     
+    /**
+     *
+     */
     public void calculate(){
        sum = a ^ b;
     }
     
+    /**
+     *
+     * @param pc
+     * @return
+     */
     public boolean execute(int pc){
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX) calculate();
         return super.execute(pc);

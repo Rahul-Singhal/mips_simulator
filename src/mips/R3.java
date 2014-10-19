@@ -7,7 +7,8 @@
 package mips;
 
 /**
- *
+ * <p> Implements common functionalities of all 3 register classes except Mult and Div. </p>
+ * <p> Two input registers and one output register </p>
  * @author vedratn
  */
 public class R3 extends Instruction implements Cloneable{
@@ -16,6 +17,15 @@ public class R3 extends Instruction implements Cloneable{
     int rtIndex;
     int sum; // This won't actually be mathematical sum, just a name for the result of the operation
     int a, b;
+
+    /**
+     * <p> Constructor, Takes as input index of input and output registers in {@link mips.SystemVars#registers} and its own unique id</p>
+     * <p> Sets the display string to be displayed on GUI when <b>this</b> is being executed </p>
+     * @param rdIndex index of destination register
+     * @param rsIndex index of source register 1
+     * @param rtIndex index of source register 2
+     * @param id
+     */
     public R3(int rdIndex, int rsIndex, int rtIndex, int id){
         super(); // Calling the Instruction() constructor for initialization
         this.rdIndex = rdIndex;
@@ -32,7 +42,12 @@ public class R3 extends Instruction implements Cloneable{
     }
     
     // copy constructor
-    public R3(R3 i){
+
+    /**
+     *  Copy Constructor
+     * @param i instruction to be copied
+     */
+        public R3(R3 i){
         this.stageToExecute = i.stageToExecute;
 	this.presentStage = i.presentStage;
 	this.stalled = i.stalled;
@@ -57,10 +72,21 @@ public class R3 extends Instruction implements Cloneable{
         return (R3)super.clone();
     }
     
+    /**
+     * Unstalls the register which was being written into by <b>this</b> Instruction
+     */
     void unstall(){
         registers.get(rdIndex).unstall(id);
     }
     
+    /**
+     *  <p> Main execution logic of all the three register Instructions </p>
+     *  <p> Only logic specific to the children classes is calculation of "sum",
+     *  which is a result of the arithmetic calculations specific to the children </p>
+     * 
+     * @param pc current program counter i.e. index of {@link mips.Instruction} in {@link mips.Program#code}
+     * @return boolean { true: successful execution, false: unsuccessful, instruction stalled} 
+     */
     public boolean execute(int pc){
         forwarded = false;
         stalled = false;

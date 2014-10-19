@@ -6,7 +6,9 @@
 package mips;
 
 /**
- *
+ * <p> Implements common functionalities of Jr and Jalr classes. </p>
+ * <p> 1 input register</p>
+ 
  * @author vedratn
  */
 public class R1 extends Instruction implements Cloneable {
@@ -16,6 +18,12 @@ public class R1 extends Instruction implements Cloneable {
     boolean isLink;
     String label;
 
+    /**
+     * Constructor
+     * 
+     * @param rsIndex index of register having destination address of next instruction
+     * @param id unique integral id
+     */
     public R1(int rsIndex, int id) {
         this.rsIndex = rsIndex;
         this.id = id;
@@ -27,6 +35,10 @@ public class R1 extends Instruction implements Cloneable {
 
     }
 
+    /**
+     *  Copy Constructor
+     * @param i input instructor
+     */
     public R1(R1 i) {
         this.stageToExecute = i.stageToExecute;
         this.presentStage = i.presentStage;
@@ -45,6 +57,14 @@ public class R1 extends Instruction implements Cloneable {
         this.isLink = i.isLink;
     }
 
+    /**
+     *  <p> Main execution logic of Jr and Jalr Instructions </p>
+     *  <p> Only logic specific to the children classes is definition of variable {@link mips.R1#isLink} </p>
+     * 
+     * @param pc current program counter i.e. index of {@link mips.Instruction} in {@link mips.Program#code}
+     * @return boolean { true: successful execution, false: unsuccessful, instruction stalled} 
+     */
+    
     @Override
     boolean execute(int pc) {
         forwarded = false;
@@ -118,7 +138,11 @@ public class R1 extends Instruction implements Cloneable {
             return false;
         }
     }
-
+    
+    /**
+     * Unstalls register 31 which was being written into incase of Jalr
+     * @param instructionId id of instruction which is unstalling the register
+     */
     void unstall(int instructionId) {
         if(isLink){
             registers.get(31).unstall(instructionId);

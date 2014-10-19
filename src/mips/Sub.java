@@ -13,18 +13,37 @@ package mips;
  */
 public class Sub extends R3 implements Cloneable{
 
+    /**
+     *
+     * @param rdIndex
+     * @param rsIndex
+     * @param rtIndex
+     * @param id
+     */
     public Sub(int rdIndex, int rsIndex, int rtIndex, int id) {
         super(rdIndex, rsIndex, rtIndex, id);
     }
     
+    /**
+     *
+     * @param sub
+     */
     public Sub(Sub sub){
         super(sub);
     }
     
+    /**
+     *
+     */
     public void calculate(){
        sum = a - b;
     }
     
+    /**
+     *
+     * @param pc
+     * @return
+     */
     public boolean execute(int pc){
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX) calculate();
         return super.execute(pc);

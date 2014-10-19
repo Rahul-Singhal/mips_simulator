@@ -11,10 +11,20 @@ package mips;
  * @author vedratn
  */
 public class J extends R0 implements Cloneable{
+
+    /**
+     *
+     * @param l
+     * @param i
+     */
     public J(String l, int i) {
         super(l,i);
     }
     
+    /**
+     *
+     * @param j
+     */
     public J(J j){
         super(j);
     }

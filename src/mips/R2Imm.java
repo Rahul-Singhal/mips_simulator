@@ -7,7 +7,9 @@
 package mips;
 
 /**
- *
+ *  <p> Implements common functionalities of all 2 register, 1 immediate input Instruction classes. </p>
+ * <p> 1 input registers, 1 output register and 1 immediate input</p>
+ * 
  * @author vedratn
  */
 public class R2Imm extends Instruction implements Cloneable{
@@ -16,6 +18,16 @@ public class R2Imm extends Instruction implements Cloneable{
     int immediate;
     int sum; // This won't actually be mathematical sum, just a name for the result of the operation
     int a, b;
+
+    /**
+     *  <p> Constructor, Takes as input index of input and output registers in {@link mips.SystemVars#registers}, immediate input value and its own unique id</p>
+     * <p> Sets the display string to be displayed on GUI when <b>this</b> is being executed </p>
+     * 
+     * @param rdIndex  destination register index
+     * @param rsIndex  source register index
+     * @param imm   immediate input
+     * @param id    integer unique id
+     */
     public R2Imm(int rdIndex, int rsIndex, int imm, int id){
         super(); // Calling the Instruction() constructor for initialization
         this.rdIndex = rdIndex;
@@ -32,7 +44,12 @@ public class R2Imm extends Instruction implements Cloneable{
 }
     
     // copy constructor
-    public R2Imm(R2Imm i){
+
+    /**
+     * Copy Constructor
+     * @param i {@link mips.Instruction} to be copied
+     */
+        public R2Imm(R2Imm i){
         this.stageToExecute = i.stageToExecute;
 	this.presentStage = i.presentStage;
 	this.stalled = i.stalled;
@@ -60,6 +77,14 @@ public class R2Imm extends Instruction implements Cloneable{
         registers.get(rdIndex).unstall(id);
     }
     
+    /**
+     *  <p> Main execution logic of all 2 register+ 1 immediate argument type Instructions </p>
+     *  <p> Only logic specific to the children classes is calculation of "sum",
+     *  which is a result of the arithmetic calculations specific to the children </p>
+     * 
+     * @param pc current program counter i.e. index of {@link mips.Instruction} in {@link mips.Program#code}
+     * @return boolean { true: successful execution, false: unsuccessful, instruction stalled} 
+     */
     boolean execute(int pc){
         forwarded = false;
         stalled = false;

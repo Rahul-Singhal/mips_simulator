@@ -48,7 +48,10 @@ public class Program extends SystemVars{
     ArrayList <Instruction> codeSnippet;
     ArrayList <Instruction> currInstructions;
 
-
+    /**
+     *
+     * @param filename
+     */
     public Program(String filename){
         try {
             // Invoke parser

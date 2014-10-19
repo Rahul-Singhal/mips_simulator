@@ -12,17 +12,15 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/R3Mult.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/SystemVars.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Jalr.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/mainWindow.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/StageJPanel.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Program.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/R1.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Mult.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Jr.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Register.java</file>
-            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/R3.java</file>
+            <file>file:/home/vedratn/NetBeansProjects/mips_simulator/src/mips/Instruction.java</file>
+            <file>file:/home/vedratn/NetBeansProjects/mips_simulator/src/mips/Program.java</file>
+            <file>file:/home/vedratn/NetBeansProjects/mips_simulator/src/mips/Add.java</file>
+            <file>file:/home/vedratn/NetBeansProjects/mips_simulator/src/mips/R2Imm.java</file>
+            <file>file:/home/vedratn/NetBeansProjects/mips_simulator/src/mips/R0.java</file>
+            <file>file:/home/vedratn/NetBeansProjects/mips_simulator/src/mips/SystemVars.java</file>
+            <file>file:/home/vedratn/NetBeansProjects/mips_simulator/src/mips/Stage.java</file>
+            <file>file:/home/vedratn/NetBeansProjects/mips_simulator/src/mips/R1.java</file>
+            <file>file:/home/vedratn/NetBeansProjects/mips_simulator/src/mips/R3.java</file>
         </group>
     </open-files>
 </project-private>

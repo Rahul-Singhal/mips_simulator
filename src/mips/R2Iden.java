@@ -6,7 +6,9 @@
 package mips;
 
 /**
- *
+ *  <p> Main execution logic of all 2 register+ 1 identifier(label) argument type Instructions </p>
+ *  <p> Only logic specific to the children classes is calculation of branch predicate  </p>
+ * 
  * @author vedratn
  */
 public class R2Iden extends Instruction implements Cloneable {
@@ -20,6 +22,14 @@ public class R2Iden extends Instruction implements Cloneable {
     boolean branchTaken;
     String label;
 
+    /**
+     *  Constructor
+     * 
+     * @param rsIndex source register index
+     * @param rtIndex destination register index
+     * @param label code label to go to in case of brach change
+     * @param id unique integer id
+     */
     public R2Iden(int rsIndex, int rtIndex, String label, int id) {
         super(); // Calling the Instruction() constructor for initialization
         this.rsIndex = rsIndex;
@@ -35,6 +45,11 @@ public class R2Iden extends Instruction implements Cloneable {
         );
     }
 
+    /**
+     *  Copy Constructor
+     * 
+     * @param i Instruction to be copied
+     */
     public R2Iden(R2Iden i) {
         this.stageToExecute = i.stageToExecute;
         this.presentStage = i.presentStage;
@@ -55,6 +70,14 @@ public class R2Iden extends Instruction implements Cloneable {
         this.branchTaken = i.branchTaken;
     }
 
+    /**
+     *  <p> Main execution logic of bne and beq branch Instructions </p>
+     *  <p> Only logic specific to the children classes is calculation of calculation of branch predicate </p>
+     * 
+     * @param pc current program counter i.e. index of {@link mips.Instruction} in {@link mips.Program#code}
+     * @return boolean { true: successful execution, false: unsuccessful, instruction stalled} 
+     */
+    
     @Override
     boolean execute(int pc) {
         forwarded = false;
@@ -149,6 +172,12 @@ public class R2Iden extends Instruction implements Cloneable {
         return (R2Iden) super.clone();
     }
     
+    /**
+     *  <p>Main logic body handling consequences of branch strategies</p>
+     *  <p> Depending on branch strategy branch is either taken or not </p>
+     *  <p> Later in the execution when the predicate is calculated, it is deciphered whether the decision made was correct or not </p>
+     *  <p> If incorrect, pipeline is flushed and its effects nullified. Also the branch strategy is corrected if possible </p>
+     */
     public void updateProgramCounterAfterPredicateCalculation(){
         if (branchTaken) {
             if (branchStrategy == branchStrategyType.TAKEN) {
@@ -188,6 +217,10 @@ public class R2Iden extends Instruction implements Cloneable {
         }
     }
     
+    /**
+     *  <p>Main logic body deciding effect of branch strategies</p>
+     *  <p> Depending on branch strategy branch is either taken or not and program counter is updated </p>
+     */
     public void updateProgramCounterBeforePredicateCalculation(){
         if(branchStrategy == branchStrategyType.TAKEN){
             fallbackInstructionMap.put(this.id, programCounter);

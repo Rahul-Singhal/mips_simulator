@@ -11,14 +11,29 @@ package mips;
  * @author vedratn
  */
 public class Beq extends R2Iden implements Cloneable{
+
+    /**
+     *
+     * @param rsIndex
+     * @param rtIndex
+     * @param label
+     * @param id
+     */
     public Beq(int rsIndex, int rtIndex, String label, int id) {
         super(rsIndex,rtIndex,label,id);
     }
     
+    /**
+     *
+     * @param b
+     */
     public Beq(Beq b){
         super(b);
     }
     
+    /**
+     *
+     */
     public void calculate(){
         if(a == b){
             branchTaken = true;
@@ -27,6 +42,11 @@ public class Beq extends R2Iden implements Cloneable{
         }
     }
     
+    /**
+     *
+     * @param pc
+     * @return
+     */
     public boolean execute(int pc){
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.ID && fastBranching){
             if(super.execute(pc)){

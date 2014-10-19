@@ -6,23 +6,72 @@
 package mips;
 
 /**
- *
+ *   <p>Parent class of all the instructions </p>
+ *   <p>Includes the common functions, members and abstractions needed in all the children classes </p>
  * @author vedratn
  */
 public class Instruction extends SystemVars implements Cloneable {
 
+    /**
+     *  Index in {@link mips.SystemVars#stages} of the next stage to be executed 
+     */
     public int stageToExecute;
+
+    /**
+     *  Index in {@link mips.SystemVars#stages} of the current stage
+     */
     public int presentStage;
+
+    /**
+     *  Boolean variable denoting whether instruction is stalled or not
+     */
     public boolean stalled;
+
+    /**
+     *  If stalled is true, this holds the {@link mips.Instruction#id} of the stalling Instruction
+     */
     public int stallingInstructionId;
+
+    /**
+     *  If stall is due to a register dependency, this holds the index of that {@link mips.Register} in {@link mips.SystemVars#registers}
+     */
     public int stallingRegister;
+
+    /**
+     *  If instruction is using a forwarded register, this boolean is true, else false
+     */
     public boolean forwarded;
+
+    /**
+     *  If instruction is using a forwarded register,  this holds the {@link mips.Instruction#id} of the Instruction
+     *  which forwarded the value
+     */
     public int forwardedFromInstructionId;
+
+    /**
+     *  If instruction is using a forwarded register,  this holds the index of the {@link mips.Stage} from which 
+     *  the value was forwarded
+     */
     public int forwardedFromInstructionStage;
+
+    /**
+     *  holds the unparsed characters which parse to give <b>this</b> {@link mips.Instruction}.
+     */
     public String display;
+
+    /**
+     *  holds the index of {@link mips.Instruction} in {@link mips.Program#code} of <b>this</b> {@link mips.Instruction}
+     */
     public int address;
+
+    /**
+     *  holds the unique identity assigned to this instance of <b>this</b> {@link mips.Instruction} when inserting into {@link mips.Program#currInstructions} {@link mips.Program#execute()}
+     */
     public int id;
 
+    /**
+     *  empty Constructor, initializes with default values
+     */
     public Instruction() {
         stageToExecute = 1;
         presentStage = 0;
@@ -37,7 +86,12 @@ public class Instruction extends SystemVars implements Cloneable {
     }
 
     // IS THE COPY CONSTRUCTOR NEEDED WHEN WE HAVE CLONE???
-    public Instruction(Instruction i) {
+
+    /**
+     *  Copy Constructor
+     * @param i
+     */
+        public Instruction(Instruction i) {
         // It USED TO BE &I IN C++, IT WAS THE COPY CONSTRUCTOR
         this.stageToExecute = i.stageToExecute;
         this.presentStage = i.presentStage;
@@ -52,6 +106,19 @@ public class Instruction extends SystemVars implements Cloneable {
         this.id = i.id;
     }
 
+    /**
+     *  Another Constructor, initializing all the member values individually
+     * @param s2ex next stage to be executed
+     * @param ps present stage
+     * @param stall currently stalled or not
+     * @param stallInstId stalling instruction id
+     * @param stallReg index of stalling register
+     * @param forw forwarded or not
+     * @param forwfromInstId id of instruction forwarding value
+     * @param forwStage id of stage forwarding value
+     * @param disp display string
+     * @param i id
+     */
     public Instruction(int s2ex, int ps, boolean stall, int stallInstId, int stallReg, boolean forw, int forwfromInstId, int forwStage, String disp, int i) {
         stageToExecute = s2ex;
         presentStage = ps;
@@ -130,6 +197,9 @@ public class Instruction extends SystemVars implements Cloneable {
         return this.id;
     }
 
+    /**
+     *  Common Abstraction from all the execution cycles of an {@link mips.Instruction}
+     */
     public void executeOrdinaryStep() {
         stages.get(presentStage).setFree();
         presentStage = stageToExecute;
@@ -138,6 +208,9 @@ public class Instruction extends SystemVars implements Cloneable {
         stalled = false;
     }
 
+    /**
+     *  Stalls <b>this</b> {@link mips.Instruction} when a resource/data dependency is detected
+     */
     public void stallInstructionStageBusy() {
         stages.get(presentStage).setInstruction(id);
         stalled = true;
@@ -145,6 +218,11 @@ public class Instruction extends SystemVars implements Cloneable {
         sStalls++;
     }
 
+    /**
+     *  When a register is to be written into, it's access is locked using this function
+     *  at the start of ID stage
+     * @param rIndex stalling register
+     */
     public void stallInstructionRegisterBusy(int rIndex) {
         stalled = true;
         stallingRegister = rIndex;
@@ -152,6 +230,11 @@ public class Instruction extends SystemVars implements Cloneable {
         rStalls++;
     }
     
+    /**
+     *  true: if branch is taken
+     *  false: if not taken
+     * @return boolean
+     */
     public boolean checkBranchChange() {
         if (branchStrategy == SystemVars.branchStrategyType.TAKEN) {
             return true;
@@ -164,6 +247,10 @@ public class Instruction extends SystemVars implements Cloneable {
         } // Assuming default strategy NOTTAKEN
     }
 
+    /**
+     *  returns string holding name of instruction
+     * @return String
+     */
     public String getInstructionName() {
         return this.getClass().getSimpleName().toLowerCase();
     }

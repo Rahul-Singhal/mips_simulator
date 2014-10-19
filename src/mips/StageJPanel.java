@@ -34,6 +34,9 @@ public class StageJPanel extends JPanel {
     private int idStage;
     private int preferredWidth;
 
+    /**
+     *
+     */
     public StageJPanel() {
         allInstructions = new ArrayList<ArrayList<Instruction>>();
         instHeight = 20;
@@ -47,6 +50,9 @@ public class StageJPanel extends JPanel {
         preferredWidth = 0;
     }
     
+    /**
+     *
+     */
     public void resetSystem(){
         allInstructions = new ArrayList<ArrayList<Instruction>>();
         stagePropertiesMap = new HashMap<Integer, Pair<String, Color>>();
@@ -54,6 +60,9 @@ public class StageJPanel extends JPanel {
         buildStagePropertiesMap();
     }
 
+    /**
+     *
+     */
     public void buildStagePropertiesMap() {
         int totalDifferentStages = SystemVars.getTotalDifferentStages();
         HashMap<SystemVars.stageType, Color> colorMap = SystemVars.stageColorMap;
@@ -73,6 +82,13 @@ public class StageJPanel extends JPanel {
         }
     }
 
+    /**
+     *
+     * @param v
+     * @param frameWidth
+     * @param frameHeight
+     * @return
+     */
     public int drawFinishedQueue(ArrayList<Instruction> v, int frameWidth, int frameHeight) {
         int column = allInstructions.size();
         drawHeader(column, null);
@@ -84,6 +100,13 @@ public class StageJPanel extends JPanel {
         return preferredWidth;
     }
 
+    /**
+     *
+     * @param instruction
+     * @param column
+     * @param row
+     * @param g
+     */
     public void drawInstruction(Instruction instruction, int column, int row, Graphics g) {
         Instruction tempInstruction;
         int presentStage = instruction.getPresentStage();
@@ -161,6 +184,11 @@ public class StageJPanel extends JPanel {
         }
     }
 
+    /**
+     *
+     * @param column
+     * @param g
+     */
     public void drawHeader(int column, Graphics g) {
         if (g == null) {
             g = this.getGraphics();
@@ -195,6 +223,15 @@ public class StageJPanel extends JPanel {
         g.drawString(label, leftPaneShift + (instWidth + 2) * column + (instWidth - stringWidth) / 2, offsetFromTop - 40);
     }
 
+    /**
+     *
+     * @param column
+     * @param row
+     * @param back
+     * @param up
+     * @param forwardArrow
+     * @param g
+     */
     public void drawArrow(int column, int row, int back, int up, boolean forwardArrow, Graphics g) {
         if (g == null) {
             g = this.getGraphics();

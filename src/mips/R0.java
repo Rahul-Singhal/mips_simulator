@@ -6,7 +6,8 @@
 package mips;
 
 /**
- *
+ * <p> Implements common functionalities of J and Jal classes. </p>
+ * 
  * @author vedratn
  */
 public class R0 extends Instruction implements Cloneable {
@@ -15,6 +16,11 @@ public class R0 extends Instruction implements Cloneable {
     String label;
     boolean isLink;
 
+    /**
+     * Constructor
+     * @param l label of code to jump to
+     * @param i unique integral id
+     */
     public R0(String l, int i) {
         label = l;
         id = i;
@@ -25,6 +31,10 @@ public class R0 extends Instruction implements Cloneable {
         );
     }
 
+    /**
+     * Copy Constructor
+     * @param i Instruction to be copied
+     */
     public R0(R0 i) {
         this.stageToExecute = i.stageToExecute;
         this.presentStage = i.presentStage;
@@ -43,6 +53,13 @@ public class R0 extends Instruction implements Cloneable {
         this.isLink = i.isLink;
     }
 
+    /**
+     *  <p> Main execution logic of J and Jal Instructions </p>
+     *  <p> Only logic specific to the children classes is definition of variable {@link mips.R1#isLink} </p>
+     * 
+     * @param pc current program counter i.e. index of {@link mips.Instruction} in {@link mips.Program#code}
+     * @return boolean { true: successful execution, false: unsuccessful, instruction stalled} 
+     */
     boolean execute(int pc) {
         forwarded = false;
         stalled = false;
@@ -100,6 +117,9 @@ public class R0 extends Instruction implements Cloneable {
         }
     }
 
+    /**
+     * Unstalls register 31 which was being written into incase of Jal
+     */
     @Override
     void unstall() {
         if(isLink){

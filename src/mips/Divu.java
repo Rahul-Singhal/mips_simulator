@@ -17,14 +17,26 @@ public class Divu extends R3Mult implements Cloneable{
         isDiv = true;
     }
     
+    /**
+     *
+     * @param m
+     */
     public Divu(Divu m){
         super(m);
     }
     
+    /**
+     *
+     */
     public void calculate(){
         product = a/b;
     }
     
+    /**
+     *
+     * @param pc
+     * @return
+     */
     @Override
     public boolean execute(int pc){
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.DIV && forwardingEnabled) calculate();

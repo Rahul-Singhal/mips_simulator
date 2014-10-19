@@ -13,18 +13,37 @@ package mips;
  */
 public class Addi extends R2Imm implements Cloneable{
 
+    /**
+     *
+     * @param rdIndex
+     * @param rsIndex
+     * @param imm
+     * @param id
+     */
     public Addi(int rdIndex, int rsIndex, int imm, int id) {
         super(rdIndex, rsIndex, imm, id);
     }
     
+    /**
+     *
+     * @param addi
+     */
     public Addi(Addi addi){
         super(addi);
     }
     
+    /**
+     *
+     */
     public void calculate(){
        sum = a + b;
     }
     
+    /**
+     *
+     * @param pc
+     * @return
+     */
     public boolean execute(int pc){
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX) calculate();
         return super.execute(pc);
