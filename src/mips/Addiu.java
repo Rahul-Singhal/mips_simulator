@@ -7,41 +7,45 @@
 package mips;
 
 /**
- *
+ * Implements Addiu Instruction class
  * @author vedratn
  */
 public class Addiu extends R2Imm implements Cloneable{
 
     /**
-     *
-     * @param rdIndex
-     * @param rsIndex
-     * @param imm
-     * @param id
+     * <p> Constructor, Takes as input index of input and output registers in {@link mips.SystemVars#registers} and its own unique id</p>
+     * <p> Calls the super Constructor of {@link mips.R3} </p>
+     * @param rdIndex index of destination register
+     * @param rsIndex index of source register 1
+     * @param imm immediate input value
+     * @param id unique integral id 
      */
     public Addiu(int rdIndex, int rsIndex, int imm, int id) {
         super(rdIndex, rsIndex, imm, id);
     }
     
     /**
-     *
-     * @param addui
+     * Copy Constructor, calls super Copy Constructor of {@link mips.R3} 
+     * @param addui instruction to be coped
      */
     public Addiu(Addiu addui){
         super(addui);
     }
     
     /**
-     *
+     * <p> Only child specific logic in execution of Addiu instruction </p>
+     * <p> Calculates value of sum by adding a and b(immediate value) </p>
      */
     public void calculate(){
        sum = a + b;
     }
     
     /**
-     *
-     * @param pc
-     * @return
+     * <p> Calls execute of {@link mips.R3} </p>
+     * <p> Calculation of sum is required in EX Stage, so during that call {@link #calculate()} is called before {@link mips.R3#execute(int) } </p>
+     * 
+     * @param pc current program counter i.e. index of {@link mips.Instruction} in {@link mips.Program#code}
+     * @return boolean { true: successful execution, false: unsuccessful, instruction stalled} 
      */
     public boolean execute(int pc){
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX) calculate();

@@ -8,32 +8,35 @@ package mips;
  */
 
 /**
- *
+ * Implements the SetLessThanImmediate Instruction Class
  * @author rahul
  */
 public class Slti extends R2Imm implements Cloneable{
 
     /**
-     *
-     * @param rdIndex
-     * @param rsIndex
-     * @param imm
-     * @param id
+     * <p> Constructor, Takes as input index of input and output registers in {@link mips.SystemVars#registers} and its own unique id</p>
+     * <p> Calls the super Constructor of {@link mips.R3} </p>
+     * @param rdIndex index of destination register
+     * @param rsIndex index of source register 1
+     * @param imm immediate input value
+     * @param id unique integral id 
      */
     public Slti(int rdIndex, int rsIndex, int imm, int id) {
         super(rdIndex, rsIndex, imm, id);
     }
     
     /**
+     * Copy Constructor, calls super Copy Constructor of {@link mips.R3}
      *
-     * @param slti
+     * @param slti instruction to be copied
      */
     public Slti(Slti slti){
         super(slti);
     }
     
     /**
-     *
+     * <p> Only child specific logic in execution of Slti instruction </p>
+     * <p> Calculates value of sum depending on the inequality relation between a and b(immediate value)</p>
      */
     public void calculate(){
        if(a < b) sum = 1;
@@ -41,9 +44,11 @@ public class Slti extends R2Imm implements Cloneable{
     }
     
     /**
-     *
-     * @param pc
-     * @return
+     * <p> Calls execute of {@link mips.R3} </p>
+     * <p> Calculation of sum is required in EX Stage, so during that call {@link #calculate()} is called before {@link mips.R3#execute(int) } </p>
+     * 
+     * @param pc current program counter i.e. index of {@link mips.Instruction} in {@link mips.Program#code}
+     * @return boolean { true: successful execution, false: unsuccessful, instruction stalled} 
      */
     public boolean execute(int pc){
         if(SystemVars.getStageType(stageToExecute) == SystemVars.stageType.EX) calculate();
