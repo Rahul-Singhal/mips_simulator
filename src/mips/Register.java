@@ -16,14 +16,26 @@ package mips;
 import java.util.*;
 
 /**
- *
- * @author vedratn
+ *   <p>Implements Register class for the various registers used in MIPS assembly code</p>
+ *   @author anmol
  */
+
 class Register {
     // Constructor, sets the initial value of register with id = id as value.
     
+    /**
+     *  Unique id for each register 
+     */
     public int id;
+    
+    /**
+     *  Stores the mapping of a register name with id
+     */
     public final static Map<String, Integer> registerMap = new HashMap<String, Integer>();
+    
+    /**
+     *  Stores the mapping of id with a register name
+     */
     public final static Map<Integer, String> registerMapInverse = new HashMap<Integer, String>();
     static {
         registerMap.put("$zero", 0);
@@ -63,24 +75,54 @@ class Register {
         }
     }
     
-    
+    /**
+     *  Returns the id of the register corresponding to it's name
+     *  @param reg name of the register
+     *  @return Integer
+     */
     public static Integer registerToInteger(String reg) {
         return registerMap.get(reg);
     }
     
+    /**
+     *  Default constructor for register class
+     */
     public Register(int id, int value){
         this.id = id;
 	this.value = value;
 	this.blockingInstructions = new ArrayList<>();
 	this.lastForwarder = -1;
     }
-
-    int value; // stores the value in register
+    
+    /**
+     *  Stores the value in register
+     */
+    int value;
+    
     // bool valid; // true if the value written is valid
+    
+    /**
+     *  Stores the list of all the instruction id's blocking this register
+     */
     ArrayList<Integer> blockingInstructions ;
-    int instructionId; // if value is not valid, it stores which instruction has stalled the register, 
-                                                                             //else stores which instruction wrote into the register last
-    int instructionStage; // which instruction stage wrote into the register, if not WB (stage 8) then we can get insights about forwarding
+    
+     /**
+     *  Instruction id in {@link mips.Instruction} which has stalled the register
+     *  else stores which instruction wrote into the register last
+     */
+    int instructionId; 
+     
+    /**
+     *  Number in {@link mips.Stage} stage which wrote into the register
+    */
+    int instructionStage; 
+    
+    
+    /**
+     *  true: if no instructions are blocking this register
+     *  false: of some instructions are blocking this register
+     *  @return boolean
+     */
     boolean isValid(){
         if(blockingInstructions.isEmpty()){
 		// cout<<"validity for "<<id<<" return true"<<endl;
@@ -92,7 +134,9 @@ class Register {
     
 
     int lastForwarder;
+    
     int lastForwarderTime;
+    
     ArrayList<Integer> forwardingInstructions = new ArrayList<>();
     
     void forwardIt(int instructionId, int time){
@@ -100,6 +144,7 @@ class Register {
 	lastForwarder = instructionId;
         forwardingInstructions.add(instructionId);
     }
+    
     
     public static void removeAll(ArrayList<Integer> a, int val){
         for(int i = 0 ;i<a.size(); i++){
@@ -114,6 +159,12 @@ class Register {
         removeAll(forwardingInstructions, instructionId);
 //        forwardingInstructions.remove(instructionId);
     }
+    
+    /**
+     *  true: if there are some instructions are to be forwadded
+     *  false: no instructions need to be forwadded
+     *  @return boolean
+     */
     boolean isForwarded(){
         if(forwardingInstructions.isEmpty()){
 		return false;
@@ -122,11 +173,21 @@ class Register {
     }
 
     //  Should be called at every stage of the instruction which needs to writes to that particular instruction
+    
+    /**
+     *  Stalls the register corresponding to the instruction id which is writing into it.
+     *  @param instructionId Instruction Id of the instruction
+     */
     void stallRegister(int instructionId){
         this.instructionId = instructionId;
         blockingInstructions.add(instructionId);
     }
     
+    /**
+     *  Un-Stalls the register corresponding to the instruction id and stores the value in the register
+     * @param value value to be stored in the register
+     * @param instructionId Instruction Id of the instruction
+     */
     void unstallRegister(int value, int instructionId){
         // cout<<"remove "<<instructionId<<"  from "<<id<<"after writing value = "<<value<<endl;
 	// cout<<"size before "<<blockingInstructions.size()<<endl;
@@ -169,6 +230,10 @@ bool Register::write(int value, int instructionId, int instructionStage){
 */
 
     /*set valid bit to true , needed when we have to reverse the effect of someinstruction*/
+    /**
+     *  Un-Stalls the register corresponding to the instruction id
+     * @param instructionId Instruction Id of the instruction
+     */
     void unstall(int instructionId){
         // //cout<<instructionId<<" unstalls "<<id<<". size= "<<blockingInstructions.size()<<endl;
 	// //cout<<blockingInstructions.front()<<":"<<blockingInstructions.back()<<endl;

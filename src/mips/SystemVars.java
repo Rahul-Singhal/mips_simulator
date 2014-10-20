@@ -14,13 +14,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- * @author vedratn
+ *   <p>Stores various system variables which remain constant throughout the simulation</p>
+ *   @author anmol
  */
 public class SystemVars {
+    
+    /**
+     *  stores whether the program finished execution or not
+     */
     static boolean programOver;
+    
+    /**
+     *  Number of stages of execution of an instruction 
+     */
     static int totalStages = 17;
+    
+    /**
+     *  Total number of registers that can be used in system 
+     */
     static int totalRegisters = 32;
+    
+    /**
+     *  List of all the registers that can be used
+     */
     static ArrayList <Register> registers = new ArrayList<Register>(){
         {
             for (int i = 0; i < totalRegisters; i++) {
@@ -28,6 +44,11 @@ public class SystemVars {
             }            
         }
     };
+    
+    
+    /**
+     *  List of all the stages of execution of an instruction
+     */
     static ArrayList <Stage> stages = new ArrayList<Stage>(){
         {
             
@@ -37,20 +58,72 @@ public class SystemVars {
         }
     };
     
+    /**
+     *  Points to the next instruction to be executed
+     */
     static int programCounter = 0; // holds the index of the instruction which will be inserted 
+    
+    /**
+     *  stores whether forwadding is enabled or not
+     */
     static boolean forwardingEnabled = false;
+    
+    /**
+     *  stores whether fast branching is enabled or not
+     */
     static boolean fastBranching = false;
+    
+    /**
+     *  Memory which will be used by the system for simulation
+     */
     static Memory memory = new Memory();
+    
+    /**
+     *  Map of the labels in the program with the corresponding array index constructed while parsing
+     */
     static Map<String, Integer> labelMap = new HashMap<>();
+    
+    /**
+     *  Stores the number of 
+     */
     static int rStalls = 0;
+    
+    /**
+     *  Stores the number of 
+     */
     static int sStalls = 0;
+    
+    /**
+     *  Number of history bits to be used while branch prediction
+     */
+    
     static int historyBits = 1;
+    
+    /**
+     *  Stores the size of the branch history array
+     */
     static int historySize = 1024;
+    
+    /**
+     *  Count of the number of clock cycles
+     */
     static int clockCycle = 0;
+    
+    /**
+     *  Stores whether branch changed or not
+     */
     static boolean branchChanged = false;
+    
     static HashMap<Integer, Integer> fallbackInstructionMap = new HashMap<Integer, Integer>();
+    
+    /**
+     *  Stores the default branch strategy to be used for branching instructions
+     */
     static branchStrategyType branchStrategy = branchStrategyType.NOTTAKEN;
+    
     static enum branchStrategyType {TAKEN, NOTTAKEN, HISTORY};  
+    
+   
     static ArrayList<BitSet> branchHistory = new ArrayList<BitSet>(){
         {
             for (int i = 0; i < historySize; i++) {
