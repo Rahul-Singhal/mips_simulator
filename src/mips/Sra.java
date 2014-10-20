@@ -11,7 +11,7 @@ package mips;
  *
  * @author rahul
  */
-public class Sra extends R3 implements Cloneable{
+public class Sra extends R2Imm implements Cloneable{
 
     /**
      *
