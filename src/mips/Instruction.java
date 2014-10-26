@@ -91,7 +91,7 @@ public class Instruction extends SystemVars implements Cloneable {
      *  Copy Constructor
      * @param i
      */
-        public Instruction(Instruction i) {
+    public Instruction(Instruction i) {
         // It USED TO BE &I IN C++, IT WAS THE COPY CONSTRUCTOR
         this.stageToExecute = i.stageToExecute;
         this.presentStage = i.presentStage;

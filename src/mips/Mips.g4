@@ -5,59 +5,116 @@ options {
 }
 
 @header {
-    package mips;
-    import java.util.*;
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!                                                            !!!
+//!!! THIS CODE IS AUTOMATICALLY GENERATED! DO NOT MODIFY!       !!!
+//!!! Please refer to file Mips.g4 for grammar documentation.     !!!
+//!!!                                                            !!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+package mips;
+import java.util.*;
 }
 
 @parser::members {
-    private ArrayList<Instruction> instructions = new ArrayList<Instruction>();
-    private HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
-    private HashMap<String, Integer> usedLabels = new HashMap<String, Integer>();
-    private HashMap<String, Integer> dataVarsMap = new HashMap<String, Integer>();
-    private Memory memory = new Memory();
-    private Integer instructionIndex = 0;
+/**
+ * Array to hold instructions while parsing the input MIPS code.
+ */
+private final ArrayList<Instruction> instructions = new ArrayList<>();
 
-    private void addDataVariable(String name, int line) {
-        if (dataVarsMap.get(name) == null) {
-            dataVarsMap.put(name, 0);
-        } else {
-            System.out.println("Error in line " + line + ", variable \"" + name + "\" already exists.");
-            System.exit(0);
+/**
+ * Map to store the instruction index of a code block with its label.
+ */
+private final HashMap<String, Integer> labelMap = new HashMap<>();
+
+/**
+ * Map to maintain a record of the code block labels used
+ * along with the line in which they are used. 
+ * Used to check whether all used labels are present in the code or not.
+ */
+private final HashMap<String, Integer> usedLabels = new HashMap<>();
+
+/**
+ * Map to store the names of data variables declared. 
+ * Used to prevent double declaration of same variable 
+ * and to check the existence of a variable name.
+ */
+private final HashMap<String, Integer> dataVarsMap = new HashMap<>();
+
+/**
+ * Instance of Memory class to store values of data variables.
+ */
+private final Memory memory = new Memory();
+
+/**
+ * Variable to maintain the number of instructions parsed.
+ */
+private Integer instructionIndex = 0;
+
+/**
+ * Adds a data variable to dataVarsMap
+ * Gives an error if the data variable was already declared.
+ */
+private void addDataVariable(String name, int line) {
+    if (dataVarsMap.get(name) == null) {
+        dataVarsMap.put(name, 0);
+    } else {
+        System.out.println("Error in line " + line + ", variable \"" + name + "\" already exists.");
+        System.exit(0);
+    }
+}
+
+/**
+ * Adds a label to labelMap with the corresponding instruction number.
+ * Gives an error if the label was already declared.
+ */
+private void addLabel(String name, int num, int line) {
+    if (labelMap.get(name) == null) {
+        labelMap.put(name, num);
+    } else {
+        System.out.println("Error in line " + line + ", label \"" + name + "\" already exists.");
+        System.exit(0);
+    }
+}
+
+/**
+ * Checks whether all the used labels have been declared with their code blocks or not.
+ */
+public void checkLabels() {
+    // Check labels in text section
+    Iterator it = usedLabels.entrySet().iterator();
+    while (it.hasNext()) {
+        Map.Entry pairs = (Map.Entry)it.next();
+        if (labelMap.get(pairs.getKey()) == null) {
+            System.out.println("Error in line " + pairs.getValue() + ", label \"" + pairs.getKey() + "\" does not exist.");
+            System.exit(0);                
         }
     }
+}
 
-    private void addLabel(String name, int num, int line) {
-        if (labelMap.get(name) == null) {
-            labelMap.put(name, num);
-        } else {
-            System.out.println("Error in line " + line + ", label \"" + name + "\" already exists.");
-            System.exit(0);
-        }
-    }
+/**
+ * Returns object of Memory class with values of data variables stored.
+ * @return Memory
+ */
+public Memory getMemory() {
+    return memory;
+}
 
-    public void checkLabels() {
-        // Check labels in text section
-        Iterator it = usedLabels.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pairs = (Map.Entry)it.next();
-            if (labelMap.get(pairs.getKey()) == null) {
-                System.out.println("Error in line " + pairs.getValue() + ", label \"" + pairs.getKey() + "\" does not exist.");
-                System.exit(0);                
-            }
-        }
-    }
+/**
+ * Returns parsed instruction list
+ * @return ArrayList<Instruction>
+ */
+public ArrayList<Instruction> getInstructions() {
+    return instructions;
+}
 
-    public Memory getMemory() {
-        return memory;
-    }
-
-    public ArrayList<Instruction> getInstructions() {
-        return instructions;
-    }
-
-    public HashMap<String, Integer> getLabelMap() {
-        return labelMap;
-    }
+/**
+ * Returns map of label with corresponding instruction numbers.
+ * @return HashMap<String, Integer>
+ */
+public HashMap<String, Integer> getLabelMap() {
+    return labelMap;
+}
 }
 
 

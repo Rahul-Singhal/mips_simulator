@@ -4,13 +4,6 @@
  * and open the template in the editor.
  */
 
-//Status index
-/*
-	0: 	ready to be read ( no forwarding, value stored in register )
-	1:	waiting to be written
-	2:	forwarded value available
-*/
-
 package mips;
 
 import java.util.*;
@@ -21,7 +14,6 @@ import java.util.*;
  */
 
 class Register {
-    // Constructor, sets the initial value of register with id = id as value.
     
     /**
      *  Unique id for each register 
@@ -76,7 +68,7 @@ class Register {
     }
     
     /**
-     *  Returns the id of the register corresponding to it's name
+     *  Returns the id of the register corresponding to its name
      *  @param reg name of the register
      *  @return Integer
      */
@@ -86,6 +78,7 @@ class Register {
     
     /**
      *  Default constructor for register class
+     *  Sets the initial value of register with id = id as value.
      */
     public Register(int id, int value){
         this.id = id;
@@ -99,24 +92,34 @@ class Register {
      */
     int value;
     
-    // bool valid; // true if the value written is valid
-    
     /**
-     *  Stores the list of all the instruction id's blocking this register
+     *  Stores the list of all the {@link mips.Instruction} IDs blocking this register
      */
     ArrayList<Integer> blockingInstructions ;
     
      /**
-     *  Instruction id in {@link mips.Instruction} which has stalled the register
+     *  ID of {@link mips.Instruction} which has stalled the register
      *  else stores which instruction wrote into the register last
      */
     int instructionId; 
-     
+ 
     /**
-     *  Number in {@link mips.Stage} stage which wrote into the register
-    */
-    int instructionStage; 
+     * ID of {@link mips.Instruction} that forwarded value of this Register
+     */
+    int lastForwarder;
     
+    /**
+     * Clock cycle time when the value of this Register was last forwarded.
+     */
+    int lastForwarderTime;
+    
+    /**
+     * Stores the list of all the {@link mips.Instruction} IDs that are forwarding value from this register 
+     */
+    ArrayList<Integer> forwardingInstructions = new ArrayList<>();
+        
+//    Unused variable
+//    int instructionStage; 
     
     /**
      *  true: if no instructions are blocking this register
@@ -125,27 +128,27 @@ class Register {
      */
     boolean isValid(){
         if(blockingInstructions.isEmpty()){
-		// cout<<"validity for "<<id<<" return true"<<endl;
 		return true;
 	}
-	// cout<<"validity for "<<id<<" return false"<<endl;
 	return false;
     }
     
-
-    int lastForwarder;
-    
-    int lastForwarderTime;
-    
-    ArrayList<Integer> forwardingInstructions = new ArrayList<>();
-    
+    /**
+     * Adds {@link mips.Instruction} that is forwarding value in this Register
+     * @param instructionId id of the {@link mips.Instruction} 
+     * @param time clock cycle time
+     */
     void forwardIt(int instructionId, int time){
         lastForwarderTime = time;
 	lastForwarder = instructionId;
         forwardingInstructions.add(instructionId);
     }
     
-    
+    /**
+     * Function to remove all occurrences of a value from an ArrayList
+     * @param a Arraylist to remove from
+     * @param val value to be removed
+     */
     public static void removeAll(ArrayList<Integer> a, int val){
         for(int i = 0 ;i<a.size(); i++){
            if(a.get(i) == val) {
@@ -155,9 +158,12 @@ class Register {
         }
     }
     
+    /**
+     * Remove all occurrences of a forwarding instruction for the Register
+     * @param instructionId ID of instruction to remove
+     */
     void unforwardIt(int instructionId){
         removeAll(forwardingInstructions, instructionId);
-//        forwardingInstructions.remove(instructionId);
     }
     
     /**
@@ -171,12 +177,11 @@ class Register {
         }
 	return true;
     }
-
-    //  Should be called at every stage of the instruction which needs to writes to that particular instruction
     
     /**
      *  Stalls the register corresponding to the instruction id which is writing into it.
-     *  @param instructionId Instruction Id of the instruction
+     * Is called at every stage of the instruction which needs to writes to a Register 
+     * @param instructionId Instruction Id of the instruction
      */
     void stallRegister(int instructionId){
         this.instructionId = instructionId;
@@ -189,14 +194,17 @@ class Register {
      * @param instructionId Instruction Id of the instruction
      */
     void unstallRegister(int value, int instructionId){
-        // cout<<"remove "<<instructionId<<"  from "<<id<<"after writing value = "<<value<<endl;
-	// cout<<"size before "<<blockingInstructions.size()<<endl;
         removeAll(blockingInstructions, instructionId);
-//        blockingInstructions.remove(instructionId);
 	this.value = value;
-	// cout<<"size after "<<blockingInstructions.size()<<endl;
     }
     
+    /**
+     *  Un-Stalls the register corresponding to the instruction id
+     * @param instructionId Instruction Id of the instruction
+     */
+    void unstall(int instructionId){
+        removeAll(blockingInstructions, instructionId);
+    }
     
     /*##################################################################################
     WHY WAS THE FOLLOWING WRITE DEFINITION COMMENTED IN THE FINAL CODE ??????????
@@ -228,19 +236,4 @@ bool Register::write(int value, int instructionId, int instructionStage){
 	}
 }
 */
-
-    /*set valid bit to true , needed when we have to reverse the effect of someinstruction*/
-    /**
-     *  Un-Stalls the register corresponding to the instruction id
-     * @param instructionId Instruction Id of the instruction
-     */
-    void unstall(int instructionId){
-        // //cout<<instructionId<<" unstalls "<<id<<". size= "<<blockingInstructions.size()<<endl;
-	// //cout<<blockingInstructions.front()<<":"<<blockingInstructions.back()<<endl;
-        removeAll(blockingInstructions, instructionId);
-//        blockingInstructions.remove(instructionId);
-	// //cout<<"size= "<<blockingInstructions.size()<<endl;
-    }
-    //	returns a pair <status, value>
-    //pair <bool, int> read();
 }

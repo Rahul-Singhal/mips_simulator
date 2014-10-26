@@ -20,7 +20,6 @@ class Stage {
 
     /**
      *  Id in {@link mips.Instruction} of the instruction being executed. -1 if no instruction
-     * 
      */
     int instructionId;
     
@@ -30,8 +29,8 @@ class Stage {
      *  @return boolean
      */
     boolean isFree(){
-       	if(instructionId==-1)
-		return true;
+       	if (instructionId == -1)
+            return true;
 	return false;
     }
 

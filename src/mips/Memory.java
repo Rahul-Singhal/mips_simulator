@@ -11,18 +11,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *   <p>Implements Memory class, simulates memory for handling instructions using memory</p>
+ *   <p>Implements Memory class, simulates system memory for handling instructions that use memory</p>
  *   @author anmol
  */
 class Memory {
     
     /**
-     *  Char array for simulating memory
+     *  Char array for storage
      */
     char[] store = new char[10485760];
     
     /**
-     *  Points to the next free location in memory (store array)
+     *  Points to the next free location in memory
      */
     int freePointer; 
     
@@ -41,8 +41,8 @@ class Memory {
     
     /**
      *  Stores a word (4 bytes) at the specified address in memory
-     *  @param address Memory Address where the value is to be stored
-     *  @param word value to be stored
+     *  @param address Memory address where the value is to be stored
+     *  @param word Value to be stored
      */
     void storeWord(int address, int word){
         if (address >= 0 && address + 4 <= store.length) {
@@ -55,28 +55,11 @@ class Memory {
             System.exit(0);
         }
     }
-
-    // Mars checks word and halfword boundaries for these functions. 
-    // Should we also do that?
-    /**
-     *  Stores a half word (2 bytes) at the specified address in memory
-     *  @param address Memory Address where the value is to be stored
-     *  @param word value to be stored
-     */
-    void storeHalfWord(int address, int word){
-        if (address >= 0 && address + 4 <= store.length) {
-            store[address + 3] = (char) ((word >> 0) & 0xFF);
-            store[address+2] = (char) ((word >> 8) & 0xFF);
-        } else {
-            System.out.printf("Memory out of bounds exception! %d\n", address);
-            System.exit(0);
-        }
-    }
     
     /**
-     *  Loads a word (4 bytes) at the specified address in memory
-     *  @param address Memory Address from where the value is to be loaded
-     *  @return int
+     *  Loads a word (4 bytes) from the specified address in memory
+     *  @param address Memory address from where the value is to be loaded
+     *  @return int Value that is loaded
      */
     int loadWord(int address){
         if (address >= 0 && address + 4 <= store.length) {
@@ -93,16 +76,33 @@ class Memory {
         // returning garbage here, program should never reach here      
         return 0;
     }
-    
+   
+    // Mars checks word and halfword boundaries for these functions. 
+    // Should we also do that?
     /**
-     *  Loads a half word (2 bytes) at the specified address in memory
-     *  @param address Memory Address from where the value is to be loaded
-     *  @return int
+     *  Stores half word (2 bytes) at the specified address in memory
+     *  @param address Memory address where the value is to be stored
+     *  @param word Value to be stored
+     */
+    void storeHalfWord(int address, int word){
+        if (address >= 0 && address + 4 <= store.length) {
+            store[address + 3] = (char) ((word >> 0) & 0xFF);
+            store[address + 2] = (char) ((word >> 8) & 0xFF);
+        } else {
+            System.out.printf("Memory out of bounds exception! %d\n", address);
+            System.exit(0);
+        }
+    }
+
+    /**
+     *  Loads half word (2 bytes) from the specified address in memory
+     *  @param address Memory address from where the value is to be loaded
+     *  @return int Value that is loaded
      */
     int loadHalfWord(int address){
         if (address >= 0 && address + 4 <= store.length) {
             int Int32 = 0;
-            if((int)store[address+3] >= 128 )
+            if((int)store[address+3] >= 128)
                 Int32 = -1;
             Int32 = (Int32 << 8) + store[address+2];
             Int32 = (Int32 << 8) + store[address+3];
@@ -116,9 +116,9 @@ class Memory {
     }
     
     /**
-     *  Loads an unsigned half word (2 bytes) at the specified address in memory
-     *  @param address Memory Address from where the value is to be loaded
-     *  @return int
+     *  Loads an unsigned half word (2 bytes) from the specified address in memory
+     *  @param address Memory address from where the value is to be loaded
+     *  @return int Value that is loaded
      */
     int loadUnsignedHalfWord(int address){
         if (address >= 0 && address + 4 <= store.length) {
@@ -136,11 +136,11 @@ class Memory {
     
     /**
      *  Stores a byte at the specified address in memory
-     *  @param address Memory Address where the value is to be stored
-     *  @param memByte value to be stored
+     *  @param address Memory address where the value is to be stored
+     *  @param memByte Value to be stored
      */
     void storeByte(int address, char memByte){
-      /// CHANGE IN DEFINITION : REPLACE BYTE BY MEM_BYTE
+        // CHANGE IN DEFINITION : REPLACE BYTE BY MEM_BYTE
         if (address >= 0 && address + 1 <= store.length) {
             store[address+3] = memByte;
         } else {
@@ -149,28 +149,11 @@ class Memory {
         }
 
     }
-    /**
-     *  Loads an unsigned byte at the specified address in memory
-     *  @param address Memory Address from where the value is to be loaded
-     *  @return int
-     */
-    int loadUnsignedByte(int address){
-        if (address >= 0 && address+4 <= store.length) {
-            int Int32 = 0;
-            Int32 = (Int32 << 8) + store[address+3];
-            return Int32;
-        } else {
-            System.out.printf("Memory out of bounds exception! %d\n", address);
-            System.exit(0);
-        }
-        // returning garbage here, program should never reach here      
-        return 0;
-    }
     
     /**
      *  Loads a byte at the specified address in memory
-     *  @param address Memory Address from where the value is to be loaded
-     *  @return int
+     *  @param address Memory address from where the value is to be loaded
+     *  @return int Value that is loaded
      */
     int loadByte(int address){
         if (address >= 0 && address+4 <= store.length) {
@@ -188,9 +171,27 @@ class Memory {
     }
     
     /**
+     *  Loads an unsigned byte at the specified address in memory
+     *  @param address Memory address from where the value is to be loaded
+     *  @return int Value that is loaded
+     */
+    int loadUnsignedByte(int address){
+        if (address >= 0 && address+4 <= store.length) {
+            int Int32 = 0;
+            Int32 = (Int32 << 8) + store[address+3];
+            return Int32;
+        } else {
+            System.out.printf("Memory out of bounds exception! %d\n", address);
+            System.exit(0);
+        }
+        // returning garbage here, program should never reach here      
+        return 0;
+    }
+        
+    /**
      *  Loads the address of a particular label from memoryMap
      *  @param label identifier or function name
-     *  @return int
+     *  @return int Address where the corresponding data is stored
      */
     int loadAddress(String label){
         return memoryMap.get(label).second;
@@ -200,7 +201,7 @@ class Memory {
      *  Stores a null terminated string with a label in memory
      *  @param label string identifier
      *  @param ascii string to be stored
-     *  @return int
+     *  @return int Address where string is stored
      */
     int storeAscii(String label, String ascii){
         int place = freePointer;
@@ -217,15 +218,15 @@ class Memory {
             System.out.printf("Memory out of bounds exception!\n");
             System.exit(0);
         }
-      // returning garbage 0 here, program should never reach here      
+        // returning garbage 0 here, program should never reach here      
         return 0;
     }
     
     /**
-     *  Stores a string with a label in memory
+     *  Stores a string with a label in memory and null terminates it
      *  @param label string identifier
      *  @param asciiz string to be stored
-     *  @return int
+     *  @return int Address where string is stored
      */
     int storeAsciiz(String label, String asciiz){
         int place = freePointer;
@@ -250,8 +251,8 @@ class Memory {
 
      /**
      *  Retrieve the string at a particular address in memory
-     *  @param address Memory Address from where the string is to be retrieved
-     *  @return String
+     *  @param address Memory address from where the string is to be retrieved
+     *  @return String 
      */
     String getString(int address){
         if (address > 0 && address < store.length) {
@@ -273,9 +274,8 @@ class Memory {
      *  Stores a list of integers with a label in memory
      *  @param label string identifier
      *  @param v list of integers to be stored
-     *  @return int
+     *  @return int Address where the integers are stored
      */
-    
     int storeWords(String label, ArrayList<Integer> v){
         int place = freePointer;
         if (freePointer + v.size() * 4 <= store.length) {
@@ -299,7 +299,7 @@ class Memory {
      *  Allocates space of a specified number of bytes with a label in memory 
      *  @param label string identifier for the space allocated
      *  @param count number of bytes to be allocated
-     *  @return int
+     *  @return int Address where the space is allocated
      */
     int allocateSpace(String label, int count){
         int place = freePointer;
@@ -316,10 +316,10 @@ class Memory {
     }
     
     /**
-     *  Stores a list of characters with a label in memory
+     *  Stores a list of characters (bytes) with a label in memory
      *  @param label string identifier
-     *  @param v list of characters to be stored
-     *  @return int
+     *  @param v list of characters (bytes) to be stored
+     *  @return int Address where bytes are stored
      */
     int storeBytes(String label, ArrayList<Character> v){
         int place = freePointer;
