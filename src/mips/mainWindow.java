@@ -373,6 +373,17 @@ public class mainWindow extends javax.swing.JFrame{
         registerValueLabel31 = new javax.swing.JLabel();
         registerValueLabel32 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        StatisticsFrame = new javax.swing.JFrame();
+        jButton5 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        clockCyclesLabel = new javax.swing.JLabel();
+        rStallsLabel = new javax.swing.JLabel();
+        sStallsLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         stageJPanel1 = new mips.StageJPanel();
         menuBar = new javax.swing.JMenuBar();
@@ -389,6 +400,7 @@ public class mainWindow extends javax.swing.JFrame{
         showMenu = new javax.swing.JMenu();
         registerStateMenuItem = new javax.swing.JMenuItem();
         memoryStateMenuItem = new javax.swing.JMenuItem();
+        statisticsMenuItem = new javax.swing.JMenuItem();
         settingsMenuItem = new javax.swing.JMenu();
         ForwardingCheckBox = new javax.swing.JCheckBoxMenuItem();
         FastBranchingTextBox = new javax.swing.JCheckBoxMenuItem();
@@ -1042,7 +1054,106 @@ public class mainWindow extends javax.swing.JFrame{
                 .addContainerGap())
         );
 
-        jPanel2.getAccessibleContext().setAccessibleName("Register Values");
+        StatisticsFrame.setTitle("Program Statistics");
+        StatisticsFrame.setAlwaysOnTop(true);
+        StatisticsFrame.setLocationByPlatform(true);
+        StatisticsFrame.setMinimumSize(new java.awt.Dimension(450, 280));
+        StatisticsFrame.setPreferredSize(new java.awt.Dimension(450, 280));
+
+        jButton5.setText("Ok");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Program Statistics", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
+
+        jLabel20.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel20.setText("Total No. of Clock Cycles : ");
+
+        jLabel21.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel21.setText("No. of R-Stalls :");
+
+        jLabel22.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel22.setText("No. of S-Stalls :");
+
+        jLabel23.setText("(Stalls due to Register Dependencies)");
+
+        jLabel24.setText("(Stalls due to Stage Dependencies)");
+
+        clockCyclesLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        clockCyclesLabel.setText("0");
+
+        rStallsLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        rStallsLabel.setText("0");
+
+        sStallsLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        sStallsLabel.setText("0");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel22)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(clockCyclesLabel)
+                    .addComponent(rStallsLabel)
+                    .addComponent(sStallsLabel))
+                .addGap(50, 50, 50))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(clockCyclesLabel))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(rStallsLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel23)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(sStallsLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel24)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout StatisticsFrameLayout = new javax.swing.GroupLayout(StatisticsFrame.getContentPane());
+        StatisticsFrame.getContentPane().setLayout(StatisticsFrameLayout);
+        StatisticsFrameLayout.setHorizontalGroup(
+            StatisticsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(StatisticsFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(StatisticsFrameLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        StatisticsFrameLayout.setVerticalGroup(
+            StatisticsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, StatisticsFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS));
@@ -1155,7 +1266,20 @@ public class mainWindow extends javax.swing.JFrame{
         showMenu.add(registerStateMenuItem);
 
         memoryStateMenuItem.setText("Memory State");
+        memoryStateMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                memoryStateMenuItemActionPerformed(evt);
+            }
+        });
         showMenu.add(memoryStateMenuItem);
+
+        statisticsMenuItem.setText("Program Statistics");
+        statisticsMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statisticsMenuItemActionPerformed(evt);
+            }
+        });
+        showMenu.add(statisticsMenuItem);
 
         menuBar.add(showMenu);
 
@@ -1492,6 +1616,22 @@ public class mainWindow extends javax.swing.JFrame{
         registerStatePanel.setVisible(true);
     }//GEN-LAST:event_registerStateMenuItemActionPerformed
 
+    private void statisticsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statisticsMenuItemActionPerformed
+        StatisticsFrame.setLocation(this.getLocation());
+        clockCyclesLabel.setText(""+SystemVars.clockCycle);
+        rStallsLabel.setText(""+SystemVars.rStalls);
+        sStallsLabel.setText(""+SystemVars.sStalls);
+        StatisticsFrame.setVisible(true);
+    }//GEN-LAST:event_statisticsMenuItemActionPerformed
+
+    private void memoryStateMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memoryStateMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_memoryStateMenuItemActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        StatisticsFrame.setVisible(false);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     
     /** TODO add your handling code here:
      * @param args the command line arguments
@@ -1540,9 +1680,11 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JTextField IFField;
     private javax.swing.JTextField MEMField;
     private javax.swing.JTextField MULTField;
+    private javax.swing.JFrame StatisticsFrame;
     private javax.swing.JTextField WBField;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem allCyclesMenuItem;
+    private javax.swing.JLabel clockCyclesLabel;
     private javax.swing.JMenuItem contentsMenuItem;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
@@ -1552,6 +1694,7 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1564,6 +1707,11 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1575,6 +1723,7 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem memoryStateMenuItem;
     private javax.swing.JMenuBar menuBar;
@@ -1585,6 +1734,7 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JMenuItem pipelineMenuItem;
     private javax.swing.JMenuItem predictNotTakenButton;
     private javax.swing.JMenuItem predictTakenButton;
+    private javax.swing.JLabel rStallsLabel;
     private javax.swing.JLabel registerNameLabel10;
     private javax.swing.JLabel registerNameLabel11;
     private javax.swing.JLabel registerNameLabel12;
@@ -1652,11 +1802,13 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JLabel registerValueLabel9;
     private javax.swing.JLabel regiterNameLabel1;
     private javax.swing.JMenuItem resetMenuItem;
+    private javax.swing.JLabel sStallsLabel;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JFileChooser saveImageChooser;
     private javax.swing.JMenu settingsMenuItem;
     private javax.swing.JMenu showMenu;
     private mips.StageJPanel stageJPanel1;
+    private javax.swing.JMenuItem statisticsMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }
