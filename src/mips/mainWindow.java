@@ -297,6 +297,14 @@ public class mainWindow extends javax.swing.JFrame{
         jLabel16 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        MEMField1 = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        MemMissRateField = new javax.swing.JTextField();
+        MemMissPenaltyField = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
         saveImageChooser = new javax.swing.JFileChooser();
         registerStatePanel = new javax.swing.JFrame();
         jPanel2 = new javax.swing.JPanel();
@@ -384,6 +392,9 @@ public class mainWindow extends javax.swing.JFrame{
         clockCyclesLabel = new javax.swing.JLabel();
         rStallsLabel = new javax.swing.JLabel();
         sStallsLabel = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        mStallsLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         stageJPanel1 = new mips.StageJPanel();
         menuBar = new javax.swing.JMenuBar();
@@ -415,7 +426,8 @@ public class mainWindow extends javax.swing.JFrame{
         openFileChooser.setDialogTitle("Open Mips Module");
 
         pipelineDepthEditor.setLocationByPlatform(true);
-        pipelineDepthEditor.setMinimumSize(new java.awt.Dimension(500, 300));
+        pipelineDepthEditor.setMinimumSize(new java.awt.Dimension(550, 420));
+        pipelineDepthEditor.setPreferredSize(new java.awt.Dimension(550, 420));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pipeline Depths", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
 
@@ -499,7 +511,7 @@ public class mainWindow extends javax.swing.JFrame{
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addContainerGap(62, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -518,7 +530,7 @@ public class mainWindow extends javax.swing.JFrame{
                             .addComponent(jLabel2)
                             .addComponent(IFField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(IDField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addGap(83, 83, 83)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -533,7 +545,7 @@ public class mainWindow extends javax.swing.JFrame{
                     .addComponent(jLabel13)
                     .addComponent(WBField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MULTField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -592,26 +604,105 @@ public class mainWindow extends javax.swing.JFrame{
             }
         });
 
+        MEMField1.setText("3");
+        MEMField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MEMField1ActionPerformed(evt);
+            }
+        });
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Memory Misses", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
+
+        jLabel31.setText("Memory Miss Rate :");
+
+        jLabel32.setText("Memory Miss Penalty :");
+
+        MemMissRateField.setText("2");
+        MemMissRateField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MemMissRateFieldActionPerformed(evt);
+            }
+        });
+
+        MemMissPenaltyField.setText("2");
+        MemMissPenaltyField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MemMissPenaltyFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel27.setText("%");
+
+        jLabel28.setText("Cycles");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(46, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel32))
+                .addGap(109, 109, 109)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(MemMissRateField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel27))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(MemMissPenaltyField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel28)))
+                .addContainerGap(58, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(MemMissRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel27))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(MemMissPenaltyField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel32)
+                    .addComponent(jLabel28))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout pipelineDepthEditorLayout = new javax.swing.GroupLayout(pipelineDepthEditor.getContentPane());
         pipelineDepthEditor.getContentPane().setLayout(pipelineDepthEditorLayout);
         pipelineDepthEditorLayout.setHorizontalGroup(
             pipelineDepthEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pipelineDepthEditorLayout.createSequentialGroup()
-                .addContainerGap(314, Short.MAX_VALUE)
+            .addGroup(pipelineDepthEditorLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pipelineDepthEditorLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(37, 37, 37))
             .addGroup(pipelineDepthEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pipelineDepthEditorLayout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGap(28, 28, 28)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(28, 28, 28)))
+            .addGroup(pipelineDepthEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pipelineDepthEditorLayout.createSequentialGroup()
+                    .addGap(250, 250, 250)
+                    .addComponent(MEMField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(262, Short.MAX_VALUE)))
         );
         pipelineDepthEditorLayout.setVerticalGroup(
             pipelineDepthEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pipelineDepthEditorLayout.createSequentialGroup()
-                .addContainerGap(258, Short.MAX_VALUE)
+            .addGroup(pipelineDepthEditorLayout.createSequentialGroup()
+                .addGap(252, 252, 252)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pipelineDepthEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -620,7 +711,12 @@ public class mainWindow extends javax.swing.JFrame{
                 .addGroup(pipelineDepthEditorLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(54, Short.MAX_VALUE)))
+                    .addContainerGap(175, Short.MAX_VALUE)))
+            .addGroup(pipelineDepthEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pipelineDepthEditorLayout.createSequentialGroup()
+                    .addGap(175, 175, 175)
+                    .addComponent(MEMField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(218, Short.MAX_VALUE)))
         );
 
         saveImageChooser.setAcceptAllFileFilterUsed(false);
@@ -1057,8 +1153,8 @@ public class mainWindow extends javax.swing.JFrame{
         StatisticsFrame.setTitle("Program Statistics");
         StatisticsFrame.setAlwaysOnTop(true);
         StatisticsFrame.setLocationByPlatform(true);
-        StatisticsFrame.setMinimumSize(new java.awt.Dimension(450, 280));
-        StatisticsFrame.setPreferredSize(new java.awt.Dimension(450, 280));
+        StatisticsFrame.setMinimumSize(new java.awt.Dimension(450, 350));
+        StatisticsFrame.setPreferredSize(new java.awt.Dimension(450, 350));
 
         jButton5.setText("Ok");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -1091,6 +1187,14 @@ public class mainWindow extends javax.swing.JFrame{
         sStallsLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         sStallsLabel.setText("0");
 
+        jLabel25.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel25.setText("No. of M-Stalls :");
+
+        jLabel26.setText("(Stalls due to Memory Misses)");
+
+        mStallsLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        mStallsLabel.setText("0");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -1102,12 +1206,15 @@ public class mainWindow extends javax.swing.JFrame{
                     .addComponent(jLabel24)
                     .addComponent(jLabel23)
                     .addComponent(jLabel22)
-                    .addComponent(jLabel21))
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(clockCyclesLabel)
                     .addComponent(rStallsLabel)
-                    .addComponent(sStallsLabel))
+                    .addComponent(sStallsLabel)
+                    .addComponent(mStallsLabel))
                 .addGap(50, 50, 50))
         );
         jPanel4Layout.setVerticalGroup(
@@ -1129,7 +1236,13 @@ public class mainWindow extends javax.swing.JFrame{
                     .addComponent(sStallsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel24)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(mStallsLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel26)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout StatisticsFrameLayout = new javax.swing.GroupLayout(StatisticsFrame.getContentPane());
@@ -1149,10 +1262,10 @@ public class mainWindow extends javax.swing.JFrame{
             StatisticsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, StatisticsFrameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1363,6 +1476,8 @@ public class mainWindow extends javax.swing.JFrame{
         DIVField.setText(""+SystemVars.stageDepths[4]);
         MEMField.setText(""+SystemVars.stageDepths[5]);
         WBField.setText(""+SystemVars.stageDepths[6]); 
+        MemMissRateField.setText(""+SystemVars.memoryMissRate);
+        MemMissPenaltyField.setText(""+SystemVars.memoryMissStalls);
         pipelineDepthEditor.setVisible(true);
     }//GEN-LAST:event_pipelineMenuItemActionPerformed
 
@@ -1398,7 +1513,8 @@ public class mainWindow extends javax.swing.JFrame{
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int newIF, newID, newEX, newMEM, newMULT, newDIV, newWB;
         
-        String str = IFField.getText();
+        String str;
+        str = IFField.getText();
         if(validatePositiveNumber(str)) newIF = Integer.parseInt(str);
         else {
             showErrorDialogue("IF");
@@ -1444,6 +1560,30 @@ public class mainWindow extends javax.swing.JFrame{
         if(validatePositiveNumber(str)) newDIV = Integer.parseInt(str);
         else {
             showErrorDialogue("DIV");
+            return;
+        }
+        
+        str = MemMissRateField.getText();
+        if(validatePositiveNumber(str) && Integer.parseInt(str) <= 100) SystemVars.memoryMissRate = Integer.parseInt(str);
+        else {
+            JOptionPane.showMessageDialog(
+                null, 
+                "Invalid Memory Miss Rate. Re-check!", 
+                "Error ",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            return;
+        }
+        
+        str = MemMissPenaltyField.getText();
+        if(validatePositiveNumber(str)) SystemVars.memoryMissStalls = Integer.parseInt(str);
+        else {
+            JOptionPane.showMessageDialog(
+                null, 
+                "Invalid Memory Miss Penalty. Re-check!", 
+                "Error ",
+                JOptionPane.INFORMATION_MESSAGE
+            );
             return;
         }
         
@@ -1621,6 +1761,7 @@ public class mainWindow extends javax.swing.JFrame{
         clockCyclesLabel.setText(""+SystemVars.clockCycle);
         rStallsLabel.setText(""+SystemVars.rStalls);
         sStallsLabel.setText(""+SystemVars.sStalls);
+        mStallsLabel.setText(""+SystemVars.totalMemoryStalls);
         StatisticsFrame.setVisible(true);
     }//GEN-LAST:event_statisticsMenuItemActionPerformed
 
@@ -1631,6 +1772,18 @@ public class mainWindow extends javax.swing.JFrame{
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         StatisticsFrame.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void MEMField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MEMField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MEMField1ActionPerformed
+
+    private void MemMissRateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MemMissRateFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MemMissRateFieldActionPerformed
+
+    private void MemMissPenaltyFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MemMissPenaltyFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MemMissPenaltyFieldActionPerformed
 
     
     /** TODO add your handling code here:
@@ -1679,7 +1832,10 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JTextField IDField;
     private javax.swing.JTextField IFField;
     private javax.swing.JTextField MEMField;
+    private javax.swing.JTextField MEMField1;
     private javax.swing.JTextField MULTField;
+    private javax.swing.JTextField MemMissPenaltyField;
+    private javax.swing.JTextField MemMissRateField;
     private javax.swing.JFrame StatisticsFrame;
     private javax.swing.JTextField WBField;
     private javax.swing.JMenuItem aboutMenuItem;
@@ -1712,7 +1868,13 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1723,8 +1885,10 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel mStallsLabel;
     private javax.swing.JMenuItem memoryStateMenuItem;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem nextCycleMenuItem;

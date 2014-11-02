@@ -30,6 +30,22 @@ public class SystemVars {
     static int totalStages = 17;
     
     /**
+     *  Rate of Memory Misses in Percentage
+     *  Default value is -1(No memory miss)
+     */
+    static int memoryMissRate = 0;
+    
+    /**
+     *  No of cycles to stall for in case of a memory miss
+     */
+    static int memoryMissStalls = 2;
+    
+    /**
+     *  Total stalls due to memory misses
+     */
+    static int totalMemoryStalls = 0;
+    
+    /**
      *  Total number of registers that can be used in system 
      */
     static int totalRegisters = 32;
@@ -240,6 +256,7 @@ public class SystemVars {
         fallbackInstructionMap = new HashMap<Integer, Integer>();
         programOver = false;
         programCounter = 0;
+        totalMemoryStalls = 0;
         memory = new Memory();
         labelMap = new HashMap<>();
         rStalls = 0;
@@ -285,8 +302,8 @@ public class SystemVars {
         resetSystem();
         stageColorMap.put(stageType.IF, new Color((float)0.372549,(float)0.619608,(float)0.62745));
         stageColorMap.put(stageType.ID, new Color((float)1,(float)0.498039,(float)0.313725));
-        stageColorMap.put(stageType.EX, new Color((float)0.662745,(float)0.662745,(float)0.662745));
-        stageColorMap.put(stageType.MEM, new Color((float)0,(float)0.74902,(float)1));
+        stageColorMap.put(stageType.EX, new Color((float)0,(float)0.78,(float)1));
+        stageColorMap.put(stageType.MEM, new Color((float)0.662745,(float)0.662745,(float)0.662745));
         stageColorMap.put(stageType.WB, new Color((float)1,(float)0.647059,(float)0));
         stageColorMap.put(stageType.MULT, new Color((float)0.803922,(float)0.360784,(float)0.360784));
         stageColorMap.put(stageType.DIV, new Color((float)0.737255,(float)0.560784,(float)0.560784));

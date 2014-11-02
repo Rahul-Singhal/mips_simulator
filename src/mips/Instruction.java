@@ -5,6 +5,8 @@
  */
 package mips;
 
+import java.util.Random;
+
 /**
  *   <p>Parent class of all the instructions </p>
  *   <p>Includes the common functions, members and abstractions needed in all the children classes </p>
@@ -68,6 +70,12 @@ public class Instruction extends SystemVars implements Cloneable {
      *  holds the unique identity assigned to this instance of <b>this</b> {@link mips.Instruction} when inserting into {@link mips.Program#currInstructions} {@link mips.Program#execute()}
      */
     public int id;
+    
+    /**
+     *  No of cycles this instruction has already stalled due to memory miss
+     */
+    public int memoryStalls;
+
 
     /**
      *  empty Constructor, initializes with default values
@@ -83,6 +91,7 @@ public class Instruction extends SystemVars implements Cloneable {
         forwardedFromInstructionStage = 0;
         display = "default";
         id = 0;
+        memoryStalls = 0;
     }
 
     // IS THE COPY CONSTRUCTOR NEEDED WHEN WE HAVE CLONE???
@@ -104,6 +113,7 @@ public class Instruction extends SystemVars implements Cloneable {
         this.forwardedFromInstructionStage = i.forwardedFromInstructionStage;
         this.display = i.display;
         this.id = i.id;
+        this.memoryStalls = i.memoryStalls;
     }
 
     /**
@@ -130,6 +140,7 @@ public class Instruction extends SystemVars implements Cloneable {
         forwardedFromInstructionStage = forwStage;
         display = disp;
         id = i;
+        memoryStalls = 0;
     }
 
     void init() {
@@ -231,6 +242,17 @@ public class Instruction extends SystemVars implements Cloneable {
     }
     
     /**
+     *  Stalls <b>this</b> {@link mips.Instruction} when a Memory Miss is detected
+     */
+    public void stallInstructionMemoryMiss() {
+        stages.get(presentStage).setInstruction(id);
+        stalled = true;
+        stallingInstructionId = -2;
+        SystemVars.totalMemoryStalls += 1;
+
+    }
+    
+    /**
      *  true: if branch is taken
      *  false: if not taken
      * @return boolean
@@ -253,5 +275,28 @@ public class Instruction extends SystemVars implements Cloneable {
      */
     public String getInstructionName() {
         return this.getClass().getSimpleName().toLowerCase();
+    }
+    
+    /**
+     *  returns true or false depending on whether the instruction should 
+     *  stall due to a memory miss.
+     * @return boolean
+     */
+    public boolean checkMemoryStall(){
+        if(SystemVars.memoryMissRate > 0 && SystemVars.memoryMissStalls > 0){
+            if (memoryStalls == 0) {
+                Random rand = new Random();
+                int randomNum = rand.nextInt(100) + 1;
+                if (randomNum <= SystemVars.memoryMissRate) {
+                    // the instruction has to stall
+                    memoryStalls++;
+                    return true;
+                }
+            } else if(memoryStalls < SystemVars.memoryMissStalls){
+                memoryStalls++;
+                return true;
+            }
+        }
+        return false;
     }
 }

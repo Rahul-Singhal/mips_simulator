@@ -130,11 +130,15 @@ public class StageJPanel extends JPanel {
         }
 
         if (instruction.getStalled() && !instruction.getForwarded()) {
-            label = "STALL";
+            label = "R-STALL";
+            int stallInstId = instruction.getStallingInstructionId();
+            if(stallInstId == -1) label = "S-STALL";
+            if(stallInstId == -2) label = "M-STALL";
+            
             int stringWidth = fm.getStringBounds(label, g).getBounds().width;
             g.drawString(label, leftPaneShift + (instWidth + 2) * column + (instWidth - stringWidth) / 2, offsetFromTop + 15 + (instHeight + 20) * instruction.getId());
-
-            if (instruction.getStallingInstructionId() != -1) {
+            
+            if (stallInstId != -1 && stallInstId != -2) {
                 boolean checkLast = false;
                 for (int q = 0; q < allInstructions.get(column - 1).size(); q++) {
                     tempInstruction = allInstructions.get(column - 1).get(q);
@@ -155,7 +159,7 @@ public class StageJPanel extends JPanel {
                     int beta;
                     // stage to look for is ID
                     boolean myFlag = false;
-                    int stallInstId = instruction.getStallingInstructionId();
+                    
                     while (alpha <= column) {
                         int maxLeng = allInstructions.get(column - alpha).size();
                         for (beta = 0; beta < maxLeng; beta++) {

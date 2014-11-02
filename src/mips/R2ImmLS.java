@@ -17,13 +17,13 @@ public class R2ImmLS extends Instruction implements Cloneable {
     int rtIndex;  // Destination
     int signExtImm;
     int a, b, sum;
-
+    
     // Store and load do completely different things, so to ensure execute works
     // for both of them i'll use the following two booleans and category which will
     // be set in the children constructors.
     boolean isLoad;
     boolean isStore;
-    Integer category; // 0 : WORK, 1 : BYTE, 2 : HALFWORD
+    Integer category; // 0 : WORD, 1 : BYTE, 2 : HALFWORD
 
     /**
      * Constructor
@@ -158,6 +158,10 @@ public class R2ImmLS extends Instruction implements Cloneable {
                     //////cout << "EX stage done -->" ;
                     return true;
                 case MEM:
+                    if(checkMemoryStall()){
+                        stallInstructionMemoryMiss();
+                        return false;
+                    }
                     if (isStore) {
                         if(category == 0){
                             // WORD
@@ -246,5 +250,4 @@ public class R2ImmLS extends Instruction implements Cloneable {
     public R2ImmLS clone() {
         return (R2ImmLS) super.clone();
     }
-
 }
