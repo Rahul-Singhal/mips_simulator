@@ -46,6 +46,26 @@ public class InstructionJPanel extends JPanel{
     }
     
     /**
+     * 
+     */
+    public void zoomIn(){
+        instHeight += 5;
+        instWidth += 10;
+        guiFont = new Font("Arial", Font.BOLD, guiFont.getSize() + 1);
+        this.repaint();
+    }
+    
+    /**
+     * 
+     */
+    public void zoomOut(){
+        instHeight -= 5;
+        instWidth -= 10;
+        guiFont = new Font("Arial", Font.BOLD, guiFont.getSize() - 1);
+        this.repaint();
+    }
+    
+    /**
      *
      */
     public void resetSystem(){

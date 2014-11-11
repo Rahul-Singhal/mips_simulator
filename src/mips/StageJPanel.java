@@ -51,6 +51,26 @@ public class StageJPanel extends JPanel {
     }
     
     /**
+     * 
+     */
+    public void zoomIn(){
+        instHeight += 5;
+        instWidth += 10;
+        guiFont = new Font("Arial", Font.BOLD, guiFont.getSize() + 1);
+        this.repaint();
+    }
+    
+    /**
+     * 
+     */
+    public void zoomOut(){
+        instHeight -= 5;
+        instWidth -= 10;
+        guiFont = new Font("Arial", Font.BOLD, guiFont.getSize() - 1);
+        this.repaint();
+    }
+    
+    /**
      *
      */
     public void resetSystem(){
@@ -126,7 +146,7 @@ public class StageJPanel extends JPanel {
 
         if (!instruction.getStalled() && !instruction.getForwarded()) {
             int stringWidth = fm.getStringBounds(label, g).getBounds().width;
-            g.drawString(label, leftPaneShift + (instWidth + 2) * column + (instWidth - stringWidth) / 2, offsetFromTop + 15 + (instHeight + 20) * instruction.getId());
+            g.drawString(label, leftPaneShift + (instWidth + 2) * column + (instWidth - stringWidth) / 2, offsetFromTop + 10 + instHeight/4 + (instHeight + 20) * instruction.getId());
         }
 
         if (instruction.getStalled() && !instruction.getForwarded()) {
@@ -136,7 +156,7 @@ public class StageJPanel extends JPanel {
             if(stallInstId == -2) label = "M-STALL";
             
             int stringWidth = fm.getStringBounds(label, g).getBounds().width;
-            g.drawString(label, leftPaneShift + (instWidth + 2) * column + (instWidth - stringWidth) / 2, offsetFromTop + 15 + (instHeight + 20) * instruction.getId());
+            g.drawString(label, leftPaneShift + (instWidth + 2) * column + (instWidth - stringWidth) / 2, offsetFromTop + 10 + instHeight/4 + (instHeight + 20) * instruction.getId());
             
             if (stallInstId != -1 && stallInstId != -2) {
                 boolean checkLast = false;
@@ -183,7 +203,7 @@ public class StageJPanel extends JPanel {
         if (instruction.getForwarded()) {
             //draw arrow to display forwarding
             int stringWidth = fm.getStringBounds(label, g).getBounds().width;
-            g.drawString(label, leftPaneShift + (instWidth + 2) * column + (instWidth - stringWidth) / 2, offsetFromTop + 15 + (instHeight + 20) * instruction.getId());
+            g.drawString(label, leftPaneShift + (instWidth + 2) * column + (instWidth - stringWidth) / 2, offsetFromTop + 10 + instHeight/4 + (instHeight + 20) * instruction.getId());
             drawArrow(column, instruction.getId(), 1, instruction.getId() - instruction.getForwardedFromInstructionId(), true, g);
         }
     }

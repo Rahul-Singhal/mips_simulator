@@ -3,10 +3,12 @@ package mips;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -92,6 +94,32 @@ public class mainWindow extends javax.swing.JFrame{
     /**
      *
      */
+    public void zoomOutActionPerformed(){
+        if(prog != null){
+            int currentSize = SystemVars.guiFont.getSize();
+            if(currentSize <= 10) return;
+            SystemVars.guiFont = new Font("Arial", Font.BOLD, currentSize - 1);
+            stageJPanel1.zoomOut();
+            instructionJPanel1.zoomOut();
+        }
+    }
+    
+    /**
+     *
+     */
+    public void zoomInActionPerformed(){
+        if(prog != null){
+            int currentSize = SystemVars.guiFont.getSize();
+            if(currentSize >= 20) return;
+            SystemVars.guiFont = new Font("Arial", Font.BOLD, currentSize + 1);
+            stageJPanel1.zoomIn();
+            instructionJPanel1.zoomIn();
+        }
+    }
+    
+    /**
+     *
+     */
     public void runAllCycles(){
         int i = 0;
         for (i = 0; i < 200; i++) {
@@ -134,6 +162,18 @@ public class mainWindow extends javax.swing.JFrame{
         }
     };
     
+    Action zoomInAction = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            zoomInActionPerformed();
+        }
+    };
+    
+    Action zoomOutAction = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            zoomOutActionPerformed();
+        }
+    };
+    
     /**
      *
      */
@@ -142,10 +182,14 @@ public class mainWindow extends javax.swing.JFrame{
         ActionMap am = jScrollPane1.getActionMap();
         im.put(KeyStroke.getKeyStroke("N"),"nextCycleAction");
         im.put(KeyStroke.getKeyStroke("A"),"allCyclesAction");
-        im.put(KeyStroke.getKeyStroke("R"),"registerStateBarAction");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK),"registerStateBarAction");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, InputEvent.CTRL_MASK), "zoomInAction");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, InputEvent.CTRL_MASK), "zoomOutAction");
         am.put("nextCycleAction",nextCycleAction);
         am.put("allCyclesAction",allCyclesAction);
         am.put("registerStateBarAction",registerStateBarAction);
+        am.put("zoomInAction",zoomInAction);
+        am.put("zoomOutAction",zoomOutAction);
     }
     
     /**
@@ -395,6 +439,19 @@ public class mainWindow extends javax.swing.JFrame{
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         mStallsLabel = new javax.swing.JLabel();
+        AboutFrame = new javax.swing.JFrame();
+        jButton7 = new javax.swing.JButton();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         stageJPanel1 = new mips.StageJPanel();
         menuBar = new javax.swing.JMenuBar();
@@ -405,6 +462,8 @@ public class mainWindow extends javax.swing.JFrame{
         editMenu = new javax.swing.JMenu();
         pipelineMenuItem = new javax.swing.JMenuItem();
         resetMenuItem = new javax.swing.JMenuItem();
+        zoomInMenuItem = new javax.swing.JMenuItem();
+        zoomOutMenuItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         nextCycleMenuItem = new javax.swing.JMenuItem();
         allCyclesMenuItem = new javax.swing.JMenuItem();
@@ -427,7 +486,6 @@ public class mainWindow extends javax.swing.JFrame{
 
         pipelineDepthEditor.setLocationByPlatform(true);
         pipelineDepthEditor.setMinimumSize(new java.awt.Dimension(550, 420));
-        pipelineDepthEditor.setPreferredSize(new java.awt.Dimension(550, 420));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pipeline Depths", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
 
@@ -1251,12 +1309,13 @@ public class mainWindow extends javax.swing.JFrame{
             StatisticsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(StatisticsFrameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(StatisticsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(StatisticsFrameLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(StatisticsFrameLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         StatisticsFrameLayout.setVerticalGroup(
             StatisticsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1268,7 +1327,129 @@ public class mainWindow extends javax.swing.JFrame{
                 .addContainerGap())
         );
 
+        AboutFrame.setTitle("About");
+        AboutFrame.setAlwaysOnTop(true);
+        AboutFrame.setLocationByPlatform(true);
+        AboutFrame.setMinimumSize(new java.awt.Dimension(450, 360));
+        AboutFrame.setPreferredSize(new java.awt.Dimension(450, 360));
+
+        jButton7.setText("Ok");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jLabel29.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel29.setText("Generic MIPS Simulator & Analyzer");
+
+        jLabel30.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel30.setText("Developed by:");
+
+        jLabel33.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel33.setText("Anmol Garg {www.cse.iitb.ac.in/~anmolgarg}");
+
+        jLabel34.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel34.setText("Astha Agarwal {www.cse.iitb.ac.in/~astha}");
+
+        jLabel35.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel35.setText("Ved Ratn Dixit {www.cse.iitb.ac.in/~vrd}");
+
+        jLabel36.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel36.setText("Rahul Singhal {www.cse.iitb.ac.in/~rahuls}");
+
+        jLabel37.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel37.setText("Under the guidance of");
+
+        jLabel38.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel38.setText("Prof. Bernard L. Menezes ");
+
+        jLabel39.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel39.setText("{www.cse.iitb.ac.in/~bernard}");
+
+        jLabel40.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel40.setText("Deptartment of Computer Science & Engineering");
+
+        jLabel41.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel41.setText("Indian Institute of Technology, Bombay");
+
+        javax.swing.GroupLayout AboutFrameLayout = new javax.swing.GroupLayout(AboutFrame.getContentPane());
+        AboutFrame.getContentPane().setLayout(AboutFrameLayout);
+        AboutFrameLayout.setHorizontalGroup(
+            AboutFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AboutFrameLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(AboutFrameLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel29)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(AboutFrameLayout.createSequentialGroup()
+                .addContainerGap(48, Short.MAX_VALUE)
+                .addGroup(AboutFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AboutFrameLayout.createSequentialGroup()
+                        .addGroup(AboutFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel37)
+                            .addComponent(jLabel30))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(AboutFrameLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(AboutFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel36)
+                            .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AboutFrameLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel39)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AboutFrameLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel38)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(48, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AboutFrameLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(AboutFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel40)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AboutFrameLayout.createSequentialGroup()
+                        .addComponent(jLabel41)
+                        .addGap(41, 41, 41)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        AboutFrameLayout.setVerticalGroup(
+            AboutFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AboutFrameLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel29)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Generic MIPS Simulator & Analyzer");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS));
 
         stageJPanel1.setBackground(new java.awt.Color(242, 241, 241));
@@ -1335,6 +1516,7 @@ public class mainWindow extends javax.swing.JFrame{
         });
         editMenu.add(pipelineMenuItem);
 
+        resetMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         resetMenuItem.setMnemonic('d');
         resetMenuItem.setText("Reset");
         resetMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -1343,6 +1525,26 @@ public class mainWindow extends javax.swing.JFrame{
             }
         });
         editMenu.add(resetMenuItem);
+
+        zoomInMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_EQUALS, java.awt.event.InputEvent.CTRL_MASK));
+        zoomInMenuItem.setMnemonic('d');
+        zoomInMenuItem.setText("Zoom In");
+        zoomInMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zoomInMenuItemActionPerformed(evt);
+            }
+        });
+        editMenu.add(zoomInMenuItem);
+
+        zoomOutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_MINUS, java.awt.event.InputEvent.CTRL_MASK));
+        zoomOutMenuItem.setMnemonic('d');
+        zoomOutMenuItem.setText("Zoom Out");
+        zoomOutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zoomOutMenuItemActionPerformed(evt);
+            }
+        });
+        editMenu.add(zoomOutMenuItem);
 
         menuBar.add(editMenu);
 
@@ -1370,6 +1572,7 @@ public class mainWindow extends javax.swing.JFrame{
 
         showMenu.setText("Show");
 
+        registerStateMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         registerStateMenuItem.setText("Register State");
         registerStateMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1386,6 +1589,7 @@ public class mainWindow extends javax.swing.JFrame{
         });
         showMenu.add(memoryStateMenuItem);
 
+        statisticsMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         statisticsMenuItem.setText("Program Statistics");
         statisticsMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1454,6 +1658,11 @@ public class mainWindow extends javax.swing.JFrame{
 
         aboutMenuItem.setMnemonic('a');
         aboutMenuItem.setText("About");
+        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuItemActionPerformed(evt);
+            }
+        });
         helpMenu.add(aboutMenuItem);
 
         menuBar.add(helpMenu);
@@ -1785,6 +1994,22 @@ public class mainWindow extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_MemMissPenaltyFieldActionPerformed
 
+    private void zoomInMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInMenuItemActionPerformed
+        zoomInActionPerformed();
+    }//GEN-LAST:event_zoomInMenuItemActionPerformed
+
+    private void zoomOutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomOutMenuItemActionPerformed
+        zoomOutActionPerformed();
+    }//GEN-LAST:event_zoomOutMenuItemActionPerformed
+
+    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
+        AboutFrame.setVisible(true);
+    }//GEN-LAST:event_aboutMenuItemActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        AboutFrame.setVisible(false);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     
     /** TODO add your handling code here:
      * @param args the command line arguments
@@ -1825,6 +2050,7 @@ public class mainWindow extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFrame AboutFrame;
     private javax.swing.JTextField DIVField;
     private javax.swing.JTextField EXField;
     private javax.swing.JCheckBoxMenuItem FastBranchingTextBox;
@@ -1851,6 +2077,7 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1872,10 +2099,21 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1973,6 +2211,8 @@ public class mainWindow extends javax.swing.JFrame{
     private javax.swing.JMenu showMenu;
     private mips.StageJPanel stageJPanel1;
     private javax.swing.JMenuItem statisticsMenuItem;
+    private javax.swing.JMenuItem zoomInMenuItem;
+    private javax.swing.JMenuItem zoomOutMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }
