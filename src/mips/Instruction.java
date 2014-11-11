@@ -143,18 +143,18 @@ public class Instruction extends SystemVars implements Cloneable {
         memoryStalls = 0;
     }
 
-    void init() {
+    public void init() {
         stageToExecute = 1;
         presentStage = 0;
         stalled = false;
         display = "";
     }
-
-    boolean execute(int pc) {
+    
+    public boolean execute(int pc) {
         return false;
     }
 
-    void unstall() {
+    public void unstall() {
         return;
     }
 
@@ -168,43 +168,43 @@ public class Instruction extends SystemVars implements Cloneable {
     }
 
     // eigth stage
-    int getStageToExecute() {
+    public int getStageToExecute() {
         return this.stageToExecute;
     }
 
-    int getPresentStage() {
+    public int getPresentStage() {
         return this.presentStage;
     }
 
-    boolean getStalled() {
+    public boolean getStalled() {
         return this.stalled;
     }
 
-    int getStallingInstructionId() {
+    public int getStallingInstructionId() {
         return this.stallingInstructionId;
     }
 
-    int getStallingRegister() {
+    public int getStallingRegister() {
         return this.stallingRegister;
     }
 
-    boolean getForwarded() {
+    public boolean getForwarded() {
         return this.forwarded;
     }
 
-    int getForwardedFromInstructionId() {
+    public int getForwardedFromInstructionId() {
         return this.forwardedFromInstructionId;
     }
 
-    int getForwardedFromInstructionStage() {
+    public int getForwardedFromInstructionStage() {
         return this.forwardedFromInstructionStage;
     }
 
-    String getDisplayString() {
+    public String getDisplayString() {
         return display;
     }
 
-    int getId() {
+    public int getId() {
         return this.id;
     }
 
@@ -214,6 +214,7 @@ public class Instruction extends SystemVars implements Cloneable {
     public void executeOrdinaryStep() {
         stages.get(presentStage).setFree();
         presentStage = stageToExecute;
+        System.out.println(presentStage + " this is it");
         stages.get(presentStage).setInstruction(id);
         stageToExecute++;
         stalled = false;

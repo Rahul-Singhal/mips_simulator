@@ -13,7 +13,7 @@ import java.util.*;
  *   @author anmol
  */
 
-class Register {
+public class Register {
     
     /**
      *  Unique id for each register 
@@ -90,33 +90,33 @@ class Register {
     /**
      *  Stores the value in register
      */
-    int value;
+    public int value;
     
     /**
      *  Stores the list of all the {@link mips.Instruction} IDs blocking this register
      */
-    ArrayList<Integer> blockingInstructions ;
+    public ArrayList<Integer> blockingInstructions ;
     
      /**
      *  ID of {@link mips.Instruction} which has stalled the register
      *  else stores which instruction wrote into the register last
      */
-    int instructionId; 
+    public int instructionId; 
  
     /**
      * ID of {@link mips.Instruction} that forwarded value of this Register
      */
-    int lastForwarder;
+    public int lastForwarder;
     
     /**
      * Clock cycle time when the value of this Register was last forwarded.
      */
-    int lastForwarderTime;
+    public int lastForwarderTime;
     
     /**
      * Stores the list of all the {@link mips.Instruction} IDs that are forwarding value from this register 
      */
-    ArrayList<Integer> forwardingInstructions = new ArrayList<>();
+    public ArrayList<Integer> forwardingInstructions = new ArrayList<>();
         
 //    Unused variable
 //    int instructionStage; 
@@ -126,7 +126,7 @@ class Register {
      *  false: of some instructions are blocking this register
      *  @return boolean
      */
-    boolean isValid(){
+    public boolean isValid(){
         if(blockingInstructions.isEmpty()){
 		return true;
 	}
@@ -138,7 +138,7 @@ class Register {
      * @param instructionId id of the {@link mips.Instruction} 
      * @param time clock cycle time
      */
-    void forwardIt(int instructionId, int time){
+    public void forwardIt(int instructionId, int time){
         lastForwarderTime = time;
 	lastForwarder = instructionId;
         forwardingInstructions.add(instructionId);
@@ -162,7 +162,7 @@ class Register {
      * Remove all occurrences of a forwarding instruction for the Register
      * @param instructionId ID of instruction to remove
      */
-    void unforwardIt(int instructionId){
+    public void unforwardIt(int instructionId){
         removeAll(forwardingInstructions, instructionId);
     }
     
@@ -171,7 +171,7 @@ class Register {
      *  false: no instructions need to be forwadded
      *  @return boolean
      */
-    boolean isForwarded(){
+    public boolean isForwarded(){
         if(forwardingInstructions.isEmpty()){
 		return false;
         }
@@ -183,7 +183,7 @@ class Register {
      * Is called at every stage of the instruction which needs to writes to a Register 
      * @param instructionId Instruction Id of the instruction
      */
-    void stallRegister(int instructionId){
+    public void stallRegister(int instructionId){
         this.instructionId = instructionId;
         blockingInstructions.add(instructionId);
     }
@@ -193,7 +193,7 @@ class Register {
      * @param value value to be stored in the register
      * @param instructionId Instruction Id of the instruction
      */
-    void unstallRegister(int value, int instructionId){
+    public void unstallRegister(int value, int instructionId){
         removeAll(blockingInstructions, instructionId);
 	this.value = value;
     }
@@ -202,7 +202,7 @@ class Register {
      *  Un-Stalls the register corresponding to the instruction id
      * @param instructionId Instruction Id of the instruction
      */
-    void unstall(int instructionId){
+    public void unstall(int instructionId){
         removeAll(blockingInstructions, instructionId);
     }
     

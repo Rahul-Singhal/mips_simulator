@@ -14,7 +14,7 @@ import java.util.Map;
  *   <p>Implements Memory class, simulates system memory for handling instructions that use memory</p>
  *   @author anmol
  */
-class Memory {
+public class Memory {
     
     /**
      *  Char array for storage
@@ -44,7 +44,7 @@ class Memory {
      *  @param address Memory address where the value is to be stored
      *  @param word Value to be stored
      */
-    void storeWord(int address, int word){
+    public void storeWord(int address, int word){
         if (address >= 0 && address + 4 <= store.length) {
             store[address + 3] = (char) ((word >> 0) & 0xFF);
             store[address + 2] = (char) ((word >> 8) & 0xFF);
@@ -61,7 +61,7 @@ class Memory {
      *  @param address Memory address from where the value is to be loaded
      *  @return int Value that is loaded
      */
-    int loadWord(int address){
+    public int loadWord(int address){
         if (address >= 0 && address + 4 <= store.length) {
             int Int32 = 0;
             Int32 = (Int32 << 8) + store[address];
@@ -84,7 +84,7 @@ class Memory {
      *  @param address Memory address where the value is to be stored
      *  @param word Value to be stored
      */
-    void storeHalfWord(int address, int word){
+    public void storeHalfWord(int address, int word){
         if (address >= 0 && address + 4 <= store.length) {
             store[address + 3] = (char) ((word >> 0) & 0xFF);
             store[address + 2] = (char) ((word >> 8) & 0xFF);
@@ -99,7 +99,7 @@ class Memory {
      *  @param address Memory address from where the value is to be loaded
      *  @return int Value that is loaded
      */
-    int loadHalfWord(int address){
+    public int loadHalfWord(int address){
         if (address >= 0 && address + 4 <= store.length) {
             int Int32 = 0;
             if((int)store[address+3] >= 128)
@@ -120,7 +120,7 @@ class Memory {
      *  @param address Memory address from where the value is to be loaded
      *  @return int Value that is loaded
      */
-    int loadUnsignedHalfWord(int address){
+    public int loadUnsignedHalfWord(int address){
         if (address >= 0 && address + 4 <= store.length) {
             int Int32 = 0;
             Int32 = (Int32 << 8) + store[address+2];
@@ -139,7 +139,7 @@ class Memory {
      *  @param address Memory address where the value is to be stored
      *  @param memByte Value to be stored
      */
-    void storeByte(int address, char memByte){
+    public void storeByte(int address, char memByte){
         // CHANGE IN DEFINITION : REPLACE BYTE BY MEM_BYTE
         if (address >= 0 && address + 1 <= store.length) {
             store[address+3] = memByte;
@@ -155,7 +155,7 @@ class Memory {
      *  @param address Memory address from where the value is to be loaded
      *  @return int Value that is loaded
      */
-    int loadByte(int address){
+    public int loadByte(int address){
         if (address >= 0 && address+4 <= store.length) {
             int Int32 = 0;
             if((int)store[address+3] >= 128)
@@ -175,7 +175,7 @@ class Memory {
      *  @param address Memory address from where the value is to be loaded
      *  @return int Value that is loaded
      */
-    int loadUnsignedByte(int address){
+    public int loadUnsignedByte(int address){
         if (address >= 0 && address+4 <= store.length) {
             int Int32 = 0;
             Int32 = (Int32 << 8) + store[address+3];
@@ -193,7 +193,7 @@ class Memory {
      *  @param label identifier or function name
      *  @return int Address where the corresponding data is stored
      */
-    int loadAddress(String label){
+    public int loadAddress(String label){
         return memoryMap.get(label).second;
     }
     
@@ -203,7 +203,7 @@ class Memory {
      *  @param ascii string to be stored
      *  @return int Address where string is stored
      */
-    int storeAscii(String label, String ascii){
+    public int storeAscii(String label, String ascii){
         int place = freePointer;
         if (freePointer + ascii.length() <= store.length) {
             int i = 0;
@@ -228,7 +228,7 @@ class Memory {
      *  @param asciiz string to be stored
      *  @return int Address where string is stored
      */
-    int storeAsciiz(String label, String asciiz){
+    public int storeAsciiz(String label, String asciiz){
         int place = freePointer;
         if (freePointer + asciiz.length() <= store.length) {
             int i = 0;
@@ -254,7 +254,7 @@ class Memory {
      *  @param address Memory address from where the string is to be retrieved
      *  @return String 
      */
-    String getString(int address){
+    public String getString(int address){
         if (address > 0 && address < store.length) {
             int stringLength = 0;
             while (stringLength+address < store.length - 1 && store[stringLength+address] != '\0') {
@@ -276,7 +276,7 @@ class Memory {
      *  @param v list of integers to be stored
      *  @return int Address where the integers are stored
      */
-    int storeWords(String label, ArrayList<Integer> v){
+    public int storeWords(String label, ArrayList<Integer> v){
         int place = freePointer;
         if (freePointer + v.size() * 4 <= store.length) {
             int i = 0;
@@ -301,7 +301,7 @@ class Memory {
      *  @param count number of bytes to be allocated
      *  @return int Address where the space is allocated
      */
-    int allocateSpace(String label, int count){
+    public int allocateSpace(String label, int count){
         int place = freePointer;
         if (freePointer + count <= store.length) {
             freePointer += count;
@@ -321,7 +321,7 @@ class Memory {
      *  @param v list of characters (bytes) to be stored
      *  @return int Address where bytes are stored
      */
-    int storeBytes(String label, ArrayList<Character> v){
+    public int storeBytes(String label, ArrayList<Character> v){
         int place = freePointer;
         if (freePointer + v.size() <= store.length) {
             int i = 0;

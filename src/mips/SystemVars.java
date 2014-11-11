@@ -22,7 +22,7 @@ public class SystemVars {
     /**
      *  stores whether the program finished execution or not
      */
-    static boolean programOver;
+    public static boolean programOver;
     
     /**
      *  Number of stages of execution of an instruction 
@@ -33,17 +33,17 @@ public class SystemVars {
      *  Rate of Memory Misses in Percentage
      *  Default value is -1(No memory miss)
      */
-    static int memoryMissRate = 0;
+    public static int memoryMissRate = 0;
     
     /**
      *  No of cycles to stall for in case of a memory miss
      */
-    static int memoryMissStalls = 2;
+    public static int memoryMissStalls = 2;
     
     /**
      *  Total stalls due to memory misses
      */
-    static int totalMemoryStalls = 0;
+    public static int totalMemoryStalls = 0;
     
     /**
      *  Total number of registers that can be used in system 
@@ -53,7 +53,7 @@ public class SystemVars {
     /**
      *  List of all the registers that can be used
      */
-    static ArrayList <Register> registers = new ArrayList<Register>(){
+    public static ArrayList <Register> registers = new ArrayList<Register>(){
         {
             for (int i = 0; i < totalRegisters; i++) {
                 add(new Register(i,0));
@@ -65,7 +65,7 @@ public class SystemVars {
     /**
      *  List of all the stages of execution of an instruction
      */
-    static ArrayList <Stage> stages = new ArrayList<Stage>(){
+    public static ArrayList <Stage> stages = new ArrayList<Stage>(){
         {
             
             for (int i = 0; i < totalStages; i++) {
@@ -77,70 +77,70 @@ public class SystemVars {
     /**
      *  Points to the next instruction to be executed
      */
-    static int programCounter = 0; // holds the index of the instruction which will be inserted 
+    public static int programCounter = 0; // holds the index of the instruction which will be inserted 
     
     /**
      *  stores whether forwadding is enabled or not
      */
-    static boolean forwardingEnabled = false;
+    public static boolean forwardingEnabled = false;
     
     /**
      *  stores whether fast branching is enabled or not
      */
-    static boolean fastBranching = false;
+    public static boolean fastBranching = false;
     
     /**
      *  Memory which will be used by the system for simulation
      */
-    static Memory memory = new Memory();
+    public static Memory memory = new Memory();
     
     /**
      *  Map of the labels in the program with the corresponding array index constructed while parsing
      */
-    static Map<String, Integer> labelMap = new HashMap<>();
+    public static Map<String, Integer> labelMap = new HashMap<>();
     
     /**
      *  Stores the number of 
      */
-    static int rStalls = 0;
+    public static int rStalls = 0;
     
     /**
      *  Stores the number of 
      */
-    static int sStalls = 0;
+    public static int sStalls = 0;
     
     /**
      *  Number of history bits to be used while branch prediction
      */
     
-    static int historyBits = 1;
+    public static int historyBits = 1;
     
     /**
      *  Stores the size of the branch history array
      */
-    static int historySize = 1024;
+    public static int historySize = 1024;
     
     /**
      *  Count of the number of clock cycles
      */
-    static int clockCycle = 0;
+    public static int clockCycle = 0;
     
     /**
      *  Stores whether branch changed or not
      */
-    static boolean branchChanged = false;
+    public static boolean branchChanged = false;
     
-    static HashMap<Integer, Integer> fallbackInstructionMap = new HashMap<Integer, Integer>();
+    public static HashMap<Integer, Integer> fallbackInstructionMap = new HashMap<Integer, Integer>();
     
     /**
      *  Stores the default branch strategy to be used for branching instructions
      */
-    static branchStrategyType branchStrategy = branchStrategyType.NOTTAKEN;
+    public static branchStrategyType branchStrategy = branchStrategyType.NOTTAKEN;
     
-    static enum branchStrategyType {TAKEN, NOTTAKEN, HISTORY};  
+    public static enum branchStrategyType {TAKEN, NOTTAKEN, HISTORY};  
     
    
-    static ArrayList<BitSet> branchHistory = new ArrayList<BitSet>(){
+    public static ArrayList<BitSet> branchHistory = new ArrayList<BitSet>(){
         {
             for (int i = 0; i < historySize; i++) {
                 add(new BitSet(historyBits));
@@ -149,15 +149,15 @@ public class SystemVars {
     }; 
     // generalization variables
     // default depths for 8 stage pipelines
-    static enum stageType {IF, ID, EX, MULT, DIV, MEM, WB, DUMMY};
-    static int[] stageDepths = {2,1,1,4,4,3,1};
+    public static enum stageType {IF, ID, EX, MULT, DIV, MEM, WB, DUMMY};
+    public static int[] stageDepths = {2,1,1,4,4,3,1};
     static HashMap<Integer, stageType> stageMap = new HashMap();
-    static HashMap<stageType, Integer> reverseStageTypeMap= new HashMap();
-    static HashMap<Integer, stageType> baseStageMap = new HashMap();
-    static HashMap<Integer, String> stageNameMap = new HashMap();
-    static int offsetFromTop = 80;
-    static int sideBarWidth = 180;
-    static Font guiFont = new Font("Arial", Font.BOLD, 11);
+    public static HashMap<stageType, Integer> reverseStageTypeMap= new HashMap();
+    public static HashMap<Integer, stageType> baseStageMap = new HashMap();
+    public static HashMap<Integer, String> stageNameMap = new HashMap();
+    public static int offsetFromTop = 80;
+    public static int sideBarWidth = 180;
+    public static Font guiFont = new Font("Arial", Font.BOLD, 11);
     
     /**
      *
@@ -247,7 +247,7 @@ public class SystemVars {
     }
     
     // gui vars
-    static HashMap<stageType, Color> stageColorMap = new HashMap<stageType, Color>();
+    public static HashMap<stageType, Color> stageColorMap = new HashMap<stageType, Color>();
     
     /**
      *
@@ -298,7 +298,7 @@ public class SystemVars {
     /**
      *
      */
-        public SystemVars(){
+    public SystemVars(){
         resetSystem();
         stageColorMap.put(stageType.IF, new Color((float)0.372549,(float)0.619608,(float)0.62745));
         stageColorMap.put(stageType.ID, new Color((float)1,(float)0.498039,(float)0.313725));

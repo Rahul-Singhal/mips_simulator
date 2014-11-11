@@ -14,6 +14,7 @@ options {
 
 package mips;
 import java.util.*;
+import mips.abstractInstructions.Instructions.*;
 }
 
 @parser::members {
@@ -102,7 +103,7 @@ public Memory getMemory() {
 
 /**
  * Returns parsed instruction list
- * @return ArrayList<Instruction>
+ * @return ArrayList&lt;Instruction&gt;
  */
 public ArrayList<Instruction> getInstructions() {
     return instructions;
@@ -110,7 +111,7 @@ public ArrayList<Instruction> getInstructions() {
 
 /**
  * Returns map of label with corresponding instruction numbers.
- * @return HashMap<String, Integer>
+ * @return HashMap&lt;String, Integer&gt;
  */
 public HashMap<String, Integer> getLabelMap() {
     return labelMap;

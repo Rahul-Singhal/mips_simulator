@@ -5,16 +5,58 @@
             <url>src/mips/InstructionJPanel.java</url>
             <bookmark id="1">
                 <name/>
-                <line>42</line>
+                <line>45</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/rahul/NetBeansProjects/mips_simulator/src/mips/StageJPanel.java</file>
-            <file>file:/home/rahul/NetBeansProjects/mips_simulator/src/mips/SystemVars.java</file>
-            <file>file:/home/rahul/NetBeansProjects/mips_simulator/src/mips/mainWindow.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Andi.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Sllv.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Mips.g4</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Addiu.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Srav.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Srl.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Sltiu.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Addu.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Div.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Jal.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Ori.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Addi.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Add.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Lhu.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Lbu.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Sltu.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Subu.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Jr.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Lh.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Divu.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Lui.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Sw.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Multu.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Slt.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/R0.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/And.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Lw.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Sub.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Or.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Sh.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Xori.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Xor.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Nor.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Sra.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/Pair.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Lb.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Slti.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Beq.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Srlv.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/R1.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Bne.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Sb.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Mult.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Sll.java</file>
+            <file>file:/home/rahul/Desktop/mips_simulator/src/mips/abstractInstructions/Instructions/Jalr.java</file>
         </group>
     </open-files>
 </project-private>

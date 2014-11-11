@@ -11,7 +11,7 @@ package mips;
  *   <p>Includes all the functions, members and variables useful for every stage</p>
  *   @author anmol
  */
-class Stage {
+public class Stage {
 
     /**
      *  Number of stages in the pipeline
@@ -28,7 +28,7 @@ class Stage {
      *  false: if the stage is not free
      *  @return boolean
      */
-    boolean isFree(){
+    public boolean isFree(){
        	if (instructionId == -1)
             return true;
 	return false;
@@ -38,7 +38,7 @@ class Stage {
      *  Assigns the id of the instruction being executed in this stage
      *  @param instructionId Id of the instruction
      */
-    void setInstruction(int instructionId){
+    public void setInstruction(int instructionId){
         /*if(number == 5)
 	//cout<<instructionId<<endl;*/
 	this.instructionId = instructionId;
@@ -66,7 +66,7 @@ class Stage {
     /**
      *  Frees the stage by changing instruction id to -1
      */
-    void setFree(){
+    public void setFree(){
         instructionId = -1;
     }
 }

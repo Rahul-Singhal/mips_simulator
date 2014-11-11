@@ -46,7 +46,7 @@ public class Program extends SystemVars{
     //  Parser parser;
     ArrayList <Instruction> code;
     ArrayList <Instruction> codeSnippet;
-    ArrayList <Instruction> currInstructions;
+    public ArrayList <Instruction> currInstructions;
 
     /**
      *
@@ -95,7 +95,7 @@ public class Program extends SystemVars{
             
     }
     
-    void init(){
+    public void init(){
         // setting the stages
         for (int i = 0; i < totalStages; i++) {
             stages.get(i).number = i;
@@ -126,13 +126,13 @@ public class Program extends SystemVars{
         idStage = SystemVars.reverseStageTypeMap.get(SystemVars.stageType.ID);
     }
     
-    void reset(){
+    public void reset(){
         code.clear();
         this.init();
     }
     
 
-    ArrayList <Instruction> execute(){
+    public ArrayList <Instruction> execute(){
         clockCycle++;
         flush = false;
         
@@ -248,7 +248,7 @@ public class Program extends SystemVars{
         return returnInstructions;
     }
 
-    void executeAll(){
+    public void executeAll(){
         while(!currInstructions.isEmpty()){
             this.execute();
         }
