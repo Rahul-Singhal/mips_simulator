@@ -1848,8 +1848,10 @@ public class mainWindow extends javax.swing.JFrame{
         jScrollPane1.getHorizontalScrollBar().setValue(0);
         jScrollPane1.getVerticalScrollBar().setValue(0);
         this.repaint();
-        prog = new Program(programFile);
-        prog.init();
+        if(programFile != null){
+            prog = new Program(programFile);
+            prog.init();
+        }
     }
     
     private void ForwardingCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ForwardingCheckBoxActionPerformed
