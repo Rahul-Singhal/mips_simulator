@@ -773,8 +773,12 @@ jalr_stmt : 'jalr' rs=REG
         instructions.add(instr);
     };
 
-// Pending instruction.
-exit_stmt : 'exit';
+
+exit_stmt : 'exit'
+    {
+        Exit instr = new Exit(0);
+        instructions.add(instr);
+    };
 
 
 /**

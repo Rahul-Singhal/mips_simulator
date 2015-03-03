@@ -223,10 +223,16 @@ public class Program extends SystemVars{
             programCounter++;
             instrId++;
             instruction = code.get(programCounter).clone();
-            instruction.id = instrId;
-            instruction.presentStage = 0;
-            instruction.stageToExecute = 1;
-            currInstructions.add(instruction);
+            if(instruction.getInstructionName().equals("exit")){
+                programCounter--;
+                instrId--;
+            }
+            else {
+                instruction.id = instrId;
+                instruction.presentStage = 0;
+                instruction.stageToExecute = 1;
+                currInstructions.add(instruction);
+            }
         }
 
         // Setting the stages free
